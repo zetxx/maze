@@ -7,6 +7,7 @@ import AppBar from 'material-ui/lib/app-bar'
 import FlatButton from 'material-ui/lib/flat-button'
 import Basket from '../app/Basket'
 import BasketGroup from '../app/BasketGroup'
+import GridList from 'material-ui/lib/grid-list/grid-list'
 
 var basketList = [
   {id: 1, title: 'krastavici', quantity: '0.500', price: 10.55},
@@ -38,4 +39,23 @@ storiesOf('maza', module)
       <Basket data={basketList}/>
     </List>
   </Paper>
+))
+.add('Basket screen', () => (
+  <GridList cols={2}>
+    <Paper zDepth={3}>
+      <AppBar
+        title={<span>Groups</span>}
+        iconElementRight={<FlatButton label='Add new' />}
+      />
+      <div>
+        {baskeGrouptList.map((el, idx) => (idx % 2 ? <BasketGroup key={idx} data={el}/> : <BasketGroup key={idx} selectState data={el}/>))}
+      </div>
+    </Paper>
+    <Paper zDepth={3}>
+      <Search />
+      <List>
+        <Basket data={basketList}/>
+      </List>
+    </Paper>
+  </GridList>
 ))
