@@ -10,8 +10,10 @@ module.exports = {
       },
       group: {
         type: Sequelize.INTEGER,
-        references: 'transactionGroup',
-        referencesKey: 'id'
+        references: {
+          model: 'transactionGroup',
+          key: 'id'
+        }
       },
       quantity: {
         type: Sequelize.FLOAT,

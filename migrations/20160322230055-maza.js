@@ -10,8 +10,10 @@ module.exports = {
       },
       product: {
         type: Sequelize.INTEGER,
-        references: 'product',
-        referencesKey: 'id'
+        references: {
+          model: 'product',
+          key: 'id'
+        }
       },
       quantity: {
         type: Sequelize.FLOAT,

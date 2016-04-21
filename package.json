@@ -26,6 +26,7 @@
     "react-dom": "^15.0.1",
     "react-tap-event-plugin": "^1.0.0",
     "sequelize": "^3.21.0",
+    "sequelize-cli": "^2.3.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "vision": "^4.1.0"
