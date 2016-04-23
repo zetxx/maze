@@ -10,7 +10,7 @@ if (config.env === 'development') {
     if (err) {
       console.log(err)
     } else {
-      console.log(stats.compilation.errors)
+      console.log('Compiled @', new Date())
     }
   })
 
@@ -21,7 +21,7 @@ if (config.env === 'development') {
     if (err) {
       console.log(err)
     } else {
-      console.log(stats.compilation.errors)
+      console.log('Build @', new Date())
     }
   })
 }

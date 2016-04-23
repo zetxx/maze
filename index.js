@@ -45,7 +45,7 @@ server.register([
   }
 )
 
-server.route({
+server.route([{
   method: 'GET',
   path: '/{param*}',
   handler: {
@@ -55,6 +55,10 @@ server.route({
       index: true
     }
   }
-})
+}, {
+  method: 'GET',
+  path: '/favicon.ico',
+  handler: { file: './assets/favicon.ico' }
+}])
 // register dynamic routes
 // require('./app/chart/routes.js')(server.route.bind(server))
