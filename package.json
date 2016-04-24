@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "babel-preset-stage-0": "^6.5.0",
+    "browser-request": "^0.3.3",
     "css-loader": "^0.23.1",
     "hapi": "^13.3.0",
     "hapi-swagger": "^5.0.1",

@@ -6,6 +6,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import reducers from './reducers'
+import {requestMiddleware} from './middlewares'
 import Root from './Main'
 import Sell from './Sell'
 import Maze from './Maze'
@@ -15,7 +16,8 @@ const store = createStore(
   combineReducers({
     ...reducers,
     routing: routerReducer
-  })
+  }),
+  applyMiddleware(requestMiddleware)
 )
 const history = syncHistoryWithStore(hashHistory, store)
 
