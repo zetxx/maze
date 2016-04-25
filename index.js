@@ -61,4 +61,4 @@ server.route([{
   handler: { file: './assets/favicon.ico' }
 }])
 // register dynamic routes
-// require('./app/chart/routes.js')(server.route.bind(server))
+require('./app/Management/ProductCat/route.js')(server.route.bind(server))

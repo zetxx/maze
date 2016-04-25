@@ -9,7 +9,8 @@ import reducers from './reducers'
 import {request} from './middlewares'
 import Root from './Main'
 import Sell from './Sell'
-import Maze from './Maze'
+import Management from './Management'
+
 injectTapEventPlugin()
 
 const store = createStore(
@@ -24,10 +25,10 @@ const history = syncHistoryWithStore(hashHistory, store)
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Redirect from='/' to='maze' />
+      <Redirect from='/' to='manage' />
       <Route path='/' component={Root}>
         <Route path='sell' component={Sell} />
-        <Route path='maze' component={Maze} />
+        <Route path='manage' component={Management} />
       </Route>
     </Router>
   </Provider>,

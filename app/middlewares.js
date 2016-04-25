@@ -15,7 +15,7 @@ export const request = (store) => (next) => (action) => {
 
     p
       .then((res) => {
-        action.data = res
+        action.data = res.body
       })
       .catch((err) => {
         action.err = err
