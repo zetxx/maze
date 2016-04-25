@@ -1,13 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import List from 'material-ui/lib/lists/list'
-import Paper from 'material-ui/lib/paper'
+import List from 'material-ui/lists/list'
+import Paper from 'material-ui/paper'
 import Search from '../app/Search/component'
-import AppBar from 'material-ui/lib/app-bar'
-import FlatButton from 'material-ui/lib/flat-button'
+import AppBar from 'material-ui/app-bar'
+import FlatButton from 'material-ui/flat-button'
 import Basket from '../app/Basket'
 import BasketGroup from '../app/BasketGroup'
-import GridList from 'material-ui/lib/grid-list/grid-list'
+import GridList from 'material-ui/grid-list/grid-list'
 
 var basketList = [
   {id: 1, title: 'krastavici', quantity: '0.500', price: 10.55},

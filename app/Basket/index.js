@@ -1,12 +1,12 @@
 import React from 'react'
 import Product from './product'
-import Table from 'material-ui/lib/table/table'
-import TableHeaderColumn from 'material-ui/lib/table/table-header-column'
-import TableRow from 'material-ui/lib/table/table-row'
-import TableHeader from 'material-ui/lib/table/table-header'
-import TableBody from 'material-ui/lib/table/table-body'
-import Card from 'material-ui/lib/card/card'
-import CardTitle from 'material-ui/lib/card/card-title'
+import Table from 'material-ui/table/table'
+import TableHeaderColumn from 'material-ui/table/table-header-column'
+import TableRow from 'material-ui/table/table-row'
+import TableHeader from 'material-ui/table/table-header'
+import TableBody from 'material-ui/table/table-body'
+import Card from 'material-ui/card/card'
+import CardTitle from 'material-ui/card/card-title'
 
 export default class Basket extends React.Component {
 

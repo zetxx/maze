@@ -1,6 +1,6 @@
 import React from 'react'
-import Tabs from 'material-ui/lib/tabs/tabs'
-import Tab from 'material-ui/lib/tabs/tab'
+import {Tab, Tabs} from 'material-ui/Tabs'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 export default class Gate extends React.Component {
   constructor(props) {
@@ -9,6 +9,9 @@ export default class Gate extends React.Component {
   }
   redirect(to) {
     this.context.router.push(to)
+  }
+  getChildContext() {
+    return {muiTheme: getMuiTheme()}
   }
   render() {
     return (
@@ -22,6 +25,9 @@ export default class Gate extends React.Component {
 
 Gate.contextTypes = {
   router: React.PropTypes.object
+}
+Gate.childContextTypes = {
+  muiTheme: React.PropTypes.object.isRequired
 }
 
 Gate.propTypes = {

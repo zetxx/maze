@@ -1,8 +1,8 @@
 import React from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardHeader from 'material-ui/lib/card/card-header'
-import CardText from 'material-ui/lib/card/card-text'
-import Badge from 'material-ui/lib/badge'
+import Card from 'material-ui/card/card'
+import CardHeader from 'material-ui/card/card-header'
+import CardText from 'material-ui/card/card-text'
+import Badge from 'material-ui/badge'
 
 export default class Basket extends React.Component {
   render() {
