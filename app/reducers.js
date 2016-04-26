@@ -1,10 +1,8 @@
+import {productCatAdd, productCategories} from './Management/ProductCat/reducers.js'
+
 export default {
-  productCategories(state = {}, action) {
-    if (action.type === 'FETCH_PRODUCT_CATEGORIES') {
-      return Object.assign({}, state, {status: action.status, data: action.data})
-    }
-    return Object.assign({}, state)
-  },
+  productCatAdd,
+  productCategories,
   prefetchDialog(state = {open: false}, action) {
     if (action.httpRequest) {
       if (action.status === 'sent') {
