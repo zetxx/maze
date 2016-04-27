@@ -57,7 +57,7 @@ ProductCat.propTypes = {
 export default connect(
   (state) => ({productCategories: state.productCategories}),
   {
-    fetch(httpRequest) {
+    fetch() {
       return {
         type: 'FETCH_PRODUCT_CATEGORIES', httpRequest: {
           method: 'GET',
@@ -66,7 +66,7 @@ export default connect(
         }
       }
     },
-    add(httpRequest) {
+    add() {
       return {type: 'TOGGLE_PRODUCT_CAT_ADD'}
     }
   }

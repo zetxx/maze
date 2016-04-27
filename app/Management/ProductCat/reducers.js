@@ -1,9 +1,9 @@
-export const productCatAdd = (state = {open: false, refreshList: false}, action) => {
+export const productCatAdd = (state = {open: false, canceled: false}, action) => {
   if (action.type === 'TOGGLE_PRODUCT_CAT_ADD') {
-    return Object.assign({}, state, {open: !state.open, refreshList: false})
+    return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled})
   } else if (action.type === 'PRODUCT_CAT_ADD') {
     if (action.data && action.status === 'received') {
-      return Object.assign({}, state, {open: !state.open, refreshList: true})
+      return Object.assign({}, state, {open: !state.open, canceled: false})
     }
   }
   return Object.assign({}, state)

@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField/TextField'
 const ProductCatAdd = React.createClass({
   propTypes: {
     add: React.PropTypes.func,
-    toggle: React.PropTypes.func,
+    cancelToggle: React.PropTypes.func,
     fetch: React.PropTypes.func,
     productCatAdd: React.PropTypes.object
   },
@@ -16,19 +16,14 @@ const ProductCatAdd = React.createClass({
     if (val) {
       this.setState({errorText: false})
       this.props.add({
-        method: 'POST',
-        url: '/api/productCategory',
-        json: true,
-        body: {
-          name: val
-        }
+        name: val
       })
     } else {
       this.setState({errorText: 'Required field'})
     }
   },
   componentWillReceiveProps(next) {
-    if (next.productCatAdd.refreshList) {
+    if (this.props.productCatAdd.open && !next.productCatAdd.open && !next.productCatAdd.canceled) {
       next.fetch()
     }
   },
@@ -37,7 +32,7 @@ const ProductCatAdd = React.createClass({
       <FlatButton
         label='Cancel'
         secondary
-        onTouchTap={this.props.toggle}
+        onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
         label='Submit'
@@ -51,7 +46,7 @@ const ProductCatAdd = React.createClass({
       errorText = this.state && this.state.errorText
     }
     return (
-      <Dialog ref='dialog' actions={actions} title='Action ordered!' modal open={this.props.productCatAdd.open}>
+      <Dialog ref='dialog' actions={actions} title='Product add!' modal open={this.props.productCatAdd.open}>
         <TextField
           ref='name'
           hintText='Product name'
@@ -66,11 +61,16 @@ const ProductCatAdd = React.createClass({
 export default connect(
   (state) => ({productCatAdd: state.productCatAdd}),
   {
-    add(httpRequest) {
-      return {type: 'PRODUCT_CAT_ADD', httpRequest: httpRequest}
+    add(body) {
+      return {type: 'PRODUCT_CAT_ADD', httpRequest: {
+        method: 'POST',
+        url: '/api/productCategory',
+        json: true,
+        body: body
+      }}
     },
-    toggle(httpRequest) {
-      return {type: 'TOGGLE_PRODUCT_CAT_ADD'}
+    cancelToggle() {
+      return {type: 'TOGGLE_PRODUCT_CAT_ADD', canceled: true}
     },
     fetch(httpRequest) {
       return {

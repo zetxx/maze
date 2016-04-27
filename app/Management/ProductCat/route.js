@@ -11,7 +11,7 @@ module.exports = function(registrar) {
           .create(req.payload)
           .then(resp)
       },
-      description: 'Add Poo event',
+      description: 'Add product category',
       notes: 'Adds a product category',
       tags: ['api', 'add', 'product category'],
       validate: {

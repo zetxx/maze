@@ -62,3 +62,4 @@ server.route([{
 }])
 // register dynamic routes
 require('./app/Management/ProductCat/route.js')(server.route.bind(server))
+require('./app/Management/Product/route.js')(server.route.bind(server))
