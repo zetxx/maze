@@ -15,6 +15,11 @@ class Product extends React.Component {
     this.props.fetch()
   }
   render() {
+    var productsCat = (this.props.productCategories && this.props.productCategories.data || []).reduce((prev, cur) => {
+      prev[cur.id] = cur.name
+      return prev
+    }, {})
+
     return (
       <div>
         <Card>
@@ -27,6 +32,7 @@ class Product extends React.Component {
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
+                <TableHeaderColumn>Category</TableHeaderColumn>
                 <TableHeaderColumn style={{width: '100px'}}>Operations</TableHeaderColumn>
               </TableRow>
             </TableHeader>
@@ -34,6 +40,7 @@ class Product extends React.Component {
               {this.props.products.data && this.props.products.data.map((el) => (
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
+                  <TableRowColumn>{productsCat[el.category] || ''}</TableRowColumn>
                   <TableRowColumn style={{width: '150px'}}>
                     <IconButton><CachedIcon /></IconButton>
                     <IconButton><EditIcon /></IconButton>
@@ -53,11 +60,15 @@ class Product extends React.Component {
 Product.propTypes = {
   fetch: React.PropTypes.func,
   add: React.PropTypes.func,
-  products: React.PropTypes.object
+  products: React.PropTypes.object,
+  productCategories: React.PropTypes.object
 }
 
 export default connect(
-  (state) => ({products: state.products}),
+  (state) => ({
+    products: state.products,
+    productCategories: state.productCategories
+  }),
   {
     fetch() {
       return {

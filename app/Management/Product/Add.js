@@ -16,6 +16,7 @@ const ProductAdd = React.createClass({
     var val = this.refs.name.getValue()
     if (val) {
       this.setState({errorText: false})
+      debugger;
       this.props.add({
         name: val
       })
