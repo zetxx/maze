@@ -46,7 +46,7 @@ class Product extends React.Component {
                   <TableHeaderColumn style={{width: '150px'}}>100</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>12.10</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
-                    <IconButton><CachedIcon /></IconButton>
+                    <IconButton><CachedIcon title='Load' /></IconButton>
                     <IconButton><EditIcon /></IconButton>
                     <IconButton><EjectIcon /></IconButton>
                   </TableRowColumn>
