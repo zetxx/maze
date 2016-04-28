@@ -81,7 +81,7 @@ export default connect(
     },
     fetch() {
       return {
-        type: 'FETCH_PRODUCT_CATEGORIES', httpRequest: {
+        type: 'FETCH_PRODUCTS', httpRequest: {
           method: 'GET',
           url: '/api/product',
           json: true

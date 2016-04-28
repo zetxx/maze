@@ -18,7 +18,7 @@ class ProductCat extends React.Component {
       <div>
         <Card>
           <AppBar
-            title={<span>ProductCat</span>}
+            title={<span>Product Category</span>}
             iconElementRight={<FlatButton label='Add' onTouchTap={this.props.add} />}
           />
 
