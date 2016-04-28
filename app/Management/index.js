@@ -6,7 +6,9 @@ export default class Management extends React.Component {
   render() {
     return (
       <div>
+        <br />
         <Product />
+        <br />
         <ProductCat />
       </div>
     )

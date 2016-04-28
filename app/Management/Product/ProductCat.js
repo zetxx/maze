@@ -6,22 +6,25 @@ import MenuItem from 'material-ui/MenuItem/MenuItem'
 const ProductCat = React.createClass({
   propTypes: {
     fetch: React.PropTypes.func,
+    handleChange: React.PropTypes.func,
+    defValue: React.PropTypes.number,
     productCategories: React.PropTypes.object
   },
-  handleChange(event, index, value) {
-    this.setState({value})
-  },
   getInitialState() {
-    return {value: 1}
+    return {value: this.props.defValue}
   },
   componentWillMount() {
     if (!this.props.productCategories.status) {
       this.props.fetch()
     }
   },
+  handleChange(event, index, value) {
+    this.setState({value: value})
+    this.props.handleChange(this.props.productCategories.data[value - 1].id)
+  },
   render() {
     return (
-      <DropDownMenu ref='category' value={this.state.value} onChange={this.handleChange}>
+      <DropDownMenu ref='dropdown' value={this.state.value} onChange={this.handleChange}>
         {this.props.productCategories.data && this.props.productCategories.data.map((el, idx) => {
           return (
             <MenuItem value={idx + 1} key={idx} primaryText={el.name} />

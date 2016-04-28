@@ -33,7 +33,9 @@ class Product extends React.Component {
               <TableRow>
                 <TableHeaderColumn>Name</TableHeaderColumn>
                 <TableHeaderColumn>Category</TableHeaderColumn>
-                <TableHeaderColumn style={{width: '100px'}}>Operations</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}>Quantity</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}>Price</TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}>Operations</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
@@ -41,6 +43,8 @@ class Product extends React.Component {
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
                   <TableRowColumn>{productsCat[el.category] || ''}</TableRowColumn>
+                  <TableHeaderColumn style={{width: '150px'}}>100</TableHeaderColumn>
+                  <TableHeaderColumn style={{width: '150px'}}>12.10</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
                     <IconButton><CachedIcon /></IconButton>
                     <IconButton><EditIcon /></IconButton>

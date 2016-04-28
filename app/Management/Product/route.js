@@ -16,7 +16,8 @@ module.exports = function(registrar) {
       tags: ['api', 'add', 'product'],
       validate: {
         payload: {
-          name: Joi.string().required().description('Category name')
+          name: Joi.string().required().description('Product name'),
+          category: Joi.number().min(1).required().description('Product category')
         }
       }
     }

@@ -16,9 +16,9 @@ const ProductAdd = React.createClass({
     var val = this.refs.name.getValue()
     if (val) {
       this.setState({errorText: false})
-      debugger;
       this.props.add({
-        name: val
+        name: val,
+        category: this.productCat
       })
     } else {
       this.setState({errorText: 'Required field'})
@@ -28,6 +28,10 @@ const ProductAdd = React.createClass({
     if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
       next.fetch()
     }
+  },
+  productCat: 1,
+  handleProductCatChange(val) {
+    this.productCat = val
   },
   render() {
     const actions = [
@@ -55,7 +59,7 @@ const ProductAdd = React.createClass({
           floatingLabelText='Product name'
           errorText={errorText}
         />
-        <ProductCat ref='category' />
+        <ProductCat ref='category' handleChange={this.handleProductCatChange} defValue={this.productCat} />
         <TextField
           ref='description'
           hintText='Product description'
