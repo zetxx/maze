@@ -17,6 +17,7 @@ module.exports = function(registrar) {
       validate: {
         payload: {
           name: Joi.string().required().description('Product name'),
+          description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category')
         }
       }

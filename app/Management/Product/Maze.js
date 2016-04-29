@@ -8,8 +8,7 @@ const Maze = React.createClass({
   propTypes: {
     add: React.PropTypes.func,
     cancelToggle: React.PropTypes.func,
-    fetch: React.PropTypes.func,
-    mazeAdd: React.PropTypes.object
+    maze: React.PropTypes.object
   },
   add() {
     var val = this.refs.name.getValue()
@@ -24,7 +23,7 @@ const Maze = React.createClass({
     }
   },
   componentWillReceiveProps(next) {
-    if (this.props.mazeAdd.open && !next.mazeAdd.open && !next.mazeAdd.canceled) {
+    if (this.props.maze.open && !next.maze.open && !next.maze.canceled) {
       next.fetch()
     }
   },
@@ -46,12 +45,12 @@ const Maze = React.createClass({
       />
     ]
     var errorText = ''
-    if (this.refs.dialog && this.props.mazeAdd.open && !this.refs.dialog.props.open) {
+    if (this.refs.dialog && this.props.maze.open && !this.refs.dialog.props.open) {
     } else {
       errorText = this.state && this.state.errorText
     }
     return (
-      <Dialog ref='dialog' actions={actions} title='Product add!' modal open={this.props.mazeAdd.open}>
+      <Dialog ref='dialog' actions={actions} title='Product add!' modal open={this.props.maze.open}>
         <TextField
           ref='quantity'
           hintText='Quantity'
@@ -69,27 +68,18 @@ const Maze = React.createClass({
 })
 
 export default connect(
-  (state) => ({mazeAdd: state.mazeAdd}),
+  (state) => ({maze: state.maze}),
   {
     add(body) {
       return {type: 'MAZE_ADD', httpRequest: {
         method: 'POST',
-        url: '/api/product',
+        url: '/api/maze',
         json: true,
         body: body
       }}
     },
     cancelToggle() {
       return {type: 'TOGGLE_MAZE_ADD', canceled: true}
-    },
-    fetch() {
-      return {
-        type: 'FETCH_PRODUCTS', httpRequest: {
-          method: 'GET',
-          url: '/api/product',
-          json: true
-        }
-      }
     }
   }
 )(Maze)

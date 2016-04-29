@@ -1,11 +1,12 @@
 import {productCatAdd, productCategories} from './Management/ProductCat/reducers.js'
-import {productAdd, products} from './Management/Product/reducers.js'
+import {productAdd, products, maze} from './Management/Product/reducers.js'
 
 export default {
   productCatAdd,
   productCategories,
   productAdd,
   products,
+  maze,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.httpRequest) {
       if (action.status === 'sent') {

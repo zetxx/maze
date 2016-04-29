@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'material-ui/Card/Card'
 import Add from './Add'
+import Maze from './Maze'
 import AppBar from 'material-ui/AppBar/AppBar'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
@@ -46,9 +47,9 @@ class Product extends React.Component {
                   <TableHeaderColumn style={{width: '150px'}}>100</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>12.10</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
-                    <IconButton><CachedIcon title='Load' /></IconButton>
-                    <IconButton><EditIcon /></IconButton>
-                    <IconButton><EjectIcon /></IconButton>
+                    <IconButton><CachedIcon title='Load' onTouchTap={this.props.load} /></IconButton>
+                    <IconButton><EditIcon title='Edit' /></IconButton>
+                    <IconButton><EjectIcon title='Disable' /></IconButton>
                   </TableRowColumn>
                 </TableRow>
               ))}
@@ -56,6 +57,7 @@ class Product extends React.Component {
           </Table>
         </Card>
         <Add />
+        <Maze />
       </div>
     )
   }
@@ -64,6 +66,7 @@ class Product extends React.Component {
 Product.propTypes = {
   fetch: React.PropTypes.func,
   add: React.PropTypes.func,
+  load: React.PropTypes.func,
   products: React.PropTypes.object,
   productCategories: React.PropTypes.object
 }
@@ -85,6 +88,9 @@ export default connect(
     },
     add() {
       return {type: 'TOGGLE_PRODUCT_ADD'}
+    },
+    load() {
+      return {type: 'TOGGLE_MAZE_ADD'}
     }
   }
 )(Product)

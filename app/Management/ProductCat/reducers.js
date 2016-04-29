@@ -1,10 +1,12 @@
-export const productCatAdd = (state = {open: false, canceled: false}, action) => {
+export const productCatAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === 'TOGGLE_PRODUCT_CAT_ADD') {
-    return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled})
+    return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled, fieldError: {}})
   } else if (action.type === 'PRODUCT_CAT_ADD') {
     if (action.data && action.status === 'received') {
-      return Object.assign({}, state, {open: !state.open, canceled: false})
+      return Object.assign({}, state, {open: !state.open, canceled: false, fieldError: {}})
     }
+  } else if (action.type === 'PRODUCT_CAT_ADD_VALIDATION_PROBLEM') {
+    return Object.assign({}, state, {fieldError: action.problems})
   }
   return Object.assign({}, state)
 }

@@ -7,11 +7,11 @@ const ProductCat = React.createClass({
   propTypes: {
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
-    defValue: React.PropTypes.number,
+    value: React.PropTypes.number,
     productCategories: React.PropTypes.object
   },
   getInitialState() {
-    return {value: this.props.defValue}
+    return {value: this.props.value}
   },
   componentWillMount() {
     if (!this.props.productCategories.status) {
@@ -20,7 +20,9 @@ const ProductCat = React.createClass({
   },
   handleChange(event, index, value) {
     this.setState({value: value})
-    this.props.handleChange(this.props.productCategories.data[value - 1].id)
+  },
+  getValue() {
+    return this.props.productCategories.data[this.state.value - 1].id
   },
   render() {
     return (
@@ -47,5 +49,7 @@ export default connect(
         }
       }
     }
-  }
+  },
+  null,
+  {withRef: true}
 )(ProductCat)
