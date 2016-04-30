@@ -2,6 +2,7 @@ import React from 'react'
 import {Tab, Tabs} from 'material-ui/Tabs'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
+import ErrorDialog from './ErrorDialog.js'
 
 export default class Gate extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class Gate extends React.Component {
           <Tab label='Maze' value='/manage'>{this.props.children && this.props.location.pathname === '/manage' ? this.props.children : ''}</Tab>
         </Tabs>
         <PrefetchDialog />
+        <ErrorDialog />
       </div>
     )
   }

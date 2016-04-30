@@ -1,3 +1,7 @@
+import React from 'react'
+import Card from 'material-ui/Card/Card'
+import CardHeader from 'material-ui/Card/CardHeader'
+
 export const getFieldValues = (fields, requiredFields) => {
   var correct = {}
   var incorrect = {}
@@ -17,4 +21,15 @@ export const getFieldValues = (fields, requiredFields) => {
   })
 
   return {incorrect, correct}
+}
+
+export const errorParser = (err, idx) => {
+  return (
+    <Card key={idx}>
+      <CardHeader
+        title={err.error + ' ' + err.statusCode}
+        subtitle={err.message}
+      />
+    </Card>
+  )
 }

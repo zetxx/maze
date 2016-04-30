@@ -34,7 +34,6 @@ const Maze = React.createClass({
     this.setState({value})
   },
   render() {
-    console.log(this.props.maze.productId)
     const actions = [
       <FlatButton
         label='Cancel'
@@ -72,7 +71,6 @@ export default connect(
   (state) => ({maze: state.maze}),
   {
     add(body) {
-      console.log(body)
       return {type: 'MAZE_ADD', httpRequest: {
         method: 'POST',
         url: '/api/maze',

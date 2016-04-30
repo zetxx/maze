@@ -21,5 +21,15 @@ export default {
       }
     }
     return Object.assign({}, state)
+  },
+  errorDialog(state = {open: false, errorStack: []}, action) {
+    if (action.httpRequest && action.status === 'received' && action.err) {
+      var newState = Object.assign({}, state, {open: true})
+      newState.errorStack.push(action.err)
+      return newState
+    } else if (action.type === 'CLEANUP_HIDE_ERRORS') {
+      return Object.assign({}, state, {open: false, errorStack: []})
+    }
+    return Object.assign({}, state)
   }
 }

@@ -15,7 +15,11 @@ export const request = (store) => (next) => (action) => {
 
     p
       .then((res) => {
-        action.data = res.body
+        if (res.body.error) {
+          action.err = res.body
+        } else {
+          action.data = res.body
+        }
       })
       .catch((err) => {
         action.err = err
