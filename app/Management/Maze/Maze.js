@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
+import QuantityType from './QuantityType.js'
 
 const Maze = React.createClass({
   propTypes: {
@@ -12,9 +13,13 @@ const Maze = React.createClass({
     cancelToggle: React.PropTypes.func,
     maze: React.PropTypes.object
   },
+  getInitialState() {
+    return {value: 'piece'}
+  },
   add() {
-    var vals = getFieldValues(this.refs, ['quantity'])
+    var vals = getFieldValues(this.refs, ['quantity', 'quantityType', 'price'])
     if (Object.keys(vals.incorrect).length === 0) {
+      vals.correct.product = this.props.maze.productId
       this.props.add(vals.correct)
     } else {
       return this.props.cantAdd(vals.incorrect)
@@ -24,6 +29,9 @@ const Maze = React.createClass({
     if (this.props.maze.open && !next.maze.open && !next.maze.canceled) {
       next.fetch()
     }
+  },
+  handleChange (event, index, value) {
+    this.setState({value})
   },
   render() {
     console.log(this.props.maze.productId)
@@ -41,12 +49,19 @@ const Maze = React.createClass({
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title='Load' modal open={this.props.maze.open}>
+      <Dialog actions={actions} title='Load' modal open={this.props.maze.open}>
         <TextField
           ref='quantity'
           hintText='Quantity'
           floatingLabelText='Quantity'
-          errorText={this.props.maze.fieldError.name}
+          errorText={this.props.maze.fieldError.quantity}
+        />
+        <QuantityType ref='quantityType' />
+        <TextField
+          ref='price'
+          hintText='Price'
+          floatingLabelText='Price'
+          errorText={this.props.maze.fieldError.price}
         />
       </Dialog>
     )
@@ -57,6 +72,7 @@ export default connect(
   (state) => ({maze: state.maze}),
   {
     add(body) {
+      console.log(body)
       return {type: 'MAZE_ADD', httpRequest: {
         method: 'POST',
         url: '/api/maze',
@@ -69,6 +85,15 @@ export default connect(
     },
     cancelToggle() {
       return {type: 'TOGGLE_MAZE_ADD', canceled: true}
+    },
+    fetch() {
+      return {
+        type: 'FETCH_PRODUCTS', httpRequest: {
+          method: 'GET',
+          url: '/api/product',
+          json: true
+        }
+      }
     }
   }
 )(Maze)
