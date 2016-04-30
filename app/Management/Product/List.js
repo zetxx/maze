@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'material-ui/Card/Card'
 import Add from './Add'
-import Maze from './Maze'
+import Maze from '../Maze'
 import AppBar from 'material-ui/AppBar/AppBar'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
@@ -14,6 +14,9 @@ import CachedIcon from 'material-ui/svg-icons/action/cached'
 class Product extends React.Component {
   componentDidMount() {
     this.props.fetch()
+  }
+  load(productId) {
+    return this.props.load.bind(null, productId)
   }
   render() {
     var productsCat = (this.props.productCategories && this.props.productCategories.data || []).reduce((prev, cur) => {
@@ -47,7 +50,7 @@ class Product extends React.Component {
                   <TableHeaderColumn style={{width: '150px'}}>100</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>12.10</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
-                    <IconButton><CachedIcon title='Load' onTouchTap={this.props.load} /></IconButton>
+                    <IconButton title='Load' onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>
                     <IconButton><EditIcon title='Edit' /></IconButton>
                     <IconButton><EjectIcon title='Disable' /></IconButton>
                   </TableRowColumn>
@@ -89,8 +92,8 @@ export default connect(
     add() {
       return {type: 'TOGGLE_PRODUCT_ADD'}
     },
-    load() {
-      return {type: 'TOGGLE_MAZE_ADD'}
+    load(productId) {
+      return {type: 'TOGGLE_MAZE_ADD', productId: productId}
     }
   }
 )(Product)

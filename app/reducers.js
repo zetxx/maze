@@ -1,5 +1,6 @@
 import {productCatAdd, productCategories} from './Management/ProductCat/reducers.js'
-import {productAdd, products, maze} from './Management/Product/reducers.js'
+import {productAdd, products} from './Management/Product/reducers.js'
+import {maze} from './Management/Maze/reducers.js'
 
 export default {
   productCatAdd,

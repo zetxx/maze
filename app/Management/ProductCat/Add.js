@@ -15,7 +15,7 @@ const ProductCatAdd = React.createClass({
   },
   add() {
     var vals = getFieldValues(this.refs, ['name'])
-    if (!vals.incorrect) {
+    if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
       return this.props.cantAdd(vals.incorrect)
@@ -41,11 +41,11 @@ const ProductCatAdd = React.createClass({
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title='Product add!' modal open={this.props.productCatAdd.open}>
+      <Dialog ref='dialog' actions={actions} title='Product category add' modal open={this.props.productCatAdd.open}>
         <TextField
           ref='name'
-          hintText='Product name'
-          floatingLabelText='Product name'
+          hintText='Category name'
+          floatingLabelText='Category name'
           errorText={this.props.productCatAdd.fieldError.name}
         />
       </Dialog>

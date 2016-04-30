@@ -16,7 +16,7 @@ const ProductAdd = React.createClass({
   },
   add() {
     var vals = getFieldValues(this.refs, ['name', 'category', 'description'])
-    if (!vals.incorrect) {
+    if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
       return this.props.cantAdd(vals.incorrect)

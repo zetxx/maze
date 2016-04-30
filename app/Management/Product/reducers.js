@@ -11,17 +11,6 @@ export const productAdd = (state = {open: false, canceled: false, fieldError: {}
   return Object.assign({}, state)
 }
 
-export const maze = (state = {open: false, canceled: false}, action) => {
-  if (action.type === 'TOGGLE_MAZE_ADD') {
-    return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled})
-  } else if (action.type === 'MAZE_ADD') {
-    if (action.data && action.status === 'received') {
-      return Object.assign({}, state, {open: !state.open, canceled: false})
-    }
-  }
-  return Object.assign({}, state)
-}
-
 export const products = (state = {}, action) => {
   if (action.type === 'FETCH_PRODUCTS') {
     return Object.assign({}, state, {status: action.status, data: action.data})

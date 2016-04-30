@@ -28,6 +28,9 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: new Date()
         }
+      }, {
+        engine: 'MYISAM',
+        charset: 'utf8'
       }
     )
   },
