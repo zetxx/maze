@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const entity = require('./model.js')
+const sequelize = require('../../common/db.js')
 
 module.exports = function(registrar) {
   registrar({
@@ -29,13 +30,18 @@ module.exports = function(registrar) {
     path: '/api/product',
     config: {
       handler: function (req, resp) {
-        entity
-          .findAll({})
-          .then(resp)
-          .catch((err) => {
-            console.error(err)
-            resp(err)
-          })
+        sequelize.query(`SELECT
+          p.id,
+            p.name,
+            p.description,
+            sum(IFNULL(m.quantity, 0)) quantity,
+            p2.price
+        FROM product p
+        LEFT JOIN maze m ON m.product=p.id
+        LEFT JOIN (SELECT MAX(id) id, product FROM maze GROUP BY product) p1 ON p1.product=p.id
+        LEFT JOIN maze p2 ON p1.id=p2.id
+        GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
+        .then(resp)
       },
       description: 'List products',
       notes: 'List products',
