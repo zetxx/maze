@@ -22,7 +22,7 @@ var baskeGrouptList = [
 export default class Sell extends React.Component {
   render() {
     return (
-      <GridList cols={2}>
+      <GridList cols={2} padding={15}>
         <Paper zDepth={3}>
           <AppBar
             title={<span>Groups</span>}

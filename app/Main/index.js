@@ -5,13 +5,6 @@ import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 
 export default class Gate extends React.Component {
-  constructor(props) {
-    super(props)
-    this.redirect = this.redirect.bind(this)
-  }
-  redirect(to) {
-    this.context.router.push(to)
-  }
   getChildContext() {
     return {muiTheme: getMuiTheme()}
   }
@@ -19,8 +12,8 @@ export default class Gate extends React.Component {
     return (
       <div>
         <Tabs value={this.props.location.pathname} onChange={this.redirect}>
-          <Tab label='Sell' value='/sell'>{this.props.children && this.props.location.pathname === '/sell' ? this.props.children : ''}</Tab>
-          <Tab label='Maze' value='/manage'>{this.props.children && this.props.location.pathname === '/manage' ? this.props.children : ''}</Tab>
+          <Tab label='Sell' value='/sell'><br />{this.props.children && this.props.location.pathname === '/sell' ? this.props.children : ''}</Tab>
+          <Tab label='Maze' value='/manage'><br />{this.props.children && this.props.location.pathname === '/manage' ? this.props.children : ''}</Tab>
         </Tabs>
         <PrefetchDialog />
         <ErrorDialog />
