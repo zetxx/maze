@@ -1,5 +1,5 @@
 import React from 'react'
-import AutoComplete from 'material-ui/auto-complete'
+import AutoComplete from 'material-ui/AutoComplete'
 
 export default class Search extends React.Component {
 
@@ -10,7 +10,6 @@ export default class Search extends React.Component {
       dataSource: []
     }
   }
-
   handleUpdateInput = (t) => {
     if (t.length > 4) {
       this.setState({

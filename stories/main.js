@@ -1,13 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
-import List from 'material-ui/lists/list'
-import Paper from 'material-ui/paper'
-import Search from '../app/Search/component'
-import AppBar from 'material-ui/app-bar'
-import FlatButton from 'material-ui/flat-button'
+import List from 'material-ui/List/List'
+import Paper from 'material-ui/Paper'
+import Search from '../app/Search'
+import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton'
 import Basket from '../app/Basket'
 import BasketGroup from '../app/BasketGroup'
-import GridList from 'material-ui/grid-list/grid-list'
+import GridList from 'material-ui/GridList/GridList'
 
 var basketList = [
   {id: 1, title: 'krastavici', quantity: '0.500', price: 10.55},
@@ -48,13 +48,13 @@ storiesOf('maza', module)
         iconElementRight={<FlatButton label='Add new' />}
       />
       <div>
-        {baskeGrouptList.map((el, idx) => (idx % 2 ? <BasketGroup key={idx} data={el}/> : <BasketGroup key={idx} selectState data={el}/>))}
+        {baskeGrouptList.map((el, idx) => (idx % 2 ? <BasketGroup key={idx} data={el} /> : <BasketGroup key={idx} selectState data={el} />))}
       </div>
     </Paper>
     <Paper zDepth={3}>
       <Search />
       <List>
-        <Basket data={basketList}/>
+        <Basket data={basketList} />
       </List>
     </Paper>
   </GridList>

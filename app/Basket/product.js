@@ -1,7 +1,7 @@
 import React from 'react'
-import TableRowColumn from 'material-ui/table/table-row-column'
-import TableRow from 'material-ui/table/table-row'
-import IconButton from 'material-ui/icon-button'
+import TableRowColumn from 'material-ui/Table/TableRowColumn'
+import TableRow from 'material-ui/Table/TableRow'
+import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 export default class Product extends React.Component {
