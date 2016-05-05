@@ -4,10 +4,25 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 
-export default class Gate extends React.Component {
+const Gate = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+  childContextTypes: {
+    muiTheme: React.PropTypes.object.isRequired
+  },
+  propTypes: {
+    children: React.PropTypes.object,
+    location: React.PropTypes.object
+  },
   getChildContext() {
     return {muiTheme: getMuiTheme()}
-  }
+  },
+  redirect(to) {
+    if (!to.bubbles) {
+      this.context.router.push(to)
+    }
+  },
   render() {
     return (
       <div>
@@ -20,16 +35,6 @@ export default class Gate extends React.Component {
       </div>
     )
   }
-}
+})
 
-Gate.contextTypes = {
-  router: React.PropTypes.object
-}
-Gate.childContextTypes = {
-  muiTheme: React.PropTypes.object.isRequired
-}
-
-Gate.propTypes = {
-  children: React.PropTypes.object,
-  location: React.PropTypes.object
-}
+export default Gate
