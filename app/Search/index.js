@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import SearchResults from './SearchResults.js'
+import {connect} from 'react-redux'
 
 var a = []
 var data = [
@@ -29,10 +30,22 @@ const Search = React.createClass({
           floatingLabelText='Product Search'
           onChange={this.handleChange}
         />
-        <SearchResults data={data} open />
+        <SearchResults />
       </div>
     )
   }
 })
 
-export default Search
+export default connect(
+  null,
+  {
+    search(body) {
+      return {type: 'SEARCH', httpRequest: {
+        method: 'POST',
+        url: '/api/search',
+        json: true,
+        body: body
+      }}
+    }
+  }
+)(Search)

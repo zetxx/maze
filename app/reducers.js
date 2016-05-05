@@ -1,6 +1,7 @@
-import {productCatAdd, productCategories} from './Management/ProductCat/reducers.js'
-import {productAdd, products} from './Management/Product/reducers.js'
-import {maze} from './Management/Maze/reducers.js'
+import {productCatAdd, productCategories} from './Management/ProductCat/reducers'
+import {productAdd, products} from './Management/Product/reducers'
+import {maze} from './Management/Maze/reducers'
+import {sellSearch} from './Search/reducers'
 
 export default {
   productCatAdd,
@@ -8,6 +9,7 @@ export default {
   productAdd,
   products,
   maze,
+  sellSearch,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.httpRequest) {
       if (action.status === 'sent') {
