@@ -4,22 +4,20 @@ import SearchResults from './SearchResults.js'
 import {connect} from 'react-redux'
 
 var a = []
-var data = [
-  {title: 'morkvi', quantity: 0.450, price: 3.50},
-  {title: 'karofi', quantity: 1, price: 3.10},
-  {title: 'hlqb', quantity: 2, price: 1.05},
-  {title: 'marulqk', quantity: 0.300, price: 1.10}
-]
 
 const Search = React.createClass({
+  propTypes: {
+    search: React.PropTypes.func
+  },
   handleChange(e, value) {
     a.push(value)
     setTimeout(() => {
       a.shift()
       if (!a.length) {
-        console.log('trigggerrrrrrrrrr!!!')
-      } else {
-        console.log('!!!!waitinggg')
+        var val = this.refs.search.getValue()
+        if (val) {
+          this.props.search({product: val})
+        }
       }
     }, 1000)
   },
@@ -27,6 +25,7 @@ const Search = React.createClass({
     return (
       <div style={{padding: '0 10px', position: 'relative'}}>
         <TextField
+          ref='search'
           floatingLabelText='Product Search'
           onChange={this.handleChange}
         />
@@ -40,9 +39,9 @@ export default connect(
   null,
   {
     search(body) {
-      return {type: 'SEARCH', httpRequest: {
+      return {type: 'SEARCH', preloader: false, httpRequest: {
         method: 'POST',
-        url: '/api/product/search',
+        url: '/api/sellSearch',
         json: true,
         body: body
       }}

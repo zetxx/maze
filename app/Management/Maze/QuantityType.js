@@ -20,7 +20,8 @@ export default React.createClass({
     return (
       <DropDownMenu value={this.state.value} onChange={this.handleChange} ref='quantityType'>
         <MenuItem value='piece' primaryText='Piece' />
-        <MenuItem value='weight' primaryText='Weight' />
+        <MenuItem value='kg' primaryText='Kg' />
+        <MenuItem value='g' primaryText='g' />
       </DropDownMenu>
     )
   }

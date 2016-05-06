@@ -3,28 +3,37 @@ import {connect} from 'react-redux'
 import Menu from 'material-ui/Menu/Menu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 const menuStyle = {
-  marginRight: 32,
-  marginBottom: 32,
-  float: 'left',
-  position: 'relative',
-  zIndex: 1
+  position: 'absolute',
+  left: '5px',
+  top: '67px',
+  boxSizing: 'border-box',
+  boxShadow: 'rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px',
+  borderRadius: '2px',
+  zIndex: 1,
+  background: 'white',
+  width: '600px'
 }
 
 const SearchResults = React.createClass({
   propTypes: {
     data: React.PropTypes.array,
+    clearSearch: React.PropTypes.func,
     open: React.PropTypes.bool
   },
+  handleSelect(a, b, idx) {
+    this.props.data[idx]
+    this.props.clearSearch()
+  },
   render() {
-    if (!this.props.open) {
+    if (!this.props.data || !this.props.data.length) {
       return false
     }
 
     return (
-      <Menu style={menuStyle}>
+      <Menu style={menuStyle} ref='menu' animateds desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
         {this.props.data.map((data, idx) => {
           return (
-            <MenuItem key={idx} primaryText={<b>{data.title}</b>} subtitle={data.price + '/' + data.quantityType} />
+            <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={data.price + '/' + data.quantityType} />
           )
         })}
       </Menu>
@@ -34,5 +43,10 @@ const SearchResults = React.createClass({
 
 
 export default connect(
-  (state) => (state.sellSearch)
+  (state) => (state.sellSearch),
+  {
+    clearSearch(body) {
+      return {type: 'SEARCH_CLEAR'}
+    }
+  }
 )(SearchResults)

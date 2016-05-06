@@ -1,9 +1,8 @@
-var d = [
-  {title: 'morkvi', quantityType: 'piece', price: 3.50},
-  {title: 'karofi', quantityType: 'kg', price: 3.10},
-  {title: 'hlqb', quantityType: 'kg', price: 1.05},
-  {title: 'marulqk', quantityType: 'g', price: 1.10}
-]
-export const sellSearch = (state = {open: true, data: d}, action) => {
+export const sellSearch = (state = {data: []}, action) => {
+  if (action.type === 'SEARCH' && action.status === 'received') {
+    return Object.assign({}, state, {data: action.data})
+  } else if (action.type === 'SEARCH_CLEAR') {
+    return Object.assign({}, state, {data: []})
+  }
   return Object.assign({}, state)
 }

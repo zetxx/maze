@@ -11,6 +11,9 @@ export default {
   maze,
   sellSearch,
   prefetchDialog(state = {open: false, count: 0}, action) {
+    if (action.preloader === false) {
+      return Object.assign({}, state)
+    }
     if (action.httpRequest) {
       if (action.status === 'sent') {
         return Object.assign({}, state, {open: true, count: state.count + 1})

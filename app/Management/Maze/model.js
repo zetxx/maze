@@ -21,7 +21,7 @@ const maze = db.define('maze',
       defaultValue: 0.00
     },
     quantityType: {
-      type: Sequelize.ENUM('weight', 'piece'),
+      type: Sequelize.ENUM('kg', 'g', 'piece'),
       allowNull: false,
       defaultValue: 'piece'
     },
