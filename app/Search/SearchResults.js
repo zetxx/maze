@@ -1,7 +1,14 @@
 import React from 'react'
-import Card from 'material-ui/Card/Card'
-import CardHeader from 'material-ui/Card/CardHeader'
 import {connect} from 'react-redux'
+import Menu from 'material-ui/Menu/Menu'
+import MenuItem from 'material-ui/MenuItem/MenuItem'
+const menuStyle = {
+  marginRight: 32,
+  marginBottom: 32,
+  float: 'left',
+  position: 'relative',
+  zIndex: 1
+}
 
 const SearchResults = React.createClass({
   propTypes: {
@@ -14,18 +21,13 @@ const SearchResults = React.createClass({
     }
 
     return (
-      <div style={{position: 'absolute', zIndex: '1', width: '600px', cursor: 'pointer'}}>
+      <Menu style={menuStyle}>
         {this.props.data.map((data, idx) => {
           return (
-            <Card key={idx}>
-              <CardHeader
-                title={<span>{data.title}: <b>{data.quantity * data.price} lv.</b></span>}
-                subtitle={`${data.quantity} * ${data.price}`}
-              />
-            </Card>
+            <MenuItem key={idx} primaryText={<b>{data.title}</b>} subtitle={data.price + '/' + data.quantityType} />
           )
         })}
-      </div>
+      </Menu>
     )
   }
 })

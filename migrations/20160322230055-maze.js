@@ -21,7 +21,7 @@ module.exports = {
         defaultValue: 0.00
       },
       quantityType: {
-        type: Sequelize.ENUM('weight', 'piece'),
+        type: Sequelize.ENUM('kg', 'piece', 'g'),
         allowNull: false,
         defaultValue: 'piece'
       },

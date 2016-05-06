@@ -42,7 +42,7 @@ export default connect(
     search(body) {
       return {type: 'SEARCH', httpRequest: {
         method: 'POST',
-        url: '/api/search',
+        url: '/api/product/search',
         json: true,
         body: body
       }}
