@@ -6,3 +6,11 @@ export const sellSearch = (state = {data: []}, action) => {
   }
   return Object.assign({}, state)
 }
+
+export const quantitySelection = (state = {product: {}, open: false}, action) => {
+  if (action.type === 'QUANTITY_SELECT_TOGGLE') {
+    return Object.assign({}, state, {product: action.product || {}, open: !state.open})
+  }
+
+  return Object.assign({}, state)
+}

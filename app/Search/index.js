@@ -1,7 +1,8 @@
 import React from 'react'
-import TextField from 'material-ui/TextField'
-import SearchResults from './SearchResults.js'
 import {connect} from 'react-redux'
+import TextField from 'material-ui/TextField'
+import SearchResults from './SearchResults'
+import QuantitySelection from './quantitySelection'
 
 var a = []
 
@@ -21,15 +22,24 @@ const Search = React.createClass({
       }
     }, 1000)
   },
+  focus() {
+    this.refs.search.input.focus()
+  },
+  componentDidMount() {
+    this.focus()
+  },
   render() {
     return (
       <div style={{padding: '0 10px', position: 'relative'}}>
         <TextField
+          style={{width: '600px'}}
           ref='search'
           floatingLabelText='Product Search'
           onChange={this.handleChange}
         />
+
         <SearchResults />
+        <QuantitySelection focus={this.focus} />
       </div>
     )
   }

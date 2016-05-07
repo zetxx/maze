@@ -18,10 +18,12 @@ const SearchResults = React.createClass({
   propTypes: {
     data: React.PropTypes.array,
     clearSearch: React.PropTypes.func,
+    quantitySelectToggle: React.PropTypes.func,
+    focus: React.PropTypes.func,
     open: React.PropTypes.bool
   },
   handleSelect(a, b, idx) {
-    this.props.data[idx]
+    this.props.quantitySelectToggle(this.props.data[idx])
     this.props.clearSearch()
   },
   render() {
@@ -45,8 +47,11 @@ const SearchResults = React.createClass({
 export default connect(
   (state) => (state.sellSearch),
   {
-    clearSearch(body) {
+    clearSearch() {
       return {type: 'SEARCH_CLEAR'}
+    },
+    quantitySelectToggle(product) {
+      return {type: 'QUANTITY_SELECT_TOGGLE', product: product}
     }
   }
 )(SearchResults)
