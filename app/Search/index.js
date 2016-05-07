@@ -28,18 +28,25 @@ const Search = React.createClass({
   componentDidMount() {
     this.focus()
   },
+  getPosition() {
+    var pos = this.refs.searchHolder.getBoundingClientRect()
+    return {top: pos.bottom, left: pos.left}
+  },
   render() {
     return (
       <div style={{padding: '0 10px', position: 'relative'}}>
-        <TextField
-          style={{width: '600px'}}
-          ref='search'
-          floatingLabelText='Product Search'
-          onChange={this.handleChange}
-        />
+        <div ref='searchHolder'>
+          <TextField
+            style={{width: '600px'}}
+            ref='search'
+            floatingLabelText='Product Search'
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+          />
+        </div>
 
-        <SearchResults />
-        <QuantitySelection focus={this.focus} />
+        <SearchResults getPosition={this.getPosition} />
+        <QuantitySelection focusSearch={this.focus} />
       </div>
     )
   }

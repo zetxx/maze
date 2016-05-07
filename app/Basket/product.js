@@ -11,6 +11,7 @@ export default class Product extends React.Component {
         <TableRowColumn>{this.props.value.title}</TableRowColumn>
         <TableRowColumn style={{width: '100px'}}>{this.props.value.quantity}</TableRowColumn>
         <TableRowColumn style={{width: '100px'}}>{this.props.value.price}</TableRowColumn>
+        <TableRowColumn style={{width: '100px'}}>{this.props.value.quantity * this.props.value.price}</TableRowColumn>
         <TableRowColumn style={{width: '30px'}}>
           <IconButton><DeleteIcon /></IconButton>
         </TableRowColumn>
