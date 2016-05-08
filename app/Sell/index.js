@@ -4,7 +4,7 @@ import List from 'material-ui/List/List'
 import Paper from 'material-ui/Paper'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
-import BasketGroup from '../BasketGroup'
+import BasketList from '../BasketList'
 import Search from '../Search'
 import Basket from '../Basket'
 
@@ -14,12 +14,16 @@ export default class Sell extends React.Component {
       <GridList cols={2} padding={15}>
         <Paper zDepth={3}>
           <AppBar
-            title={<span>Groups</span>}
+            title={<span>Baskets/Clients</span>}
             iconElementRight={<FlatButton label='Add new' />}
           />
-          <BasketGroup />
+          <BasketList />
         </Paper>
         <Paper zDepth={3}>
+          <AppBar
+            title={<span>Basket: </span>}
+            iconElementRight={<FlatButton label='Assign to' />}
+          />
           <Search />
           <List>
             <Basket />

@@ -8,10 +8,17 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      group: {
+      productId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'transactionGroup',
+          model: 'product',
+          key: 'id'
+        }
+      },
+      basketId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'basket',
           key: 'id'
         }
       },

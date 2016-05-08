@@ -48,5 +48,5 @@ const Basket = React.createClass({
 })
 
 export default connect(
-  (state) => (state.basketList)
+  (state) => (state.basket)
 )(Basket)

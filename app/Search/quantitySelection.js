@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 const QuantitySelection = React.createClass({
   propTypes: {
     quantitySelectToggle: React.PropTypes.func,
+    basketFill: React.PropTypes.func,
     focusSearch: React.PropTypes.func,
     quantitySelection: React.PropTypes.object
   },
@@ -17,11 +18,12 @@ const QuantitySelection = React.createClass({
     }, 0)
   },
   handleOnKeyDown(a) {
-    console.log(a.keyCode)
     if (a.keyCode === 13) {
       var val = this.refs.q.getValue()
       if (val) {
+        var product = Object.assign({}, this.props.quantitySelection.product, {quantity: val})
         this.props.quantitySelectToggle()
+        this.props.basketFill(product)
       }
     } else if (a.keyCode === 27) {
       this.props.quantitySelectToggle()
@@ -42,6 +44,21 @@ export default connect(
   {
     quantitySelectToggle() {
       return {type: 'QUANTITY_SELECT_TOGGLE'}
+    },
+    basketFill(product) {
+      return {
+        type: 'BASKED_ADD',
+        httpRequest: {
+          method: 'POST',
+          url: '/api/basket/fill',
+          json: true,
+          body: {
+            productId: product.id,
+            quantity: product.quantity,
+            basketId: product.basketId
+          }
+        }
+      }
     }
   }
 )(QuantitySelection)
