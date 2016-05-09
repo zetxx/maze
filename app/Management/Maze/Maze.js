@@ -19,7 +19,7 @@ const Maze = React.createClass({
   add() {
     var vals = getFieldValues(this.refs, ['quantity', 'quantityType', 'price'])
     if (Object.keys(vals.incorrect).length === 0) {
-      vals.correct.product = this.props.maze.productId
+      vals.correct.productId = this.props.maze.productId
       this.props.add(vals.correct)
     } else {
       return this.props.cantAdd(vals.incorrect)

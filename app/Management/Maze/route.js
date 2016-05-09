@@ -17,7 +17,7 @@ module.exports = function(registrar) {
       validate: {
         payload: {
           quantity: Joi.number().min(1).required().description('Product quantity, how many'),
-          product: Joi.number().min(1).required().description('Product Id'),
+          productId: Joi.number().min(1).required().description('Product Id'),
           quantityType: Joi.any().valid(['piece', 'kg', 'g']).required().description('one of: piece or weight'),
           price: Joi.string().regex(/[\d]+\.[\d]{2,2}/).required().description('Product Price')
         }

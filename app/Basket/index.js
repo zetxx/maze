@@ -11,18 +11,19 @@ import CardTitle from 'material-ui/Card/CardTitle'
 
 const Basket = React.createClass({
   propTypes: {
-    data: React.PropTypes.array
+    products: React.PropTypes.array
   },
   getDefaultProps() {
     return {
-      data: []
+      products: []
     }
   },
   render() {
+    console.log(this.props)
     return (
       <div>
         <Card>
-          <CardTitle style={{background: '#ccc', textAlign: 'right', fontWeight: 'bold', fontSize: '26pt'}}>{Math.round(this.props.data.reduce((cur, next) => {
+          <CardTitle style={{background: '#ccc', textAlign: 'right', fontWeight: 'bold', fontSize: '26pt'}}>{Math.round(this.props.products.reduce((cur, next) => {
             return cur + (next.quantity * next.price)
           }, 0) * 100) / 100}</CardTitle>
         </Card>
@@ -37,7 +38,7 @@ const Basket = React.createClass({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {this.props.data.map((p) => {
+            {this.props.products.map((p) => {
               return <Product key={p.id} value={p} />
             })}
           </TableBody>

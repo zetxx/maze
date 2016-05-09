@@ -8,7 +8,7 @@ const maze = db.define('maze',
       primaryKey: true,
       autoIncrement: true
     },
-    product: {
+    productId: {
       type: Sequelize.INTEGER,
       references: {
         model: 'product',

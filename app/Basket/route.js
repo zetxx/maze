@@ -1,6 +1,8 @@
 const Joi = require('joi')
 const transaction = require('./models/transaction')
 const basket = require('./models/basket')
+const maze = require('../Management/Maze/model')
+const product = require('../Management/Product/model')
 
 module.exports = function(registrar) {
   registrar({
@@ -19,6 +21,12 @@ module.exports = function(registrar) {
         }
         b
           .then((r) => {
+            return maze.find({include: [ product ], where: {id: req.payload.mazeId}})
+          })
+          .then((r) => {
+            console.log(r)
+          })
+          .then((r) => {
             req.payload.basketId = r.dataValues.id
             response = {basket: r.dataValues}
           })
@@ -34,7 +42,7 @@ module.exports = function(registrar) {
       tags: ['api', 'add', 'product basket'],
       validate: {
         payload: {
-          productId: Joi.number().min(1).required().description('Product Id'),
+          mazeId: Joi.number().min(1).required().description('Maze Id'),
           quantity: Joi.number().min(1).required().description('Quantity bought'),
           basketId: Joi.number().min(1).description('Basket group')
         }

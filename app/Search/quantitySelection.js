@@ -8,7 +8,8 @@ const QuantitySelection = React.createClass({
     quantitySelectToggle: React.PropTypes.func,
     basketFill: React.PropTypes.func,
     focusSearch: React.PropTypes.func,
-    quantitySelection: React.PropTypes.object
+    quantitySelection: React.PropTypes.object,
+    activeBasket: React.PropTypes.object
   },
   componentWillReceiveProps() {
     setTimeout(() => {
@@ -21,7 +22,8 @@ const QuantitySelection = React.createClass({
     if (a.keyCode === 13) {
       var val = this.refs.q.getValue()
       if (val) {
-        var product = Object.assign({}, this.props.quantitySelection.product, {quantity: val})
+        console.log(this.props)
+        var product = Object.assign({}, this.props.quantitySelection.product, {quantity: val, basketId: this.props.activeBasket.id})
         this.props.quantitySelectToggle()
         this.props.basketFill(product)
       }
@@ -40,7 +42,10 @@ const QuantitySelection = React.createClass({
 })
 
 export default connect(
-  (state) => ({quantitySelection: state.quantitySelection}),
+  (state) => ({
+    quantitySelection: state.quantitySelection,
+    activeBasket: state.basket
+  }),
   {
     quantitySelectToggle() {
       return {type: 'QUANTITY_SELECT_TOGGLE'}
@@ -53,7 +58,7 @@ export default connect(
           url: '/api/basket/fill',
           json: true,
           body: {
-            productId: product.id,
+            mazeId: product.mazeId,
             quantity: product.quantity,
             basketId: product.basketId
           }
