@@ -12,24 +12,37 @@ module.exports = function(registrar) {
       handler: function (req, resp) {
         var b, response
 
-        if (!req.payload.basketId) {
+        // prepare basket
+        if (!req.payload.basketId) { // create basket or
           b = basket.create({name: '---'})
-        } else {
+        } else { // get basked info
           b = basket
             .findAll({where: {id: req.payload.basketId}})
             .then((r) => (r[0]))
         }
+        // push basket info into results
+        b.then((r) => {
+          response = {basket: r.dataValues}
+        })
+        // find maze record
+        // find product record based on maze reocrd
         b
           .then((r) => {
-            return maze.find({include: [ product ], where: {id: req.payload.mazeId}})
+            return maze.find({where: {id: req.payload.mazeId}})
           })
           .then((r) => {
-            console.log(r)
+            response.maze = r.dataValues
+            return r.dataValues
           })
           .then((r) => {
-            req.payload.basketId = r.dataValues.id
-            response = {basket: r.dataValues}
+            return product.find({where: {id: response.maze.productId}})
           })
+          .then((r) => {
+            response.product = r.dataValues
+            req.payload.productId = response.maze.productId
+            return r.dataValues
+          })
+          // add product with quantity and price to transaction
           .then(() => (transaction.create(req.payload)))
           .then((r) => {
             response.product = r.dataValues
