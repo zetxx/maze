@@ -6,7 +6,7 @@ import Search from '../../app/Search'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import Basket from '../../app/Basket'
-import BasketGroup from '../../app/BasketGroup'
+import BasketList from '../../app/BasketList'
 import Sell from '../../app/Sell'
 import GridList from 'material-ui/GridList/GridList'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
@@ -60,7 +60,7 @@ storiesOf('maza', module)
         iconElementRight={<FlatButton label='Add new' />}
       />
       <div>
-        {baskeGrouptList.map((el, idx) => (idx % 2 ? <BasketGroup key={idx} data={el} /> : <BasketGroup key={idx} selectState data={el} />))}
+        {baskeGrouptList.map((el, idx) => (idx % 2 ? <BasketList key={idx} data={el} /> : <BasketList key={idx} selectState data={el} />))}
       </div>
     </Paper>
   </Main>
