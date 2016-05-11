@@ -1,9 +1,5 @@
 const basketDef = {
-  products: [
-    // {id: 1, title: 'krastavici', quantity: 0.500, price: 10.55},
-    // {id: 2, title: 'hlqb', quantity: 1, price: 1.05},
-    // {id: 3, title: 'morkowi', quantity: 1, price: 1.05}
-  ],
+  products: [],
   id: undefined,
   name: ''
 }
@@ -13,9 +9,13 @@ export const basket = (state = basketDef, action) => {
     if (action.status === 'received') {
       return Object.assign({}, state, {
         isNew: !state.id,
-        id: action.data.basket.id,
+        id: action.data.basketId,
         name: action.data.basket.name,
-        products: state.products.concat(action.data.product)
+        products: state.products.concat({
+          transaction: {id: action.data.id, quantity: action.data.quantity},
+          maze: {price: action.data.maze.price, quantityType: action.data.maze.quantityType},
+          product: action.data.maze.product
+        })
       })
     }
   }

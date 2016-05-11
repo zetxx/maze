@@ -19,12 +19,11 @@ const Basket = React.createClass({
     }
   },
   render() {
-    console.log(this.props)
     return (
       <div>
         <Card>
           <CardTitle style={{background: '#ccc', textAlign: 'right', fontWeight: 'bold', fontSize: '26pt'}}>{Math.round(this.props.products.reduce((cur, next) => {
-            return cur + (next.quantity * next.price)
+            return cur + (next.transaction.quantity * next.maze.price)
           }, 0) * 100) / 100}</CardTitle>
         </Card>
         <Table>
@@ -38,8 +37,8 @@ const Basket = React.createClass({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {this.props.products.map((p) => {
-              return <Product key={p.id} value={p} />
+            {this.props.products.map((p, idx) => {
+              return <Product key={idx} value={p} />
             })}
           </TableBody>
         </Table>

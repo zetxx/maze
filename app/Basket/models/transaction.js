@@ -7,10 +7,10 @@ const transaction = db.define('transaction', {
     primaryKey: true,
     autoIncrement: true
   },
-  productId: {
+  mazeId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'product',
+      model: 'maze',
       key: 'id'
     }
   },
@@ -22,11 +22,6 @@ const transaction = db.define('transaction', {
     }
   },
   quantity: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-    defaultValue: 0.00
-  },
-  price: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0.00

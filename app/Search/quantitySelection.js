@@ -22,7 +22,6 @@ const QuantitySelection = React.createClass({
     if (a.keyCode === 13) {
       var val = this.refs.q.getValue()
       if (val) {
-        console.log(this.props)
         var product = Object.assign({}, this.props.quantitySelection.product, {quantity: val, basketId: this.props.activeBasket.id})
         this.props.quantitySelectToggle()
         this.props.basketFill(product)

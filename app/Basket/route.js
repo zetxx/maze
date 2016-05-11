@@ -3,6 +3,9 @@ const transaction = require('./models/transaction')
 const basket = require('./models/basket')
 const maze = require('../Management/Maze/model')
 const product = require('../Management/Product/model')
+maze.belongsTo(product)
+transaction.belongsTo(maze)
+transaction.belongsTo(basket)
 
 module.exports = function(registrar) {
   registrar({
@@ -10,43 +13,39 @@ module.exports = function(registrar) {
     path: '/api/basket/fill',
     config: {
       handler: function (req, resp) {
-        var b, response
+        var b, rq
+        rq = Object.assign({}, req.payload)
 
         // prepare basket
         if (!req.payload.basketId) { // create basket or
           b = basket.create({name: '---'})
         } else { // get basked info
           b = basket
-            .findAll({where: {id: req.payload.basketId}})
+            .find({where: {id: req.payload.basketId}})
             .then((r) => (r[0]))
         }
         // push basket info into results
         b.then((r) => {
-          response = {basket: r.dataValues}
+          rq.basketId = r.dataValues.id
         })
-        // find maze record
-        // find product record based on maze reocrd
+
         b
+          .then(() => (transaction.create(rq)))
           .then((r) => {
-            return maze.find({where: {id: req.payload.mazeId}})
-          })
-          .then((r) => {
-            response.maze = r.dataValues
-            return r.dataValues
-          })
-          .then((r) => {
-            return product.find({where: {id: response.maze.productId}})
-          })
-          .then((r) => {
-            response.product = r.dataValues
-            req.payload.productId = response.maze.productId
-            return r.dataValues
-          })
-          // add product with quantity and price to transaction
-          .then(() => (transaction.create(req.payload)))
-          .then((r) => {
-            response.product = r.dataValues
-            return response
+            return transaction.find({
+              where: {id: r.dataValues.id},
+              include: [{
+                model: maze,
+                as: 'maze',
+                include: [{
+                  model: product,
+                  as: 'product'
+                }]
+              }, {
+                model: basket,
+                as: 'basket'
+              }]
+            })
           })
           .then(resp)
       },
