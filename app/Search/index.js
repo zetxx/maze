@@ -32,6 +32,10 @@ const Search = React.createClass({
     var pos = this.refs.searchHolder.getBoundingClientRect()
     return {top: pos.bottom, left: pos.left}
   },
+  shouldComponentUpdate(nextProps) {
+    setTimeout(this.focus, 1)
+    return false
+  },
   render() {
     return (
       <div style={{padding: '0 10px', position: 'relative'}}>
@@ -53,7 +57,7 @@ const Search = React.createClass({
 })
 
 export default connect(
-  null,
+  (state) => (state.basket),
   {
     search(body) {
       return {type: 'SEARCH', preloader: false, httpRequest: {

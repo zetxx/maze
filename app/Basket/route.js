@@ -19,21 +19,21 @@ module.exports = function(registrar) {
         // prepare basket
         if (!req.payload.basketId) { // create basket or
           b = basket.create({name: '---'})
-        } else { // get basked info
-          b = basket
-            .find({where: {id: req.payload.basketId}})
-            .then((r) => (r[0]))
+            .then((r) => {
+              rq.basketId = r.dataValues.id
+              return r
+            })
+            .then(() => {
+              return transaction.create(rq)
+            })
+        } else {
+          b = transaction.create(rq)
         }
-        // push basket info into results
-        b.then((r) => {
-          rq.basketId = r.dataValues.id
-        })
 
         b
-          .then(() => (transaction.create(rq)))
           .then((r) => {
-            return transaction.find({
-              where: {id: r.dataValues.id},
+            return transaction.findAll({
+              where: {basketId: rq.basketId},
               include: [{
                 model: maze,
                 as: 'maze',
