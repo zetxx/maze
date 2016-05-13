@@ -6,7 +6,7 @@ import CardText from 'material-ui/Card/CardText'
 import Badge from 'material-ui/Badge'
 import {List, ListItem} from 'material-ui/List'
 import HardwareVideogameAsset from 'material-ui/svg-icons/hardware/videogame-asset'
-import {red500, yellow500, blue500} from 'material-ui/styles/colors'
+import {blue500} from 'material-ui/styles/colors'
 
 var rootStyle = {float: 'left', minWidth: '200px', margin: '5px'}
 const BasketList = React.createClass({
