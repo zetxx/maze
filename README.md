@@ -1,4 +1,5 @@
-# free shop/bar/storage manager
+# Maze
+free shop/bar/storage manager
 
 - remove tabs
 - basket url
