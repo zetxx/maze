@@ -1,12 +1,8 @@
-# maze
+# free shop/bar/storage manager
 
-basket url
-
-login
-
-add quantity per store
-
-add stores
-
-field for barcode
-
+- remove tabs
+- basket url
+- add stores
+- add quantity per store
+- field for bar code
+- login
