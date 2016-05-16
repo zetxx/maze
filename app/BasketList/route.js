@@ -1,4 +1,3 @@
-const Joi = require('joi')
 const transaction = require('../Basket/models/transaction')
 const basket = require('../Basket/models/basket')
 const maze = require('../Management/Maze/model')
@@ -14,7 +13,6 @@ module.exports = function(registrar) {
     config: {
       handler: function (req, resp) {
         transaction.findAll({
-          where: {closed: false},
           include: [{
             model: maze,
             as: 'maze',
@@ -24,6 +22,7 @@ module.exports = function(registrar) {
             }]
           }, {
             model: basket,
+            where: {closed: false},
             as: 'basket'
           }]
         })

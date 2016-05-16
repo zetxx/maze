@@ -27,11 +27,6 @@ module.exports = {
         allowNull: false,
         defaultValue: 0.00
       },
-      closed: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-      },
       addedAt: {
         type: Sequelize.DATE,
         defaultValue: new Date()
@@ -39,9 +34,6 @@ module.exports = {
     }, {
       engine: 'MYISAM',
       charset: 'utf8'
-    })
-    .then(() => {
-      queryInterface.addIndex('transaction', ['closed'])
     })
   },
 

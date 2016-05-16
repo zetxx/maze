@@ -4,6 +4,7 @@ import {maze} from './Management/Maze/reducers'
 import {sellSearch, quantitySelection} from './Search/reducers'
 import {basket} from './Basket/reducers'
 import {basketList} from './BasketList/reducers'
+import {mainMenu} from './MainMenu/reducers'
 
 export default {
   productCatAdd,
@@ -15,6 +16,7 @@ export default {
   quantitySelection,
   basket,
   basketList,
+  mainMenu,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return Object.assign({}, state)

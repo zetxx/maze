@@ -11,7 +11,8 @@ import Basket from '../Basket'
 
 const Sell = React.createClass({
   propTypes: {
-    activeBasket: React.PropTypes.object
+    activeBasket: React.PropTypes.object,
+    toggleMainMenu: React.PropTypes.func
   },
   render() {
     return (
@@ -19,14 +20,15 @@ const Sell = React.createClass({
         <Paper zDepth={3}>
           <AppBar
             title={<span>Baskets/Clients</span>}
-            iconElementRight={<FlatButton label='Add new' />}
+            onLeftIconButtonTouchTap={this.props.toggleMainMenu}
           />
           <BasketList />
         </Paper>
         <Paper zDepth={3}>
           <AppBar
+            showMenuIconButton={false}
             title={<span>Basket: {this.props.activeBasket.name}</span>}
-            iconElementRight={<FlatButton label='Assign to' />}
+            iconElementRight={<FlatButton label='New' />}
           />
           <Search />
           <List>
@@ -40,5 +42,8 @@ const Sell = React.createClass({
 
 
 export default connect(
-  (state) => ({activeBasket: state.basket})
+  (state) => ({activeBasket: state.basket}),
+  {
+    toggleMainMenu: () => ({type: 'MAIN_MENU_TOGGLE'})
+  }
 )(Sell)

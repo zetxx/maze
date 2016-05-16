@@ -1,12 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Card from 'material-ui/Card/Card'
-import CardHeader from 'material-ui/Card/CardHeader'
-import CardText from 'material-ui/Card/CardText'
-import Badge from 'material-ui/Badge'
 import {List, ListItem} from 'material-ui/List'
-import AssignIcon from 'material-ui/svg-icons/action/add-shopping-cart'
-import FlatButton from 'material-ui/FlatButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import IconButton from 'material-ui/IconButton/IconButton'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 
 var rootStyle = {float: 'left', minWidth: '200px', margin: '5px'}
 var selectedStyle = Object.assign({}, rootStyle, {boxShadow: '#2CAC10 0px 1px 6px, #2CAC10 0px 1px 4px'})
@@ -30,22 +29,19 @@ const BasketList = React.createClass({
         {this.props.basketList.data.map((el, idx) => {
           return (
             <Card style={this.props.basket.id === el.id ? selectedStyle : rootStyle} key={idx}>
+              <CardActions style={{display: 'block', clear: 'both', overflow: 'hidden'}}>
+                <b style={{float: 'left', padding: '3px 0 0 0'}}>{el.name}</b>
+                <IconMenu
+                  style={{float: 'right'}}
+                  iconButtonElement={<IconButton style={{width: 'auto', height: 'auto', padding: '0px'}}><MoreVertIcon /></IconButton>}
+                  anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                  targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                >
+                  <MenuItem primaryText='Refresh' />
+                  <MenuItem primaryText='Send feedback' />
+                </IconMenu>
+              </CardActions>
               <CardHeader
-                style={{paddingBottom: '0px'}}
-                title={<div title=''>
-                  <Badge style={{padding: '7px 30px 0 0'}}
-                    badgeContent={el.products.length}
-                    primary
-                  >
-                    <b>{el.name}</b>
-                  </Badge>
-                  <FlatButton
-                    icon={<AssignIcon />}
-                  />
-                </div>}
-              />
-              <CardHeader
-                style={{paddingTop: '0px'}}
                 subtitle={(Math.round(el.products.reduce((pv, cv) => {
                   return pv + (cv.price * cv.quantity)
                 }, 0) * 100) / 100).toString() + ' lv.'}

@@ -11,6 +11,11 @@ const basket = db.define('basket', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  closed: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()

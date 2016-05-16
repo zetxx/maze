@@ -1,8 +1,8 @@
 import React from 'react'
-import {Tab, Tabs} from 'material-ui/Tabs'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
+import MainMenu from '../MainMenu'
 
 const Gate = React.createClass({
   contextTypes: {
@@ -26,12 +26,10 @@ const Gate = React.createClass({
   render() {
     return (
       <div>
-        <Tabs value={this.props.location.pathname} onChange={this.redirect}>
-          <Tab label='Sell' value='/sell'><br />{this.props.children && this.props.location.pathname === '/sell' ? this.props.children : ''}</Tab>
-          <Tab label='Maze' value='/manage'><br />{this.props.children && this.props.location.pathname === '/manage' ? this.props.children : ''}</Tab>
-        </Tabs>
+        {this.props.children}
         <PrefetchDialog />
         <ErrorDialog />
+        <MainMenu />
       </div>
     )
   }
