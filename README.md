@@ -1,6 +1,7 @@
 # Maze
 free shop/bar/storage manager
 
+### ToDo
 - remove tabs
 - basket url
 - add stores
