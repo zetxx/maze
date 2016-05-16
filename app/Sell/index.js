@@ -40,7 +40,6 @@ const Sell = React.createClass({
   }
 })
 
-
 export default connect(
   (state) => ({activeBasket: state.basket}),
   {
