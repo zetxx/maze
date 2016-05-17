@@ -2,6 +2,7 @@
 free shop/bar/storage manager
 
 ### ToDo
+- Data seeds
 - Translation - https://github.com/yahoo/react-intl
 - translation labels
 - basket url
