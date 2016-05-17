@@ -1,4 +1,4 @@
-export const sellSearch = (state = {data: []}, action) => {
+export const storeProductSearch = (state = {data: []}, action) => {
   if (action.type === 'SEARCH' && action.status === 'received') {
     return Object.assign({}, state, {data: action.data})
   } else if (action.type === 'SEARCH_CLEAR') {

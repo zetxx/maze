@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 
-const MainMenu = React.createClass({
+const Navigation = React.createClass({
   contextTypes: {
     router: React.PropTypes.object
   },
@@ -21,9 +21,9 @@ const MainMenu = React.createClass({
   },
   render() {
     return (
-      <Drawer width={200} openSecondary open={this.props.open} docked={false}>
+      <Drawer width={200} openSecondary open={this.props.open} docked={false} onRequestChange={this.props.toggle}>
         <MenuItem onTouchTap={this.props.toggle}>CLOSE</MenuItem>
-        <MenuItem onTouchTap={this.navTo('/sell')}>Sell</MenuItem>
+        <MenuItem onTouchTap={this.navTo('/store')}>Store</MenuItem>
         <MenuItem onTouchTap={this.navTo('/manage')}>Manage</MenuItem>
       </Drawer>
     )
@@ -31,8 +31,8 @@ const MainMenu = React.createClass({
 })
 
 export default connect(
-  (state) => (state.mainMenu),
+  (state) => (state.navigation),
   {
     toggle: () => ({type: 'MAIN_MENU_TOGGLE'})
   }
-)(MainMenu)
+)(Navigation)

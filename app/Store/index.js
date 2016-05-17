@@ -6,13 +6,13 @@ import Paper from 'material-ui/Paper'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import BasketList from '../BasketList'
-import Search from '../Search'
+import Search from '../StoreProductSearch'
 import Basket from '../Basket'
 
 const Sell = React.createClass({
   propTypes: {
     activeBasket: React.PropTypes.object,
-    toggleMainMenu: React.PropTypes.func
+    toggleNavigation: React.PropTypes.func
   },
   render() {
     return (
@@ -20,7 +20,7 @@ const Sell = React.createClass({
         <Paper zDepth={3}>
           <AppBar
             title={<span>Baskets/Clients</span>}
-            onLeftIconButtonTouchTap={this.props.toggleMainMenu}
+            onLeftIconButtonTouchTap={this.props.toggleNavigation}
           />
           <BasketList />
         </Paper>
@@ -43,6 +43,6 @@ const Sell = React.createClass({
 export default connect(
   (state) => ({activeBasket: state.basket}),
   {
-    toggleMainMenu: () => ({type: 'MAIN_MENU_TOGGLE'})
+    toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'})
   }
 )(Sell)

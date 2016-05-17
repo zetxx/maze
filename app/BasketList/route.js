@@ -1,5 +1,5 @@
-const transaction = require('../Basket/models/transaction')
-const basket = require('../Basket/models/basket')
+const transaction = require('../Transaction/model')
+const basket = require('../Basket/model')
 const maze = require('../Management/Maze/model')
 const product = require('../Management/Product/model')
 maze.belongsTo(product)

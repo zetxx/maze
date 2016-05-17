@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('../../common/db.js')
+const db = require('../common/db')
 
 const basket = db.define('basket', {
   id: {

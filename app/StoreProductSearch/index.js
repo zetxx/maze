@@ -6,7 +6,7 @@ import QuantitySelection from './quantitySelection'
 
 var a = []
 
-const Search = React.createClass({
+const StoreProductSearch = React.createClass({
   propTypes: {
     search: React.PropTypes.func
   },
@@ -62,10 +62,10 @@ export default connect(
     search(body) {
       return {type: 'SEARCH', preloader: false, httpRequest: {
         method: 'POST',
-        url: '/api/sellSearch',
+        url: '/api/storeProductSearch',
         json: true,
         body: body
       }}
     }
   }
-)(Search)
+)(StoreProductSearch)

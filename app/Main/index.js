@@ -2,7 +2,7 @@ import React from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
-import MainMenu from '../MainMenu'
+import Navigation from '../Navigation'
 
 const Gate = React.createClass({
   contextTypes: {
@@ -29,7 +29,7 @@ const Gate = React.createClass({
         {this.props.children}
         <PrefetchDialog />
         <ErrorDialog />
-        <MainMenu />
+        <Navigation />
       </div>
     )
   }

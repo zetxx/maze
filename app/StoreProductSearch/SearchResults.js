@@ -38,7 +38,7 @@ const SearchResults = React.createClass({
 
 
 export default connect(
-  (state) => (state.sellSearch),
+  (state) => (state.storeProductSearch),
   {
     clearSearch() {
       return {type: 'SEARCH_CLEAR'}

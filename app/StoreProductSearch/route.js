@@ -4,7 +4,7 @@ const sequelize = require('../common/db.js')
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/sellSearch',
+    path: '/api/storeProductSearch',
     config: {
       handler: function (req, resp) {
         sequelize.query(`SELECT

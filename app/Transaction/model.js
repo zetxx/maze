@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('../../common/db.js')
+const db = require('../common/db')
 
 const transaction = db.define('transaction', {
   id: {

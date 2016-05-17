@@ -8,7 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import reducers from './reducers'
 import {request} from './middlewares'
 import Main from './Main'
-import Sell from './Sell'
+import Store from './Store'
 import Management from './Management'
 
 injectTapEventPlugin()
@@ -26,7 +26,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={Main}>
-        <Route path='sell' component={Sell} />
+        <Route path='store' component={Store} />
         <Route path='manage' component={Management} />
       </Route>
     </Router>

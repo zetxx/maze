@@ -6,13 +6,13 @@ import AppBar from 'material-ui/AppBar/AppBar'
 
 const managementBar = React.createClass({
   propTypes: {
-    toggleMainMenu: React.PropTypes.func
+    toggleNavigation: React.PropTypes.func
   },
   render() {
     return (
       <AppBar
         title={<span>Management</span>}
-        onLeftIconButtonTouchTap={this.props.toggleMainMenu}
+        onLeftIconButtonTouchTap={this.props.toggleNavigation}
       />
     )
   }
@@ -21,7 +21,7 @@ const managementBar = React.createClass({
 const ManagementBar = connect(
   null,
   {
-    toggleMainMenu: () => ({type: 'MAIN_MENU_TOGGLE'})
+    toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'})
   }
 )(managementBar)
 

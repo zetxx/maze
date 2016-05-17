@@ -1,10 +1,10 @@
 import {productCatAdd, productCategories} from './Management/ProductCat/reducers'
 import {productAdd, products} from './Management/Product/reducers'
 import {maze} from './Management/Maze/reducers'
-import {sellSearch, quantitySelection} from './Search/reducers'
+import {storeProductSearch, quantitySelection} from './StoreProductSearch/reducers'
 import {basket} from './Basket/reducers'
 import {basketList} from './BasketList/reducers'
-import {mainMenu} from './MainMenu/reducers'
+import {navigation} from './Navigation/reducers'
 
 export default {
   productCatAdd,
@@ -12,11 +12,11 @@ export default {
   productAdd,
   products,
   maze,
-  sellSearch,
+  storeProductSearch,
   quantitySelection,
   basket,
   basketList,
-  mainMenu,
+  navigation,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return Object.assign({}, state)

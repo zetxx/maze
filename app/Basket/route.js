@@ -1,6 +1,6 @@
 const Joi = require('joi')
-const transaction = require('./models/transaction')
-const basket = require('./models/basket')
+const transaction = require('../Transaction/model')
+const basket = require('../Basket/model')
 const maze = require('../Management/Maze/model')
 const product = require('../Management/Product/model')
 maze.belongsTo(product)
