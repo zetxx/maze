@@ -1,6 +1,13 @@
 # Maze
 free shop/bar/storage manager
 
+## Install
+
+* clone
+* npm install
+* run `./node_modules/sequelize-cli/bin/sequelize db:migrate`
+* run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
+
 ### ToDo
 - Translation - https://github.com/yahoo/react-intl
 - translation labels
@@ -12,10 +19,3 @@ free shop/bar/storage manager
 - login
 - global language
 - user language
-
-## Install
-
-* clone
-* npm install
-* run `./node_modules/sequelize-cli/bin/sequelize db:migrate`
-* run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
