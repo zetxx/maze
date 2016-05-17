@@ -63,7 +63,7 @@ server.route([{
 // register dynamic routes
 require('./app/Management/ProductCat/route.js')(server.route.bind(server))
 require('./app/Management/Product/route.js')(server.route.bind(server))
-require('./app/Management/Maze/route.js')(server.route.bind(server))
+require('./app/Management/Repository/route.js')(server.route.bind(server))
 require('./app/StoreProductSearch/route.js')(server.route.bind(server))
 require('./app/Basket/route')(server.route.bind(server))
 require('./app/BasketList/route')(server.route.bind(server))

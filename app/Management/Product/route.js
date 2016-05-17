@@ -37,9 +37,9 @@ module.exports = function(registrar) {
             sum(IFNULL(m.quantity, 0)) quantity,
             p2.price
         FROM product p
-        LEFT JOIN maze m ON m.productId=p.id
-        LEFT JOIN (SELECT MAX(id) id, productId FROM maze GROUP BY productId) p1 ON p1.productId=p.id
-        LEFT JOIN maze p2 ON p1.id=p2.id
+        LEFT JOIN repository m ON m.productId=p.id
+        LEFT JOIN (SELECT MAX(id) id, productId FROM repository GROUP BY productId) p1 ON p1.productId=p.id
+        LEFT JOIN repository p2 ON p1.id=p2.id
         GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
         .then(resp)
       },

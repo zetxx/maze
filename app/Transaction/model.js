@@ -7,10 +7,10 @@ const transaction = db.define('transaction', {
     primaryKey: true,
     autoIncrement: true
   },
-  mazeId: {
+  repositoryId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'maze',
+      model: 'repository',
       key: 'id'
     }
   },

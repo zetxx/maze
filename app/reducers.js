@@ -1,6 +1,6 @@
 import {productCatAdd, productCategories} from './Management/ProductCat/reducers'
 import {productAdd, products} from './Management/Product/reducers'
-import {maze} from './Management/Maze/reducers'
+import {repository} from './Management/Repository/reducers'
 import {storeProductSearch, quantitySelection} from './StoreProductSearch/reducers'
 import {basket} from './Basket/reducers'
 import {basketList} from './BasketList/reducers'
@@ -11,7 +11,7 @@ export default {
   productCategories,
   productAdd,
   products,
-  maze,
+  repository,
   storeProductSearch,
   quantitySelection,
   basket,

@@ -14,8 +14,8 @@ export const basket = (state = basketDef, action) => {
         products: action.data.map((data) => {
           return {
             transaction: {id: data.id, quantity: data.quantity},
-            maze: {price: data.maze.price, quantityType: data.maze.quantityType},
-            product: data.maze.product
+            repository: {price: data.repository.price, quantityType: data.repository.quantityType},
+            product: data.repository.product
           }
         })
       })

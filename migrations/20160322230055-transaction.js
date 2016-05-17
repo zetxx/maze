@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      mazeId: {
+      repositoryId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'maze',
+          model: 'repository',
           key: 'id'
         }
       },

@@ -1,9 +1,9 @@
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
-const maze = require('../Management/Maze/model')
+const repository = require('../Management/Repository/model')
 const product = require('../Management/Product/model')
-maze.belongsTo(product)
-transaction.belongsTo(maze)
+repository.belongsTo(product)
+transaction.belongsTo(repository)
 transaction.belongsTo(basket)
 
 module.exports = function(registrar) {
@@ -14,8 +14,8 @@ module.exports = function(registrar) {
       handler: function (req, resp) {
         transaction.findAll({
           include: [{
-            model: maze,
-            as: 'maze',
+            model: repository,
+            as: 'repository',
             include: [{
               model: product,
               as: 'product'

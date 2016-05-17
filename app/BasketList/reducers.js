@@ -14,7 +14,7 @@ export const basketList = (state = basketListDef, action) => {
         if (typeof (baskets[cur.basketId]) === 'undefined') {
           baskets[cur.basketId] = prev.push({products: [], id: cur.basket.id, name: cur.basket.name}) - 1
         }
-        prev[baskets[cur.basketId]].products.push({quantity: cur.quantity, price: cur.maze.price, quantityType: cur.maze.quantityType, name: cur.maze.product.name})
+        prev[baskets[cur.basketId]].products.push({quantity: cur.quantity, price: cur.repository.price, quantityType: cur.repository.quantityType, name: cur.repository.product.name})
         return prev
       }, [])
     })

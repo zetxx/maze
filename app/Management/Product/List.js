@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'material-ui/Card/Card'
 import Add from './Add'
-import Maze from '../Maze'
+import Repository from '../Repository'
 import AppBar from 'material-ui/AppBar/AppBar'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
@@ -60,7 +60,7 @@ class Product extends React.Component {
           </Table>
         </Card>
         <Add />
-        <Maze />
+        <Repository />
       </div>
     )
   }
@@ -93,7 +93,7 @@ export default connect(
       return {type: 'TOGGLE_PRODUCT_ADD'}
     },
     load(productId) {
-      return {type: 'TOGGLE_MAZE_ADD', productId: productId}
+      return {type: 'TOGGLE_REPOSITORY_ADD', productId: productId}
     }
   }
 )(Product)

@@ -1,10 +1,10 @@
 const Joi = require('joi')
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
-const maze = require('../Management/Maze/model')
+const repository = require('../Management/Repository/model')
 const product = require('../Management/Product/model')
-maze.belongsTo(product)
-transaction.belongsTo(maze)
+repository.belongsTo(product)
+transaction.belongsTo(repository)
 transaction.belongsTo(basket)
 
 module.exports = function(registrar) {
@@ -35,8 +35,8 @@ module.exports = function(registrar) {
             return transaction.findAll({
               where: {basketId: rq.basketId},
               include: [{
-                model: maze,
-                as: 'maze',
+                model: repository,
+                as: 'repository',
                 include: [{
                   model: product,
                   as: 'product'
@@ -54,7 +54,7 @@ module.exports = function(registrar) {
       tags: ['api', 'add', 'product basket'],
       validate: {
         payload: {
-          mazeId: Joi.number().min(1).required().description('Maze Id'),
+          repositoryId: Joi.number().min(1).required().description('repository Id'),
           quantity: Joi.number().min(1).required().description('Quantity bought'),
           basketId: Joi.number().min(1).description('Basket group')
         }

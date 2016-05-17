@@ -57,7 +57,7 @@ export default connect(
           url: '/api/basket/fill',
           json: true,
           body: {
-            mazeId: product.mazeId,
+            repositoryId: product.repositoryId,
             quantity: product.quantity,
             basketId: product.basketId
           }

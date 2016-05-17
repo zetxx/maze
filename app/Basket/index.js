@@ -23,7 +23,7 @@ const Basket = React.createClass({
       <div>
         <Card>
           <CardTitle style={{background: '#ccc', textAlign: 'right', fontWeight: 'bold', fontSize: '26pt'}}>{Math.round(this.props.products.reduce((cur, next) => {
-            return cur + (next.transaction.quantity * next.maze.price)
+            return cur + (next.transaction.quantity * next.repository.price)
           }, 0) * 100) / 100}</CardTitle>
         </Card>
         <Table>
