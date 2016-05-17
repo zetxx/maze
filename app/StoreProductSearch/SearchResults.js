@@ -36,7 +36,6 @@ const SearchResults = React.createClass({
   }
 })
 
-
 export default connect(
   (state) => (state.storeProductSearch),
   {
