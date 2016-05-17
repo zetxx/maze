@@ -8,3 +8,5 @@ free shop/bar/storage manager
 - add quantity per store
 - field for bar code
 - login
+- global language
+- user language
