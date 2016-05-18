@@ -1,3 +1,6 @@
 export const en = {
-  'aaa.bb.c': 'a-b-c: {lang} .... no'
+  'Quantity': 'Quantity',
+  'Total': 'Total',
+  'Price': 'Price',
+  '_currency': '&#36;'
 }

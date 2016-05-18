@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {IntlProvider, FormattedMessage} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
@@ -36,7 +36,6 @@ const Gate = React.createClass({
       return (
         <IntlProvider locale={this.props.siteConfig.globalLanguage} messages={Languages[this.props.siteConfig.globalLanguage]}>
           <div>
-            <FormattedMessage id='aaa.bb.c' values={{lang: 'Bulgarian?'}} />
             {this.props.children}
             <PrefetchDialog />
             <ErrorDialog />
