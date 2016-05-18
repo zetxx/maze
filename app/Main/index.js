@@ -1,8 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {IntlProvider, FormattedMessage} from 'react-intl'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 import Navigation from '../Navigation'
+import Languages from '../../config/languages'
 
 const Gate = React.createClass({
   contextTypes: {
@@ -12,8 +15,13 @@ const Gate = React.createClass({
     muiTheme: React.PropTypes.object.isRequired
   },
   propTypes: {
+    fetchSiteConfig: React.PropTypes.func,
     children: React.PropTypes.object,
+    siteConfig: React.PropTypes.object,
     location: React.PropTypes.object
+  },
+  componentWillMount() {
+    this.props.fetchSiteConfig()
   },
   getChildContext() {
     return {muiTheme: getMuiTheme()}
@@ -24,15 +32,30 @@ const Gate = React.createClass({
     }
   },
   render() {
-    return (
-      <div>
-        {this.props.children}
-        <PrefetchDialog />
-        <ErrorDialog />
-        <Navigation />
-      </div>
-    )
+    if (this.props.siteConfig && this.props.siteConfig.globalLanguage) {
+      return (
+        <IntlProvider locale={this.props.siteConfig.globalLanguage} messages={Languages[this.props.siteConfig.globalLanguage]}>
+          <div>
+            <FormattedMessage id='aaa.bb.c' values={{lang: 'Bulgarian?'}} />
+            {this.props.children}
+            <PrefetchDialog />
+            <ErrorDialog />
+            <Navigation />
+          </div>
+        </IntlProvider>
+      )
+    }
+    return false
   }
 })
 
-export default Gate
+export default connect(
+  (state) => ({siteConfig: state.siteConfig}),
+  {
+    fetchSiteConfig: () => ({type: 'FETCH_SITE_CONFIG', httpRequest: {
+      method: 'GET',
+      url: '/api/config',
+      json: true
+    }})
+  }
+)(Gate)

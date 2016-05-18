@@ -5,6 +5,7 @@ import {storeProductSearch, quantitySelection} from './StoreProductSearch/reduce
 import {basket} from './Basket/reducers'
 import {basketList} from './BasketList/reducers'
 import {navigation} from './Navigation/reducers'
+import {siteConfig} from './Main/reducers'
 
 export default {
   productCatAdd,
@@ -17,6 +18,7 @@ export default {
   basket,
   basketList,
   navigation,
+  siteConfig,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return Object.assign({}, state)
