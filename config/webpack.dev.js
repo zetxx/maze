@@ -1,5 +1,3 @@
-var webpack = require('webpack')
-
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
@@ -20,7 +18,8 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ['react', 'stage-0']
+          cacheDirectory: true,
+          presets: ['stage-0', 'react']
         }
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' }, // use ! to chain loaders
