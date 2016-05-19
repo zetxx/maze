@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -22,9 +23,9 @@ const Navigation = React.createClass({
   render() {
     return (
       <Drawer width={200} openSecondary open={this.props.open} docked={false} onRequestChange={this.props.toggle}>
-        <MenuItem onTouchTap={this.props.toggle}>CLOSE</MenuItem>
-        <MenuItem onTouchTap={this.navTo('/store')}>Store</MenuItem>
-        <MenuItem onTouchTap={this.navTo('/manage')}>Manage</MenuItem>
+        <MenuItem onTouchTap={this.props.toggle}><FormattedMessage id='CLOSE' /></MenuItem>
+        <MenuItem onTouchTap={this.navTo('/store')}><FormattedMessage id='Store' /></MenuItem>
+        <MenuItem onTouchTap={this.navTo('/manage')}><FormattedMessage id='Manage' /></MenuItem>
       </Drawer>
     )
   }

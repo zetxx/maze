@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import {connect} from 'react-redux'
 import TextField from 'material-ui/TextField'
 import SearchResults from './SearchResults'
@@ -43,7 +44,7 @@ const StoreProductSearch = React.createClass({
           <TextField
             style={{width: '600px'}}
             ref='search'
-            floatingLabelText='Product Search'
+            floatingLabelText={<FormattedMessage id='Product Search' />}
             onFocus={this.handleFocus}
             onChange={this.handleChange}
           />

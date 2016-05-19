@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedHTMLMessage} from 'react-intl'
 import {List, ListItem} from 'material-ui/List'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -42,9 +43,9 @@ const BasketList = React.createClass({
                 </IconMenu>
               </CardActions>
               <CardHeader
-                subtitle={(Math.round(el.products.reduce((pv, cv) => {
+                subtitle={<span>{(Math.round(el.products.reduce((pv, cv) => {
                   return pv + (cv.price * cv.quantity)
-                }, 0) * 100) / 100).toString() + ' lv.'}
+                }, 0) * 100) / 100).toString()} <FormattedHTMLMessage id='_currency' /></span>}
                 actAsExpander showExpandableButton
               />
               <CardText expandable>
@@ -53,7 +54,7 @@ const BasketList = React.createClass({
                     return <ListItem
                       key={idx}
                       primaryText={el.name}
-                      secondaryText={Math.round((el.price * el.quantity) * 100) / 100}
+                      secondaryText={<span>{Math.round((el.price * el.quantity) * 100) / 100} <FormattedHTMLMessage id='_currency' /></span>}
                     />
                   })}
                 </List>

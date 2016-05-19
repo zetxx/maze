@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import GridList from 'material-ui/GridList/GridList'
 import List from 'material-ui/List/List'
 import Paper from 'material-ui/Paper'
@@ -19,7 +20,7 @@ const Sell = React.createClass({
       <GridList cols={2} padding={15}>
         <Paper zDepth={3}>
           <AppBar
-            title={<span>Baskets/Clients</span>}
+            title={<FormattedMessage id='Baskets/Clients' />}
             onLeftIconButtonTouchTap={this.props.toggleNavigation}
           />
           <BasketList />
@@ -27,8 +28,8 @@ const Sell = React.createClass({
         <Paper zDepth={3}>
           <AppBar
             showMenuIconButton={false}
-            title={<span>Basket: {this.props.activeBasket.name}</span>}
-            iconElementRight={<FlatButton label='New' />}
+            title={<span>{<FormattedMessage id='Basket' />}: {this.props.activeBasket.name}</span>}
+            iconElementRight={<FlatButton label={<FormattedMessage id='New' />} />}
           />
           <Search />
           <List>

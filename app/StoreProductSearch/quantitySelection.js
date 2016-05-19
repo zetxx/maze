@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import Dialog from 'material-ui/Dialog/Dialog'
 import TextField from 'material-ui/TextField'
 
@@ -33,8 +34,8 @@ const QuantitySelection = React.createClass({
   },
   render() {
     return (
-      <Dialog ref='dialog' title='How much?' modal open={this.props.quantitySelection.open}>
-        <TextField ref='q' floatingLabelText='Enter quantity' onKeyDown={this.handleOnKeyDown} />
+      <Dialog ref='dialog' title={<FormattedMessage id='How much?' />} modal open={this.props.quantitySelection.open}>
+        <TextField ref='q' floatingLabelText={<FormattedMessage id='Enter quantity' />} onKeyDown={this.handleOnKeyDown} />
       </Dialog>
     )
   }

@@ -4,7 +4,7 @@ const Inert = require('inert')
 const Vision = require('vision')
 const Path = require('path')
 const HapiSwagger = require('hapi-swagger')
-require('./webpack')
+const webpackPlugin = require('./config/webpack.js')
 
 const Pack = require('./package')
 
@@ -18,7 +18,8 @@ const server = new Hapi.Server({
   }
 })
 server.connection(config.httpServer)
-server.register([
+
+var plugins = [
   Inert,
   Vision,
   {
@@ -29,7 +30,13 @@ server.register([
         'version': Pack.version || '0'
       }
     }
-  }],
+  }
+]
+if (webpackPlugin) {
+  plugins.push(webpackPlugin)
+}
+
+server.register(plugins,
   (err) => {
     if (err) {
       console.error(err)

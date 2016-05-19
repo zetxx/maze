@@ -11,8 +11,8 @@ export default class Product extends React.Component {
       <TableRow>
         <TableRowColumn>{this.props.value.product.name}</TableRowColumn>
         <TableRowColumn style={{width: '100px'}}>{this.props.value.transaction.quantity}</TableRowColumn>
-        <TableRowColumn style={{width: '100px'}}><FormattedHTMLMessage id='_currency' /> {this.props.value.repository.price}</TableRowColumn>
-        <TableRowColumn style={{width: '100px'}}><FormattedHTMLMessage id='_currency' /> {Math.round((this.props.value.transaction.quantity * this.props.value.repository.price) * 100) / 100}</TableRowColumn>
+        <TableRowColumn style={{width: '100px'}}>{this.props.value.repository.price} <FormattedHTMLMessage id='_currency' /></TableRowColumn>
+        <TableRowColumn style={{width: '100px'}}>{Math.round((this.props.value.transaction.quantity * this.props.value.repository.price) * 100) / 100} <FormattedHTMLMessage id='_currency' /></TableRowColumn>
         <TableRowColumn style={{width: '30px'}}>
           <IconButton><DeleteIcon /></IconButton>
         </TableRowColumn>
