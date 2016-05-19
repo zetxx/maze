@@ -1,5 +1,5 @@
 # Maze
-free shop/bar/storage manager
+shop/bar/storage manager
 
 ## Install
 
