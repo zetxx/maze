@@ -7,7 +7,7 @@ class PrefetchDialog extends React.Component {
   render() {
     return (
       <Dialog title='Action ordered!' modal open={this.props.prefetchDialog.open}>
-        <FormattedHTMLMessage id='pwfwfd' />
+        <FormattedMessage id='pwfwfd' />
       </Dialog>
     )
   }
