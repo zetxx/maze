@@ -1,5 +1,4 @@
-const Joi = require('joi')
-const sequelize = require('../../common/db.js')
+const sequelize = require('../../../config/db')
 
 module.exports = function(registrar) {
   registrar({
