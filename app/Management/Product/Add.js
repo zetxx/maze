@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
@@ -30,30 +31,30 @@ const ProductAdd = React.createClass({
   render() {
     const actions = [
       <FlatButton
-        label='Cancel'
+        label={<FormattedMessage id='Cancel' />}
         secondary
         onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
-        label='Submit'
+        label={<FormattedMessage id='Submit' />}
         primary
         onTouchTap={this.add}
       />
     ]
 
     return (
-      <Dialog actions={actions} title='Product add' modal open={this.props.productAdd.open}>
+      <Dialog actions={actions} title={<FormattedMessage id='Product add' />} modal open={this.props.productAdd.open}>
         <TextField
           ref='name'
-          hintText='Product name'
-          floatingLabelText='Product name'
+          hintText={<FormattedMessage id='Product name' />}
+          floatingLabelText={<FormattedMessage id='Product name' />}
           errorText={this.props.productAdd.fieldError.name}
         />
         <ProductCat ref='category' value={1} />
         <TextField
           ref='description'
-          hintText='Product description'
-          floatingLabelText='Product description'
+          hintText={<FormattedMessage id='Product description' />}
+          floatingLabelText={<FormattedMessage id='Product description' />}
           errorText={this.props.productAdd.fieldError.description}
         />
       </Dialog>
