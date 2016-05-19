@@ -21,7 +21,7 @@ export default {
   siteConfig,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
-      return Object.assign({}, state)
+      return state
     }
     if (action.httpRequest) {
       if (action.status === 'sent') {
@@ -34,7 +34,7 @@ export default {
         return Object.assign({}, state, {count: count})
       }
     }
-    return Object.assign({}, state)
+    return state
   },
   errorDialog(state = {open: false, errorStack: []}, action) {
     if (action.httpRequest && action.status === 'received' && action.err) {
@@ -44,6 +44,6 @@ export default {
     } else if (action.type === 'CLEANUP_HIDE_ERRORS') {
       return Object.assign({}, state, {open: false, errorStack: []})
     }
-    return Object.assign({}, state)
+    return state
   }
 }
