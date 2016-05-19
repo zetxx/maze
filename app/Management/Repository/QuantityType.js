@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 
@@ -19,9 +20,9 @@ export default React.createClass({
   render() {
     return (
       <DropDownMenu value={this.state.value} onChange={this.handleChange} ref='quantityType'>
-        <MenuItem value='piece' primaryText='Piece' />
-        <MenuItem value='kg' primaryText='Kg' />
-        <MenuItem value='g' primaryText='g' />
+        <MenuItem value='piece' primaryText={<FormattedMessage id='Piece' />} />
+        <MenuItem value='kg' primaryText={<FormattedMessage id='Kilograms' />} />
+        <MenuItem value='g' primaryText={<FormattedMessage id='grams' />} />
       </DropDownMenu>
     )
   }
