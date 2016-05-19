@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
@@ -36,30 +37,30 @@ const Repository = React.createClass({
   render() {
     const actions = [
       <FlatButton
-        label='Cancel'
+        label={<FormattedMessage id='Cancel' />}
         secondary
         onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
-        label='Submit'
+        label={<FormattedMessage id='Submit' />}
         primary
         onTouchTap={this.add}
       />
     ]
 
     return (
-      <Dialog actions={actions} title='Load' modal open={this.props.repository.open}>
+      <Dialog actions={actions} title={<FormattedMessage id='Load' />} modal open={this.props.repository.open}>
         <TextField
           ref='quantity'
-          hintText='Quantity'
-          floatingLabelText='Quantity'
+          hintText={<FormattedMessage id='Quantity' />}
+          floatingLabelText={<FormattedMessage id='Quantity' />}
           errorText={this.props.repository.fieldError.quantity}
         />
         <QuantityType ref='quantityType' />
         <TextField
           ref='price'
-          hintText='Price'
-          floatingLabelText='Price'
+          hintText={<FormattedMessage id='Price' />}
+          floatingLabelText={<FormattedMessage id='Price' />}
           errorText={this.props.repository.fieldError.price}
         />
       </Dialog>
