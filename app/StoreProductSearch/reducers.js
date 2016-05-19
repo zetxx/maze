@@ -4,7 +4,7 @@ export const storeProductSearch = (state = {data: []}, action) => {
   } else if (action.type === 'SEARCH_CLEAR') {
     return Object.assign({}, state, {data: []})
   }
-  return Object.assign({}, state)
+  return state
 }
 
 export const quantitySelection = (state = {product: {}, open: false}, action) => {
@@ -12,5 +12,5 @@ export const quantitySelection = (state = {product: {}, open: false}, action) =>
     return Object.assign({}, state, {product: action.product || {}, open: !state.open})
   }
 
-  return Object.assign({}, state)
+  return state
 }
