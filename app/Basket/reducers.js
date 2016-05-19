@@ -21,5 +21,5 @@ export const basket = (state = basketDef, action) => {
       })
     }
   }
-  return Object.assign({}, state)
+  return state
 }
