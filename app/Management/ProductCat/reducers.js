@@ -8,12 +8,12 @@ export const productCatAdd = (state = {open: false, canceled: false, fieldError:
   } else if (action.type === 'PRODUCT_CAT_ADD_VALIDATION_PROBLEM') {
     return Object.assign({}, state, {fieldError: action.problems})
   }
-  return Object.assign({}, state)
+  return state
 }
 
 export const productCategories = (state = {}, action) => {
   if (action.type === 'FETCH_PRODUCT_CATEGORIES') {
     return Object.assign({}, state, {status: action.status, data: action.data})
   }
-  return Object.assign({}, state)
+  return state
 }
