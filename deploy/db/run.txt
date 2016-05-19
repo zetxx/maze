@@ -1,0 +1,10 @@
+sudo docker run -it -d \
+-p 3306:3306 \
+--name maza \
+--restart=unless-stopped \
+-v /store/data/maze/db:/var/lib/mysql \
+-e MYSQL_RANDOM_ROOT_PASSWORD=true \
+-e MYSQL_DATABASE=maze \
+-e MYSQL_USER=db \
+-e MYSQL_PASSWORD=123 \
+mariadb
