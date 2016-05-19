@@ -8,5 +8,5 @@ export const repository = (state = {productId: undefined, open: false, canceled:
   } else if (action.type === 'REPOSITORY_ADD_VALIDATION_PROBLEM') {
     return Object.assign({}, state, {productId: undefined, fieldError: action.problems})
   }
-  return Object.assign({}, state)
+  return state
 }
