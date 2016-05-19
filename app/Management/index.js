@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import Product from './Product'
 import ProductCat from './ProductCat'
 import {connect} from 'react-redux'
@@ -11,7 +12,7 @@ const managementBar = React.createClass({
   render() {
     return (
       <AppBar
-        title={<span>Management</span>}
+        title={<FormattedMessage id='Management' />}
         onLeftIconButtonTouchTap={this.props.toggleNavigation}
       />
     )
