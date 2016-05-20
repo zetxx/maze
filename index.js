@@ -4,7 +4,7 @@ const Inert = require('inert')
 const Vision = require('vision')
 const Path = require('path')
 const HapiSwagger = require('hapi-swagger')
-const webpackPlugin = require('./config/webpack.js')
+const webpackFrontendWatch = require('./config/webpack.js').watch
 
 const Pack = require('./package')
 
@@ -19,10 +19,9 @@ const server = new Hapi.Server({
 })
 server.connection(config.httpServer)
 
-var plugins = [
+server.register([
   Inert,
-  Vision,
-  {
+  Vision, {
     'register': HapiSwagger,
     'options': {
       info: {
@@ -30,13 +29,7 @@ var plugins = [
         'version': Pack.version || '0'
       }
     }
-  }
-]
-if (webpackPlugin) {
-  plugins.push(webpackPlugin)
-}
-
-server.register(plugins,
+  }],
   (err) => {
     if (err) {
       console.error(err)
@@ -67,7 +60,7 @@ server.route([{
   path: '/favicon.ico',
   handler: { file: './assets/favicon.ico' }
 }])
-
+webpackFrontendWatch(server)
 // register dynamic routes
 require('./app/Management/ProductCat/route.js')(server.route.bind(server))
 require('./app/Management/Product/route.js')(server.route.bind(server))
