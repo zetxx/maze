@@ -10,13 +10,14 @@ shop/bar/storage manager
 * run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
 
 ### ToDo
-- Translation - https://github.com/yahoo/react-intl
-- translation labels
 - basket url
 - basket assignment
-- add stores
-- add quantity per store
-- field for bar code
 - login
-- global language
-- user language
+- config
+  - repository
+    - add quantity per store
+    - field for bar code
+  - global config
+    - global language
+    - user language
+  - ability to add stores
