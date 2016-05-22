@@ -61,4 +61,31 @@ module.exports = function(registrar) {
       }
     }
   })
+
+  registrar({
+    method: 'GET',
+    path: '/api/basket/{basketId}',
+    config: {
+      handler: function (req, resp) {
+        transaction.findAll({
+          where: {basketId: req.params.basketId},
+          include: [{
+            model: repository,
+            as: 'repository',
+            include: [{
+              model: product,
+              as: 'product'
+            }]
+          }, {
+            model: basket,
+            as: 'basket'
+          }]
+        })
+        .then(resp)
+      },
+      description: 'Get basket',
+      notes: 'Get basket',
+      tags: ['api', 'get', 'product basket']
+    }
+  })
 }

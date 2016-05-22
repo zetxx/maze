@@ -12,7 +12,9 @@ import Basket from '../Basket'
 
 const Sell = React.createClass({
   propTypes: {
+    params: React.PropTypes.object,
     activeBasket: React.PropTypes.object,
+    newBasket: React.PropTypes.func,
     toggleNavigation: React.PropTypes.func
   },
   render() {
@@ -29,11 +31,11 @@ const Sell = React.createClass({
           <AppBar
             showMenuIconButton={false}
             title={<span>{<FormattedMessage id='Basket' />}: {this.props.activeBasket.name}</span>}
-            iconElementRight={<FlatButton label={<FormattedMessage id='New' />} />}
+            iconElementRight={<FlatButton onTouchTap={this.props.newBasket} label={<FormattedMessage id='New' />} />}
           />
           <Search />
           <List>
-            <Basket />
+            <Basket basketId={parseInt(this.props.params.basketId, 10)} />
           </List>
         </Paper>
       </GridList>
@@ -44,6 +46,7 @@ const Sell = React.createClass({
 export default connect(
   (state) => ({activeBasket: state.basket}),
   {
-    toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'})
+    toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'}),
+    newBasket: () => ({type: 'NEW_BASKET'})
   }
 )(Sell)

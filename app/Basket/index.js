@@ -12,14 +12,37 @@ import CardTitle from 'material-ui/Card/CardTitle'
 
 const Basket = React.createClass({
   propTypes: {
-    products: React.PropTypes.array
+    products: React.PropTypes.array,
+    fetch: React.PropTypes.func,
+    id: React.PropTypes.number,
+    basketId: React.PropTypes.any
+  },
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
   },
   getDefaultProps() {
     return {
       products: []
     }
   },
+  componentDidMount(newProps) {
+    if (!isNaN(this.props.basketId) && this.props.id === undefined) {
+      this.props.fetch(this.props.basketId)
+    }
+  },
+  componentWillReceiveProps(newProps) {
+    if (newProps.isNew) {
+      this.context.router.push(['/store', newProps.id].join('/'))
+    } else if (!isNaN(newProps.basketId) && newProps.basketId !== newProps.id && typeof (newProps.id) === 'undefined' && newProps.clearBasket) {
+      this.context.router.push('/store')
+    }
+  },
   render() {
+    var basketId = !isNaN(this.props.basketId) ? this.props.basketId : undefined
+
+    if (!basketId) {
+      return false
+    }
     return (
       <div>
         <Card>
@@ -49,5 +72,17 @@ const Basket = React.createClass({
 })
 
 export default connect(
-  (state) => (state.basket)
+  (state) => (state.basket),
+  {
+    fetch(basketId) {
+      return {
+        type: 'BASKET_FETCH',
+        httpRequest: {
+          method: 'GET',
+          url: `/api/basket/${basketId}`,
+          json: true
+        }
+      }
+    }
+  }
 )(Basket)

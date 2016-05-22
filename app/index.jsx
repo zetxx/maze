@@ -27,6 +27,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path='/' component={Main}>
         <Route path='store' component={Store} />
+        <Route path='store/:basketId' component={Store} />
         <Route path='manage' component={Management} />
       </Route>
     </Router>

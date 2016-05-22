@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog/Dialog'
 class PrefetchDialog extends React.Component {
   render() {
     return (
-      <Dialog title={<FormattedMessage id='Action ordered!' />} modal open={this.props.prefetchDialog.open}>
+      <Dialog title={<h3 style={{padding: '24px'}}><FormattedMessage id='Action ordered!' /></h3>} modal open={this.props.prefetchDialog.open}>
         <FormattedMessage id='pwfwfd' />
       </Dialog>
     )

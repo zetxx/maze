@@ -29,12 +29,15 @@ const StoreProductSearch = React.createClass({
   componentDidMount() {
     this.focus()
   },
+  componentWillReceiveProps(newProps) {
+    this.focus()
+  },
   getPosition() {
     var pos = this.refs.searchHolder.getBoundingClientRect()
     return {top: pos.bottom, left: pos.left}
   },
   shouldComponentUpdate(nextProps) {
-    setTimeout(this.focus, 1)
+    setTimeout(this.focus, 1000)
     return false
   },
   render() {
