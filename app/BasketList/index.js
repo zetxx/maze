@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedHTMLMessage} from 'react-intl'
+import {FormattedHTMLMessage, FormattedMessage} from 'react-intl'
 import {List, ListItem} from 'material-ui/List'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -14,7 +14,9 @@ const BasketList = React.createClass({
   propTypes: {
     basketList: React.PropTypes.object,
     basket: React.PropTypes.object,
-    fetch: React.PropTypes.func
+    fetch: React.PropTypes.func,
+    close: React.PropTypes.func,
+    reassign: React.PropTypes.func
   },
   componentWillMount() {
     this.props.fetch()
@@ -23,6 +25,15 @@ const BasketList = React.createClass({
     if (typeof (this.props.basket.id) === 'undefined' && nextProps.basket.id !== this.props.basket.id || (nextProps.basket.products.length !== this.props.basket.products.length)) {
       this.props.fetch()
     }
+  },
+  close() {
+    
+  },
+  assignTo() {
+    
+  },
+  assignFrom() {
+    
   },
   render() {
     return (
@@ -38,8 +49,9 @@ const BasketList = React.createClass({
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 >
-                  <MenuItem primaryText='Refresh' />
-                  <MenuItem primaryText='Send feedback' />
+                  <MenuItem onTouchTap={this.close} primaryText={<FormattedMessage id='Close/Paid' />} />
+                  <MenuItem onTouchTap={this.assignTo} primaryText={<FormattedMessage id='Assign to' />} />
+                  <MenuItem onTouchTap={this.assignFrom} primaryText={<FormattedMessage id='Assign from' />} />
                 </IconMenu>
               </CardActions>
               <CardHeader
@@ -74,6 +86,18 @@ export default connect(
       method: 'GET',
       url: '/api/baskets',
       json: true
+    }}),
+    close: (basketId) => ({type: 'CLOSE_BASKET', httpRequest: {
+      method: 'DELETE',
+      url: '/api/basket/',
+      json: true,
+      body: {basketId}
+    }}),
+    reassing: (from, to) => ({type: 'REASSIGN_BASKET', httpRequest: {
+      method: 'POST',
+      url: '/api/basket/reassign',
+      json: true,
+      body: {from, to}
     }})
   }
 )(BasketList)

@@ -31,6 +31,9 @@ export const en = {
   'Product add': 'Product add',
   'Product name': 'Product name',
   'Cancel': 'Cancel',
+  'Assign from': 'Assign from',
+  'Close/Paid': 'Close/Paid',
+  'Assign to': 'Assign to',
   'Action ordered!': 'Action ordered!',
   '_currency': '&#36;'
 }
