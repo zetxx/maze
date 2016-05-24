@@ -18,6 +18,9 @@ const BasketList = React.createClass({
     close: React.PropTypes.func,
     reassign: React.PropTypes.func
   },
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
   componentWillMount() {
     this.props.fetch()
   },
@@ -26,14 +29,27 @@ const BasketList = React.createClass({
       this.props.fetch()
     }
   },
-  close() {
-    
+  close(basketId) {
+    return () => {
+      this.props.close(basketId)
+    }
   },
-  assignTo() {
-    
+  select(basketId) {
+    return () => {
+      this.context.router.push(['/store', basketId].join('/'))
+    }
   },
-  assignFrom() {
-    
+  assignTo(from) {
+    let to = this.props.basket.id
+    return () => {
+      this.props.reassign(from, to)
+    }
+  },
+  assignFrom(to) {
+    let from = this.props.basket.id
+    return () => {
+      this.props.reassign(from, to)
+    }
   },
   render() {
     return (
@@ -49,9 +65,10 @@ const BasketList = React.createClass({
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 >
-                  <MenuItem onTouchTap={this.close} primaryText={<FormattedMessage id='Close/Paid' />} />
-                  <MenuItem onTouchTap={this.assignTo} primaryText={<FormattedMessage id='Assign to' />} />
-                  <MenuItem onTouchTap={this.assignFrom} primaryText={<FormattedMessage id='Assign from' />} />
+                  <MenuItem onTouchTap={this.select(el.id)} primaryText={<FormattedMessage id='Select' />} />
+                  <MenuItem onTouchTap={this.assignTo(el.id)} primaryText={<FormattedMessage id='Assign to' />} />
+                  <MenuItem onTouchTap={this.assignFrom(el.id)} primaryText={<FormattedMessage id='Assign from' />} />
+                  <MenuItem onTouchTap={this.close(el.id)} primaryText={<FormattedMessage id='Close/Paid' />} />
                 </IconMenu>
               </CardActions>
               <CardHeader
@@ -89,11 +106,11 @@ export default connect(
     }}),
     close: (basketId) => ({type: 'CLOSE_BASKET', httpRequest: {
       method: 'DELETE',
-      url: '/api/basket/',
+      url: '/api/basket',
       json: true,
       body: {basketId}
     }}),
-    reassing: (from, to) => ({type: 'REASSIGN_BASKET', httpRequest: {
+    reassign: (from, to) => ({type: 'REASSIGN_BASKET', httpRequest: {
       method: 'POST',
       url: '/api/basket/reassign',
       json: true,

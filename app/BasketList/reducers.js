@@ -1,6 +1,9 @@
 const basketListDef = {data: []}
 
 export const basketList = (state = basketListDef, action) => {
+  if (action.type === 'CLOSE_BASKET' && action.status === 'received') {
+    return {data: state.data.filter((el) => (!(el.id === action.data.id)))}
+  }
   if (action.type === 'FETCH_BASKETS' && action.status === 'received') {
     var baskets = {}
     return Object.assign({}, state, {

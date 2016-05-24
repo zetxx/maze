@@ -35,6 +35,8 @@ const Basket = React.createClass({
       this.context.router.push(['/store', newProps.id].join('/'))
     } else if (!isNaN(newProps.basketId) && newProps.basketId !== newProps.id && typeof (newProps.id) === 'undefined' && newProps.clearBasket) {
       this.context.router.push('/store')
+    } else if (!isNaN(newProps.basketId) && newProps.basketId !== newProps.id && typeof (newProps.id) !== 'undefined' && !newProps.clearBasket) {
+      this.props.fetch(this.props.basketId)
     }
   },
   render() {

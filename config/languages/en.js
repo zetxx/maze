@@ -7,6 +7,7 @@ export const en = {
   'Load': 'Load',
   'Edit': 'Edit',
   'CLOSE': 'CLOSE',
+  'Select': 'Select',
   'Disable': 'Disable',
   'Price': 'Price',
   'Piece': 'Piece',

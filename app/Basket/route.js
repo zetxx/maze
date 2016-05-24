@@ -7,12 +7,12 @@ repository.belongsTo(product)
 transaction.belongsTo(repository)
 transaction.belongsTo(basket)
 
-module.exports = function(registrar) {
+module.exports = (registrar) => {
   registrar({
     method: 'POST',
     path: '/api/basket/fill',
     config: {
-      handler: function (req, resp) {
+      handler: (req, resp) => {
         var b, rq
         rq = Object.assign({}, req.payload)
 
@@ -66,7 +66,7 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/basket/{basketId}',
     config: {
-      handler: function (req, resp) {
+      handler: (req, resp) => {
         transaction.findAll({
           where: {basketId: req.params.basketId},
           include: [{
@@ -85,6 +85,22 @@ module.exports = function(registrar) {
       },
       description: 'Get basket',
       notes: 'Get basket',
+      tags: ['api', 'get', 'product basket']
+    }
+  })
+
+  registrar({
+    method: 'DELETE',
+    path: '/api/basket',
+    config: {
+      handler: (req, resp) => {
+        basket
+        .update({closed: 1}, {where: {id: req.payload.basketId}})
+        .then(() => ({id: req.payload.basketId}))
+        .then(resp)
+      },
+      description: 'set basket as paid/closed',
+      notes: 'set basket as paid/closed',
       tags: ['api', 'get', 'product basket']
     }
   })
