@@ -8,6 +8,7 @@ module.exports = function(registrar) {
       handler: (req, resp) => {
         sequelize.query('SELECT \'en\' globalLanguage', {type: sequelize.QueryTypes.SELECT})
         .then(resp)
+        .catch(resp)
       },
       description: 'App configuration',
       notes: 'App configuration',

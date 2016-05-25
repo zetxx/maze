@@ -14,6 +14,7 @@ const Basket = React.createClass({
   propTypes: {
     products: React.PropTypes.array,
     fetch: React.PropTypes.func,
+    newBasket: React.PropTypes.func,
     id: React.PropTypes.number,
     basketId: React.PropTypes.any
   },
@@ -31,12 +32,16 @@ const Basket = React.createClass({
     }
   },
   componentWillReceiveProps(newProps) {
-    if (newProps.isNew) {
-      this.context.router.push(['/store', newProps.id].join('/'))
-    } else if (!isNaN(newProps.basketId) && newProps.basketId !== newProps.id && typeof (newProps.id) === 'undefined' && newProps.clearBasket) {
+    if (newProps.basketId === 0 || (newProps.basketId > 0 && newProps.id === 0)) {
       this.context.router.push('/store')
-    } else if (!isNaN(newProps.basketId) && newProps.basketId !== newProps.id && typeof (newProps.id) !== 'undefined' && !newProps.clearBasket) {
-      this.props.fetch(this.props.basketId)
+      this.props.newBasket()
+    } else if (!isNaN(newProps.basketId)) {
+      if (newProps.basketId !== this.props.basketId) {
+        this.props.fetch(newProps.basketId)
+      } else if ((newProps.action === 'new' || newProps.action === 'close') && newProps.basketId) {
+        this.context.router.push('/store')
+        this.props.newBasket()
+      }
     }
   },
   render() {
@@ -76,6 +81,9 @@ const Basket = React.createClass({
 export default connect(
   (state) => (state.basket),
   {
+    newBasket() {
+      return {type: 'NEW_BASKET'}
+    },
     fetch(basketId) {
       return {
         type: 'BASKET_FETCH',

@@ -78,7 +78,8 @@ module.exports = (registrar) => {
             }]
           }, {
             model: basket,
-            as: 'basket'
+            as: 'basket',
+            where: {closed: 0}
           }]
         })
         .then(resp)
@@ -101,7 +102,37 @@ module.exports = (registrar) => {
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',
-      tags: ['api', 'get', 'product basket']
+      tags: ['api', 'get', 'product basket'],
+      validate: {
+        payload: {
+          basketId: Joi.number().min(1).description('Basket group')
+        }
+      }
+    }
+  })
+
+  registrar({
+    method: 'POST',
+    path: '/api/basket/reassign',
+    config: {
+      handler: (req, resp) => {
+        transaction
+        .update({basketId: req.payload.to}, {where: {basketId: req.payload.from}})
+        .then(() => {
+          basket.update({closed: 1}, {where: {id: req.payload.from}})
+          return {to: req.payload.basketId}
+        })
+        .then(resp)
+      },
+      description: 'basket reassign',
+      notes: 'basket reassign',
+      tags: ['api', 'get', 'basket reassign'],
+      validate: {
+        payload: {
+          from: Joi.number().min(1).description('Basket id from group'),
+          to: Joi.number().min(1).description('Basket id to group')
+        }
+      }
     }
   })
 }

@@ -6,17 +6,17 @@ const basketDef = {
 
 export const basket = (state = basketDef, action) => {
   if (action.type === 'NEW_BASKET') {
-    return Object.assign({}, state, basketDef, {clearBasket: true, isNew: false})
+    return Object.assign({}, state, basketDef, {action: 'new'})
   }
   if (action.type === 'CLOSE_BASKET' && action.status === 'received') {
-    return Object.assign({}, state, basketDef, {clearBasket: true, isNew: false})
+    return Object.assign({}, state, basketDef, {action: 'close'})
   }
   if (action.type === 'BASKET_FETCH') {
     if (action.status === 'received') {
       return Object.assign({}, state, {
-        isNew: !state.id && !action.data.length,
-        id: action.data[0].basketId,
-        name: action.data[0].basket.name,
+        action: 'fetch',
+        id: action.data.length && action.data[0].basketId,
+        name: action.data.length && action.data[0].basket.name,
         products: action.data.map((data) => {
           return {
             transaction: {id: data.id, quantity: data.quantity},
@@ -30,7 +30,7 @@ export const basket = (state = basketDef, action) => {
   if (action.type === 'BASKET_ADD') {
     if (action.status === 'received') {
       return Object.assign({}, state, {
-        isNew: !state.id && !action.data.length,
+        action: 'add',
         id: action.data[0].basketId,
         name: action.data[0].basket.name,
         products: action.data.map((data) => {
