@@ -10,8 +10,6 @@ shop/bar/storage manager
 * run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
 
 ### ToDo
-- basket url
-- basket assignment
 - login
 - config
   - repository
