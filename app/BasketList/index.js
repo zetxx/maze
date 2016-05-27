@@ -42,13 +42,17 @@ const BasketList = React.createClass({
   assignTo(from) {
     let to = this.props.basket.id
     return () => {
-      this.props.reassign(from, to)
+      if (from !== to) {
+        this.props.reassign(from, to, 'to')
+      }
     }
   },
   assignFrom(to) {
     let from = this.props.basket.id
     return () => {
-      this.props.reassign(from, to)
+      if (from !== to) {
+        this.props.reassign(from, to, 'from')
+      }
     }
   },
   render() {
@@ -110,11 +114,11 @@ export default connect(
       json: true,
       body: {basketId}
     }}),
-    reassign: (from, to) => ({type: 'REASSIGN_BASKET', httpRequest: {
+    reassign: (from, to, direction) => ({type: 'REASSIGN_BASKET', httpRequest: {
       method: 'POST',
       url: '/api/basket/reassign',
       json: true,
       body: {from, to}
-    }})
+    }, direction: direction})
   }
 )(BasketList)

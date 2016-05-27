@@ -120,7 +120,7 @@ module.exports = (registrar) => {
         .update({basketId: req.payload.to}, {where: {basketId: req.payload.from}})
         .then(() => {
           basket.update({closed: 1}, {where: {id: req.payload.from}})
-          return {to: req.payload.basketId}
+          return {to: req.payload.to}
         })
         .then(resp)
       },

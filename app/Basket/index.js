@@ -41,7 +41,15 @@ const Basket = React.createClass({
       } else if ((newProps.action === 'new' || newProps.action === 'close') && newProps.basketId) {
         this.context.router.push('/store')
         this.props.newBasket()
+      } else if (newProps.action === 'reassign') {
+        if (newProps.basketId === newProps.id) {
+          this.props.fetch(newProps.basketId)
+        } else if (newProps.basketId !== newProps.id) {
+          this.context.router.push(['/store', newProps.id].join('/'))
+        }
       }
+    } else if (isNaN(newProps.basketId) && newProps.id) {
+      this.context.router.push(['/store', newProps.id].join('/'))
     }
   },
   render() {
