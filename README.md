@@ -10,6 +10,12 @@ shop/bar/storage manager
 * run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
 
 ### ToDo
+- add product enchantment
+  - negative value should be allowed
+    - do update
+      - if nothing is returned add the product
+      - if something is returned
+        - delete item only if result is <= 0
 - login
 - config
   - repository
