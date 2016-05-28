@@ -34,19 +34,22 @@ export const basket = (state = basketDef, action) => {
   }
   if (action.type === 'BASKET_ADD') {
     if (action.status === 'received') {
-      return Object.assign({}, state, {
-        action: 'add',
-        direction: '',
-        id: action.data[0].basketId,
-        name: action.data[0].basket.name,
-        products: action.data.map((data) => {
-          return {
-            transaction: {id: data.id, quantity: data.quantity},
-            repository: {price: data.repository.price, quantityType: data.repository.quantityType},
-            product: data.repository.product
-          }
+      if (action.data && action.data[0]) {
+        return Object.assign({}, state, {
+          action: 'add',
+          direction: '',
+          id: action.data[0].basketId,
+          name: action.data[0].basket.name,
+          products: action.data.map((data) => {
+            return {
+              transaction: {id: data.id, quantity: data.quantity},
+              repository: {price: data.repository.price, quantityType: data.repository.quantityType},
+              product: data.repository.product
+            }
+          })
         })
-      })
+      }
+      return state
     }
   }
   return state

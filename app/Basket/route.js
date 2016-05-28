@@ -3,6 +3,7 @@ const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
 const repository = require('../Management/Repository/model')
 const product = require('../Management/Product/model')
+const sequelize = require('../../config/db')
 repository.belongsTo(product)
 transaction.belongsTo(repository)
 transaction.belongsTo(basket)
@@ -27,7 +28,22 @@ module.exports = (registrar) => {
               return transaction.create(rq)
             })
         } else {
-          b = transaction.create(rq)
+          b = transaction
+          .update({quantity: sequelize.literal(`quantity +${rq.quantity}`)}, {where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
+          .then((r) => {
+            if (r[0] > 0) {
+              return transaction
+                .find({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}, attributes: ['quantity']})
+                .then((r) => {
+                  if (r.dataValues.quantity <= 0) {
+                    return transaction.destroy({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
+                  }
+                  return true
+                })
+            } else {
+              return transaction.create(rq)
+            }
+          })
         }
 
         b
@@ -55,7 +71,7 @@ module.exports = (registrar) => {
       validate: {
         payload: {
           repositoryId: Joi.number().min(1).required().description('repository Id'),
-          quantity: Joi.number().min(1).required().description('Quantity bought'),
+          quantity: Joi.number().precision(5).required().description('Quantity bought'),
           basketId: Joi.number().min(1).description('Basket group')
         }
       }
