@@ -4,4 +4,4 @@ WORKDIR "/usr/src/app"
 COPY app .
 RUN npm i
 
-CMD ["node", "."]
+CMD ["npm", "run", "server"]
