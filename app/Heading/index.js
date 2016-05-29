@@ -44,9 +44,9 @@ const Heading = React.createClass({
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem primaryText={<FormattedMessage id='Store' />} onTouchTap={this.navTo('/store')} />
-            <MenuItem primaryText={<FormattedMessage id='Manage Producst' />} onTouchTap={this.navTo('/manage/product')} />
-            <MenuItem primaryText={<FormattedMessage id='Manage Config' />} />
-            <MenuItem primaryText={<FormattedMessage id='Manage Users' />} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Producst' />} onTouchTap={this.navTo('/manage/products')} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Config' />} onTouchTap={this.navTo('/manage/config')} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Users' />} onTouchTap={this.navTo('/manage/users')} />
           </IconMenu>
         }
       />

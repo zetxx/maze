@@ -28,7 +28,9 @@ ReactDOM.render(
       <Route path='/' component={Main}>
         <Route path='store' component={Store} />
         <Route path='store/:basketId' component={Store} />
-        <Route path='manage/product' component={ProductManagement} />
+        <Route path='manage'>
+          <Route path='products' component={ProductManagement} />
+        </Route>
       </Route>
     </Router>
   </Provider>,
