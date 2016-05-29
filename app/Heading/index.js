@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import AppBar from 'material-ui/AppBar'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -42,10 +43,10 @@ const Heading = React.createClass({
             targetOrigin={{horizontal: 'right', vertical: 'bottom'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
-            <MenuItem primaryText='Store' onTouchTap={this.navTo('/store')} />
-            <MenuItem primaryText='Manage Producst' onTouchTap={this.navTo('/manage/product')} />
-            <MenuItem primaryText='Manage Config' />
-            <MenuItem primaryText='Manage Users' />
+            <MenuItem primaryText={<FormattedMessage id='Store' />} onTouchTap={this.navTo('/store')} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Producst' />} onTouchTap={this.navTo('/manage/product')} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Config' />} />
+            <MenuItem primaryText={<FormattedMessage id='Manage Users' />} />
           </IconMenu>
         }
       />
