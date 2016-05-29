@@ -9,7 +9,7 @@ import reducers from './reducers'
 import {request} from './middlewares'
 import Main from './Main'
 import Store from './Store'
-import Management from './Management'
+import ProductManagement from './ProductManagement'
 
 injectTapEventPlugin()
 
@@ -28,7 +28,7 @@ ReactDOM.render(
       <Route path='/' component={Main}>
         <Route path='store' component={Store} />
         <Route path='store/:basketId' component={Store} />
-        <Route path='manage' component={Management} />
+        <Route path='manage/product' component={ProductManagement} />
       </Route>
     </Router>
   </Provider>,

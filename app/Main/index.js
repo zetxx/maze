@@ -4,7 +4,7 @@ import {IntlProvider} from 'react-intl'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
-import Navigation from '../Navigation'
+import Heading from '../Heading'
 import Languages from '../../config/languages'
 
 const Gate = React.createClass({
@@ -36,10 +36,10 @@ const Gate = React.createClass({
       return (
         <IntlProvider locale={this.props.siteConfig.globalLanguage} messages={Languages[this.props.siteConfig.globalLanguage]}>
           <div>
+            <Heading />
             {this.props.children}
             <PrefetchDialog />
             <ErrorDialog />
-            <Navigation />
           </div>
         </IntlProvider>
       )
