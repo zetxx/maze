@@ -1,4 +1,5 @@
 export const en = {
+  '-': '-',
   'Quantity': 'Quantity',
   'Total': 'Total',
   'pwfwfd': 'Please wait for a while, fetching data',
@@ -19,9 +20,10 @@ export const en = {
   'How much?': 'How much?',
   'Product Search': 'Product Search',
   'Basket': 'Basket',
-  'Manage Users': 'Manage Users',
-  'Manage Config': 'Manage Config',
+  'Users': 'Users',
+  'Config': 'Config',
   'Manage Producst': 'Manage Producst',
+  'Product Management': 'Product Management',
   'Baskets/Clients': 'Baskets/Clients',
   'Kilograms': 'Kg',
   'grams': 'g',

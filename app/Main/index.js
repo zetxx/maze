@@ -4,8 +4,12 @@ import {IntlProvider} from 'react-intl'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
-import Heading from '../Heading'
+import heading from '../Heading'
 import Languages from '../../config/languages'
+
+const Heading = connect(
+  (state) => (state.heading)
+)(heading)
 
 const Gate = React.createClass({
   contextTypes: {

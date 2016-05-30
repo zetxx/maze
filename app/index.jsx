@@ -10,6 +10,8 @@ import {request} from './middlewares'
 import Main from './Main'
 import Store from './Store'
 import ProductManagement from './ProductManagement'
+import Config from './Config'
+import Users from './Users'
 
 injectTapEventPlugin()
 
@@ -30,6 +32,8 @@ ReactDOM.render(
         <Route path='store/:basketId' component={Store} />
         <Route path='manage'>
           <Route path='products' component={ProductManagement} />
+          <Route path='config' component={Config} />
+          <Route path='users' component={Users} />
         </Route>
       </Route>
     </Router>

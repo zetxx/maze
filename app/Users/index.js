@@ -1,22 +1,19 @@
 import React from 'react'
-import Product from './Product'
 import {connect} from 'react-redux'
 import {setTitle} from '../Heading/actions'
-import ProductCat from './ProductCat'
+// import {FormattedMessage} from 'react-intl'
 
-const Management = React.createClass({
+const Users = React.createClass({
   propTypes: {
     setTitle: React.PropTypes.func
   },
   componentDidMount() {
-    this.props.setTitle('Product Management')
+    this.props.setTitle('Users')
   },
   render() {
     return (
       <div>
-        <Product />
-        <br />
-        <ProductCat />
+        Users
       </div>
     )
   }
@@ -25,4 +22,4 @@ const Management = React.createClass({
 export default connect(
   null,
   {setTitle}
-)(Management)
+)(Users)

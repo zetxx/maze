@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {FormattedMessage} from 'react-intl'
 import AppBar from 'material-ui/AppBar'
 import IconMenu from 'material-ui/IconMenu'
@@ -13,8 +12,7 @@ const Heading = React.createClass({
     router: React.PropTypes.object
   },
   propTypes: {
-    open: React.PropTypes.bool,
-    toggle: React.PropTypes.func
+    title: React.PropTypes.string
   },
   navTo(path) {
     if (!path.bubbles) {
@@ -27,7 +25,7 @@ const Heading = React.createClass({
     return (
       <AppBar
         style={{marginBottom: '10px'}}
-        title='--------------'
+        title={<FormattedMessage id={this.props.title} />}
         showMenuIconButton={false}
         iconElementRight={
           <IconMenu
@@ -45,8 +43,8 @@ const Heading = React.createClass({
           >
             <MenuItem primaryText={<FormattedMessage id='Store' />} onTouchTap={this.navTo('/store')} />
             <MenuItem primaryText={<FormattedMessage id='Manage Producst' />} onTouchTap={this.navTo('/manage/products')} />
-            <MenuItem primaryText={<FormattedMessage id='Manage Config' />} onTouchTap={this.navTo('/manage/config')} />
-            <MenuItem primaryText={<FormattedMessage id='Manage Users' />} onTouchTap={this.navTo('/manage/users')} />
+            <MenuItem primaryText={<FormattedMessage id='Config' />} onTouchTap={this.navTo('/manage/config')} />
+            <MenuItem primaryText={<FormattedMessage id='Users' />} onTouchTap={this.navTo('/manage/users')} />
           </IconMenu>
         }
       />
@@ -54,6 +52,4 @@ const Heading = React.createClass({
   }
 })
 
-export default connect(
-)(Heading)
-
+export default Heading

@@ -3,6 +3,7 @@ import {productAdd, products} from './ProductManagement/Product/reducers'
 import {repository} from './ProductManagement/Repository/reducers'
 import {storeProductSearch, quantitySelection} from './StoreProductSearch/reducers'
 import {basket} from './Basket/reducers'
+import {heading} from './Heading/reducers'
 import {basketList} from './BasketList/reducers'
 import {siteConfig} from './Main/reducers'
 
@@ -17,6 +18,7 @@ export default {
   basket,
   basketList,
   siteConfig,
+  heading,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return state

@@ -7,15 +7,20 @@ import Paper from 'material-ui/Paper'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import BasketList from '../BasketList'
+import {setTitle} from '../Heading/actions'
 import Search from '../StoreProductSearch'
 import Basket from '../Basket'
 
 const Sell = React.createClass({
   propTypes: {
     params: React.PropTypes.object,
+    setTitle: React.PropTypes.func,
     activeBasket: React.PropTypes.object,
     newBasket: React.PropTypes.func,
     toggleNavigation: React.PropTypes.func
+  },
+  componentDidMount() {
+    this.props.setTitle('Store')
   },
   render() {
     return (
@@ -47,6 +52,7 @@ export default connect(
   (state) => ({activeBasket: state.basket}),
   {
     toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'}),
-    newBasket: () => ({type: 'NEW_BASKET'})
+    newBasket: () => ({type: 'NEW_BASKET'}),
+    setTitle
   }
 )(Sell)
