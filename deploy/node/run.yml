@@ -1,11 +1,7 @@
 #test
 sudo docker run -it -d \
--p 3306:3306 \
---name maza-db \
+--name maze \
+--link maze-db \
 --restart=unless-stopped \
--v /store/data/maze/db:/var/lib/mysql \
--e MYSQL_ROOT_PASSWORD=123 \
--e MYSQL_DATABASE=maze \
--e MYSQL_USER=db \
--e MYSQL_PASSWORD=123 \
-hypriot/rpi-mysql
+-e NODE_ENV=test \
+maze
