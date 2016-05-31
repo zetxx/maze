@@ -41,7 +41,6 @@ export const en = {
   'Product category add': 'Product category add',
   'Product add': 'Product add',
   'Product name': 'Product name',
-  'Cancel': 'Cancel',
   'Assign from': 'Assign from',
   'Close/Paid': 'Close/Paid',
   'Assign to': 'Assign to',
