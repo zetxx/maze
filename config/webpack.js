@@ -3,8 +3,8 @@ var path = require('path')
 const settings = {
   entry: './app/index.jsx',
   output: {
-    filename: 'index.js'
-    path: path: path.resolve('./public/src/'),
+    filename: 'index.js',
+    path: path.resolve('./public/src/'),
     publicPath: '/src/'
   }
 }
@@ -79,7 +79,7 @@ module.exports = {
       })
     }
   },
-  build: (props) => {
+  build: () => {
     const Webpack = require('webpack')
     const wpconf = {
       entry: ['babel-polyfill', settings.entry],
@@ -109,21 +109,21 @@ module.exports = {
         ]
       },
       plugins: [
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
+        new Webpack.optimize.DedupePlugin(),
+        new Webpack.optimize.OccurrenceOrderPlugin(),
+        new Webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+          }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
+        new Webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
         })
       ]
     }
-    const compiler = new Webpack(wpconf, (err, stat) => {
+    return new Webpack(wpconf, (err, stat) => {
       if (err) {
         return console.error(err)
       } else {
