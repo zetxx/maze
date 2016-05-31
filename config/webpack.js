@@ -123,6 +123,12 @@ module.exports = {
         })
       ]
     }
-    const compiler = new Webpack(wpconf)
+    const compiler = new Webpack(wpconf, (err, stat) => {
+      if (err) {
+        return console.error(err)
+      } else {
+        console.info('Webpack Done')
+      }
+    })
   }
 }
