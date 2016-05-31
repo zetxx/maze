@@ -1,5 +1,13 @@
 const config = require('./server.js')
 var path = require('path')
+const settings = {
+  entry: './app/index.jsx',
+  output: {
+    filename: 'index.js'
+    path: path: path.resolve('./public/src/'),
+    publicPath: '/src/'
+  }
+}
 
 module.exports = {
   watch: (server) => {
@@ -7,13 +15,9 @@ module.exports = {
       const Webpack = require('webpack')
       const wpconf = {
         devtool: 'cheap-module-eval-source-map',
-        entry: ['babel-polyfill', 'webpack-hot-middleware/client', './app/index.jsx'],
+        entry: ['babel-polyfill', 'webpack-hot-middleware/client', settings.entry],
         // entry: { index: './app/index.jsx' },
-        output: {
-          filename: 'index.js',
-          path: path.resolve('./public/src/'),
-          publicPath: '/src/'
-        },
+        output: settings.output,
         name: 'browser',
         bail: true,
         node: {
@@ -28,7 +32,6 @@ module.exports = {
               exclude: /(node_modules|bower_components)/,
               loader: 'babel', // 'babel-loader' is also a legal name to reference
               query: {
-                // cacheDirectory: true,
                 presets: ['es2015', 'stage-0', 'react', 'react-hmre']
               }
             },
@@ -76,5 +79,50 @@ module.exports = {
       })
     }
   },
-  build: (props) => { }
+  build: (props) => {
+    const Webpack = require('webpack')
+    const wpconf = {
+      entry: ['babel-polyfill', settings.entry],
+      output: settings.output,
+      name: 'browser',
+      bail: true,
+      node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel', // 'babel-loader' is also a legal name to reference
+            query: {
+              presets: ['es2015', 'stage-0', 'react']
+            }
+          },
+          {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'},
+          {test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
+          {test: /\.json$/, loader: 'json'},
+          {test: /.*\.(gif|png|jpe?g|svg)$/i, loaders: ['url-loader?limit=30720000']},
+          {test: /\.css$/, loader: 'style-loader!css-loader'}
+        ]
+      },
+      plugins: [
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+      ]
+    }
+    const compiler = new Webpack(wpconf)
+  }
 }
