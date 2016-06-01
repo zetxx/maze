@@ -1,11 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {IntlProvider} from 'react-intl'
+import {IntlProvider, addLocaleData} from 'react-intl'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 import heading from '../Heading'
 import Languages from '../../config/languages'
+import {fetchSiteConfig} from '../Config/actions'
+import bg from 'react-intl/locale-data/bg'
+import en from 'react-intl/locale-data/en'
+addLocaleData([...en, ...bg])
 
 const Heading = connect(
   (state) => (state.heading)
@@ -54,11 +58,5 @@ const Gate = React.createClass({
 
 export default connect(
   (state) => ({siteConfig: state.siteConfig}),
-  {
-    fetchSiteConfig: () => ({type: 'FETCH_SITE_CONFIG', httpRequest: {
-      method: 'GET',
-      url: '/api/config',
-      json: true
-    }})
-  }
+  {fetchSiteConfig}
 )(Gate)

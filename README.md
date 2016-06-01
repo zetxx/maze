@@ -10,6 +10,7 @@ shop/bar/storage manager
 * run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
 
 ### ToDo
+- translations hot reload should work
 - bundle build
 - login
 - config

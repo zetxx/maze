@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {setTitle} from '../Heading/actions'
+import {updateConfig, fetchSiteConfig} from '../Config/actions'
 import {Card, CardActions, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
@@ -9,13 +10,22 @@ import {FormattedMessage} from 'react-intl'
 
 const Config = React.createClass({
   propTypes: {
-    setTitle: React.PropTypes.func
+    siteConfig: React.PropTypes.object,
+    updatedConfig: React.PropTypes.object,
+    fetchSiteConfig: React.PropTypes.func,
+    setTitle: React.PropTypes.func,
+    updateConfig: React.PropTypes.func
   },
   getInitialState() {
-    this.state = {globalLanguage: 'en'}
+    return {globalLanguage: this.props.siteConfig.globalLanguage}
   },
   componentDidMount() {
     this.props.setTitle('Config')
+  },
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.updatedConfig.data && nextProps.updatedConfig.data.indexOf('globalLanguage') >= 0 && this.props.updatedConfig !== nextProps.updatedConfig) {
+      this.props.fetchSiteConfig()
+    }
   },
   handleChange(el) {
     return (event, index, value) => {
@@ -23,6 +33,11 @@ const Config = React.createClass({
       state[el] = value
       this.setState(state)
     }
+  },
+  updateConfig() {
+    this.props.updateConfig({
+      globalLanguage: this.state.globalLanguage
+    })
   },
   render() {
     return (
@@ -35,7 +50,7 @@ const Config = React.createClass({
         </CardText>
         <CardActions>
           <FlatButton label={<FormattedMessage id='Cancel' />} />
-          <FlatButton label={<FormattedMessage id='Save' />} />
+          <FlatButton onTouchTap={this.updateConfig} label={<FormattedMessage id='Save' />} />
         </CardActions>
       </Card>
     )
@@ -43,6 +58,6 @@ const Config = React.createClass({
 })
 
 export default connect(
-  null,
-  {setTitle}
+  (state) => ({siteConfig: state.siteConfig, updatedConfig: state.updatedConfig}),
+  {setTitle, updateConfig, fetchSiteConfig}
 )(Config)
