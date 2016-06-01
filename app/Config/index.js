@@ -11,6 +11,9 @@ const Config = React.createClass({
   propTypes: {
     setTitle: React.PropTypes.func
   },
+  getInitialState() {
+    this.state = {globalLanguage: 'en'}
+  },
   componentDidMount() {
     this.props.setTitle('Config')
   },
@@ -22,11 +25,10 @@ const Config = React.createClass({
     }
   },
   render() {
-    var globalLanguage = this.state && this.state.globalLanguage || 'en'
     return (
       <Card>
         <CardText>
-          <SelectField floatingLabelText={<FormattedMessage id='Global language' />} style={{margin: '0 10px 10px 0'}} value={globalLanguage} ref='globalLanguage' onChange={this.handleChange('globalLanguage')}>
+          <SelectField floatingLabelText={<FormattedMessage id='Global language' />} style={{margin: '0 10px 10px 0'}} value={this.state.globalLanguage} ref='globalLanguage' onChange={this.handleChange('globalLanguage')}>
             <MenuItem value='en' primaryText={<FormattedMessage id='English' />} />
             <MenuItem value='bg' primaryText={<FormattedMessage id='Bulgarian' />} />
           </SelectField>
