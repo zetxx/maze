@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedHTMLMessage} from 'react-intl'
+import {TranslateHTML} from '../Translation'
 import {connect} from 'react-redux'
 import Menu from 'material-ui/Menu/Menu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
@@ -28,7 +28,7 @@ const SearchResults = React.createClass({
         <Menu ref='menu' animateds desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
           {this.props.data.map((data, idx) => {
             return (
-              <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={<span>{data.price} <FormattedHTMLMessage id='_currency' /> '/' {data.quantityType}</span>} />
+              <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={<span>{data.price} <TranslateHTML id='_currency' /> '/' {data.quantityType}</span>} />
             )
           })}
         </Menu>

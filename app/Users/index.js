@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {setTitle} from '../Heading/actions'
-// import {FormattedMessage} from 'react-intl'
 
 const Users = React.createClass({
   propTypes: {

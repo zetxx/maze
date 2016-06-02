@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
+import {Translate} from '../../Translation'
 
 const ProductCatAdd = React.createClass({
   propTypes: {
@@ -30,23 +30,23 @@ const ProductCatAdd = React.createClass({
   render() {
     const actions = [
       <FlatButton
-        label={<FormattedMessage id='Cancel' />}
+        label={<Translate id='Cancel' />}
         secondary
         onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
-        label={<FormattedMessage id='Submit' />}
+        label={<Translate id='Submit' />}
         primary
         onTouchTap={this.add}
       />
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title={<FormattedMessage id='Product category add' />} modal open={this.props.productCatAdd.open}>
+      <Dialog ref='dialog' actions={actions} title={<Translate id='Product category add' />} modal open={this.props.productCatAdd.open}>
         <TextField
           ref='name'
-          hintText={<FormattedMessage id='Category name' />}
-          floatingLabelText={<FormattedMessage id='Category name' />}
+          hintText={<Translate id='Category name' />}
+          floatingLabelText={<Translate id='Category name' />}
           errorText={this.props.productCatAdd.fieldError.name}
         />
       </Dialog>

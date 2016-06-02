@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import QuantityType from './QuantityType.js'
+import {Translate} from '../../Translation'
 
 const Repository = React.createClass({
   propTypes: {
@@ -37,30 +37,30 @@ const Repository = React.createClass({
   render() {
     const actions = [
       <FlatButton
-        label={<FormattedMessage id='Cancel' />}
+        label={<Translate id='Cancel' />}
         secondary
         onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
-        label={<FormattedMessage id='Submit' />}
+        label={<Translate id='Submit' />}
         primary
         onTouchTap={this.add}
       />
     ]
 
     return (
-      <Dialog actions={actions} title={<FormattedMessage id='Load' />} modal open={this.props.repository.open}>
+      <Dialog actions={actions} title={<Translate id='Load' />} modal open={this.props.repository.open}>
         <TextField
           ref='quantity'
-          hintText={<FormattedMessage id='Quantity' />}
-          floatingLabelText={<FormattedMessage id='Quantity' />}
+          hintText={<Translate id='Quantity' />}
+          floatingLabelText={<Translate id='Quantity' />}
           errorText={this.props.repository.fieldError.quantity}
         />
         <QuantityType ref='quantityType' />
         <TextField
           ref='price'
-          hintText={<FormattedMessage id='Price' />}
-          floatingLabelText={<FormattedMessage id='Price' />}
+          hintText={<Translate id='Price' />}
+          floatingLabelText={<Translate id='Price' />}
           errorText={this.props.repository.fieldError.price}
         />
       </Dialog>

@@ -1,9 +1,9 @@
 import React from 'react'
-import {FormattedMessage} from 'react-intl'
 import {connect} from 'react-redux'
 import TextField from 'material-ui/TextField'
 import SearchResults from './SearchResults'
 import QuantitySelection from './quantitySelection'
+import {Translate} from '../Translation'
 
 var a = []
 
@@ -47,7 +47,7 @@ const StoreProductSearch = React.createClass({
           <TextField
             style={{width: '600px'}}
             ref='search'
-            floatingLabelText={<FormattedMessage id='Product Search' />}
+            floatingLabelText={<Translate id='Product Search' />}
             onFocus={this.handleFocus}
             onChange={this.handleChange}
           />

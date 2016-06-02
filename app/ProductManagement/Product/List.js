@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
 import Card from 'material-ui/Card/Card'
 import Add from './Add'
 import Repository from '../Repository'
+import {Translate} from '../../Translation'
 import AppBar from 'material-ui/AppBar/AppBar'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
@@ -29,18 +29,18 @@ class Product extends React.Component {
       <div>
         <Card>
           <AppBar
-            title={<FormattedMessage id='Product' />}
-            iconElementRight={<FlatButton label={<FormattedMessage id='Add' />} onTouchTap={this.props.add} />}
+            title={<Translate id='Product' />}
+            iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
           />
 
           <Table>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
-                <TableHeaderColumn><FormattedMessage id='Name' /></TableHeaderColumn>
-                <TableHeaderColumn><FormattedMessage id='Category' /></TableHeaderColumn>
-                <TableHeaderColumn style={{width: '150px'}}><FormattedMessage id='Quantity' /></TableHeaderColumn>
-                <TableHeaderColumn style={{width: '150px'}}><FormattedMessage id='Price' /></TableHeaderColumn>
-                <TableHeaderColumn style={{width: '150px'}}><FormattedMessage id='Operations' /></TableHeaderColumn>
+                <TableHeaderColumn><Translate id='Name' /></TableHeaderColumn>
+                <TableHeaderColumn><Translate id='Category' /></TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}><Translate id='Quantity' /></TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}><Translate id='Price' /></TableHeaderColumn>
+                <TableHeaderColumn style={{width: '150px'}}><Translate id='Operations' /></TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
@@ -51,9 +51,9 @@ class Product extends React.Component {
                   <TableHeaderColumn style={{width: '150px'}}>{el.quantity}</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>{el.price}</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
-                    <IconButton title={<FormattedMessage id='Load' />} onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>
-                    <IconButton><EditIcon title={<FormattedMessage id='Edit' />} /></IconButton>
-                    <IconButton><EjectIcon title={<FormattedMessage id='Disable' />} /></IconButton>
+                    <IconButton title={<Translate id='Load' />} onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>
+                    <IconButton><EditIcon title={<Translate id='Edit' />} /></IconButton>
+                    <IconButton><EjectIcon title={<Translate id='Disable' />} /></IconButton>
                   </TableRowColumn>
                 </TableRow>
               ))}

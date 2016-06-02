@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedHTMLMessage, FormattedMessage} from 'react-intl'
+import {Translate, TranslateHTML} from '../Translation'
 import {List, ListItem} from 'material-ui/List'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -69,16 +69,16 @@ const BasketList = React.createClass({
                   anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                   targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 >
-                  <MenuItem onTouchTap={this.select(el.id)} primaryText={<FormattedMessage id='Select' />} />
-                  <MenuItem onTouchTap={this.assignTo(el.id)} primaryText={<FormattedMessage id='Assign to' />} />
-                  <MenuItem onTouchTap={this.assignFrom(el.id)} primaryText={<FormattedMessage id='Assign from' />} />
-                  <MenuItem onTouchTap={this.close(el.id)} primaryText={<FormattedMessage id='Close/Paid' />} />
+                  <MenuItem onTouchTap={this.select(el.id)} primaryText={<Translate id='Select' />} />
+                  <MenuItem onTouchTap={this.assignTo(el.id)} primaryText={<Translate id='Assign to' />} />
+                  <MenuItem onTouchTap={this.assignFrom(el.id)} primaryText={<Translate id='Assign from' />} />
+                  <MenuItem onTouchTap={this.close(el.id)} primaryText={<Translate id='Close/Paid' />} />
                 </IconMenu>
               </CardActions>
               <CardHeader
                 subtitle={<span>{(Math.round(el.products.reduce((pv, cv) => {
                   return pv + (cv.price * cv.quantity)
-                }, 0) * 100) / 100).toString()} <FormattedHTMLMessage id='_currency' /></span>}
+                }, 0) * 100) / 100).toString()} <TranslateHTML id='_currency' /></span>}
                 actAsExpander showExpandableButton
               />
               <CardText expandable>
@@ -87,7 +87,7 @@ const BasketList = React.createClass({
                     return <ListItem
                       key={idx}
                       primaryText={el.name}
-                      secondaryText={<span>{Math.round((el.price * el.quantity) * 100) / 100} <FormattedHTMLMessage id='_currency' /></span>}
+                      secondaryText={<span>{Math.round((el.price * el.quantity) * 100) / 100} <TranslateHTML id='_currency' /></span>}
                     />
                   })}
                 </List>

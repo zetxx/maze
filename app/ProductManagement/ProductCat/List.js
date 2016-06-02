@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
 import Card from 'material-ui/Card/Card'
 import Add from './Add'
 import AppBar from 'material-ui/AppBar/AppBar'
@@ -9,6 +8,7 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import {Translate} from '../../Translation'
 
 class ProductCat extends React.Component {
   componentDidMount() {
@@ -19,15 +19,15 @@ class ProductCat extends React.Component {
       <div>
         <Card>
           <AppBar
-            title={<FormattedMessage id='Product Category' />}
-            iconElementRight={<FlatButton label={<FormattedMessage id='Add' />} onTouchTap={this.props.add} />}
+            title={<Translate id='Product Category' />}
+            iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
           />
 
           <Table>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
-                <TableHeaderColumn><FormattedMessage id='Name' /></TableHeaderColumn>
-                <TableHeaderColumn style={{width: '100px'}}><FormattedMessage id='Operations' /></TableHeaderColumn>
+                <TableHeaderColumn><Translate id='Name' /></TableHeaderColumn>
+                <TableHeaderColumn style={{width: '100px'}}><Translate id='Operations' /></TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>

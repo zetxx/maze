@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
 import Product from './product'
 import Table from 'material-ui/Table/Table'
 import TableHeaderColumn from 'material-ui/Table/TableHeaderColumn'
@@ -69,9 +68,9 @@ const Basket = React.createClass({
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><FormattedMessage id='Quantity' /></TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><FormattedMessage id='Price' /></TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><FormattedMessage id='Total' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '100px'}}><Translate id='Quantity' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '100px'}}><Translate id='Price' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '100px'}}><Translate id='Total' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '30px'}}>&nbsp;</TableHeaderColumn>
             </TableRow>
           </TableHeader>

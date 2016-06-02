@@ -6,7 +6,7 @@ import {Card, CardActions, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import {FormattedMessage} from 'react-intl'
+import {Translate} from '../Translation'
 
 const Config = React.createClass({
   propTypes: {
@@ -43,14 +43,14 @@ const Config = React.createClass({
     return (
       <Card>
         <CardText>
-          <SelectField floatingLabelText={<FormattedMessage id='Global language' />} style={{margin: '0 10px 10px 0'}} value={this.state.globalLanguage} ref='globalLanguage' onChange={this.handleChange('globalLanguage')}>
-            <MenuItem value='en' primaryText={<FormattedMessage id='English' />} />
-            <MenuItem value='bg' primaryText={<FormattedMessage id='Bulgarian' />} />
+          <SelectField floatingLabelText={<Translate id='Global language' />} style={{margin: '0 10px 10px 0'}} value={this.state.globalLanguage} ref='globalLanguage' onChange={this.handleChange('globalLanguage')}>
+            <MenuItem value='en' primaryText={<Translate id='English' />} />
+            <MenuItem value='bg' primaryText={<Translate id='Bulgarian' />} />
           </SelectField>
         </CardText>
         <CardActions>
-          <FlatButton label={<FormattedMessage id='Cancel' />} />
-          <FlatButton onTouchTap={this.updateConfig} label={<FormattedMessage id='Save' />} />
+          <FlatButton label={<Translate id='Cancel' />} />
+          <FlatButton onTouchTap={this.updateConfig} label={<Translate id='Save' />} />
         </CardActions>
       </Card>
     )

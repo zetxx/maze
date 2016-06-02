@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {FormattedMessage} from 'react-intl'
+import {Translate} from '../../Translation'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
@@ -31,30 +31,30 @@ const ProductAdd = React.createClass({
   render() {
     const actions = [
       <FlatButton
-        label={<FormattedMessage id='Cancel' />}
+        label={<Translate id='Cancel' />}
         secondary
         onTouchTap={this.props.cancelToggle}
       />,
       <FlatButton
-        label={<FormattedMessage id='Submit' />}
+        label={<Translate id='Submit' />}
         primary
         onTouchTap={this.add}
       />
     ]
 
     return (
-      <Dialog actions={actions} title={<FormattedMessage id='Product add' />} modal open={this.props.productAdd.open}>
+      <Dialog actions={actions} title={<Translate id='Product add' />} modal open={this.props.productAdd.open}>
         <TextField
           ref='name'
-          hintText={<FormattedMessage id='Product name' />}
-          floatingLabelText={<FormattedMessage id='Product name' />}
+          hintText={<Translate id='Product name' />}
+          floatingLabelText={<Translate id='Product name' />}
           errorText={this.props.productAdd.fieldError.name}
         />
         <ProductCat ref='category' value={1} />
         <TextField
           ref='description'
-          hintText={<FormattedMessage id='Product description' />}
-          floatingLabelText={<FormattedMessage id='Product description' />}
+          hintText={<Translate id='Product description' />}
+          floatingLabelText={<Translate id='Product description' />}
           errorText={this.props.productAdd.fieldError.description}
         />
       </Dialog>
