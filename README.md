@@ -10,8 +10,6 @@ shop/bar/storage manager
 * run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
 
 ### ToDo
-- bundle build
-- login
 - config
   - repository
     - add quantity per store
@@ -20,3 +18,4 @@ shop/bar/storage manager
     - global language
     - user language
   - ability to add stores
+- login
