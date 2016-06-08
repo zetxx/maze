@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Translate} from '../Translation'
 import Product from './product'
 import Table from 'material-ui/Table/Table'
 import TableHeaderColumn from 'material-ui/Table/TableHeaderColumn'
