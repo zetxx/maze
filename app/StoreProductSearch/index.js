@@ -53,7 +53,7 @@ const StoreProductSearch = React.createClass({
           />
         </div>
 
-        <SearchResults getPosition={this.getPosition} />
+        <SearchResults getPosition={this.getPosition} focusSearch={this.focus} />
         <QuantitySelection focusSearch={this.focus} />
       </div>
     )

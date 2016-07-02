@@ -13,7 +13,7 @@ shop/bar/storage manager
 - config
   - repository
     - add quantity per store
-    - field for bar code
+    - ~~field for bar code~~
   - global config
     - global language
     - user language

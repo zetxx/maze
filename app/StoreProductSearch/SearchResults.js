@@ -12,11 +12,16 @@ const SearchResults = React.createClass({
     getPosition: React.PropTypes.func,
     quantitySelectToggle: React.PropTypes.func,
     focus: React.PropTypes.func,
+    focusSearch: React.PropTypes.func,
     open: React.PropTypes.bool
   },
   handleSelect(a, b, idx) {
     this.props.quantitySelectToggle(this.props.data[idx])
     this.props.clearSearch()
+  },
+  handleRequestClose() {
+    this.props.clearSearch()
+    setTimeout(this.props.focusSearch, 10)
   },
   render() {
     if (!this.props.data || !this.props.data.length) {
@@ -24,8 +29,8 @@ const SearchResults = React.createClass({
     }
 
     return (
-      <Popover open style={this.props.getPosition()}>
-        <Menu ref='menu' animateds desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
+      <Popover open style={this.props.getPosition()} onRequestClose={this.handleRequestClose}>
+        <Menu ref='menu' desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
           {this.props.data.map((data, idx) => {
             return (
               <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={<span>{data.price} <TranslateHTML id='_currency' /> '/' {data.quantityType}</span>} />
