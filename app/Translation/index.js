@@ -9,11 +9,11 @@ class translate extends React.Component {
   }
   getTranslation() {
     if (!this.props.language) {
-      throw new Error(`no language ${this.props.language} defined`)
+      throw new Error(`no language "${this.props.language}" defined`)
     } else if (!Languages[this.props.language]) {
-      throw new Error(`no messages defined for language ${this.props.language}`)
+      throw new Error(`no messages defined for language "${this.props.language}"`)
     } else if (!Languages[this.props.language][this.props.id]) {
-      throw new Error(`no id ${this.props.id} defined for language ${this.props.language} messages`)
+      throw new Error(`no id "${this.props.id}" defined for language "${this.props.language}" messages`)
     } else {
       return Languages[this.props.language][this.props.id]
     }

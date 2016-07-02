@@ -49,7 +49,7 @@ const Repository = React.createClass({
     ]
 
     return (
-      <Dialog actions={actions} title={<Translate id='Load' />} modal open={this.props.repository.open}>
+      <Dialog actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Load' /></h3>} modal open={this.props.repository.open}>
         <TextField
           ref='quantity'
           hintText={<Translate id='Quantity' />}

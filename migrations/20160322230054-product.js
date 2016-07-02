@@ -20,6 +20,10 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false
         },
+        barcode: {
+          type: Sequelize.INTEGER,
+          allowNull: true
+        },
         description: {
           type: Sequelize.STRING,
           allowNull: true

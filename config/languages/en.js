@@ -35,6 +35,7 @@ export const en = {
   'Operations': 'Operations',
   'Category': 'Category',
   'Name': 'Name',
+  'Product description': 'Product description',
   'Product': 'Product',
   'Product Category': 'Product Category',
   'Category name': 'Category name',
@@ -44,6 +45,7 @@ export const en = {
   'Assign from': 'Assign from',
   'Close/Paid': 'Close/Paid',
   'Assign to': 'Assign to',
+  'Product Bar code': 'Product Bar code',
   'Action ordered!': 'Action ordered!',
   '_currency': '&#36;'
 }

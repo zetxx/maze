@@ -16,7 +16,7 @@ const ProductAdd = React.createClass({
     productAdd: React.PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'category', 'description'])
+    var vals = getFieldValues(this.refs, ['name', 'category', 'description', 'barcode'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -43,7 +43,7 @@ const ProductAdd = React.createClass({
     ]
 
     return (
-      <Dialog actions={actions} title={<Translate id='Product add' />} modal open={this.props.productAdd.open}>
+      <Dialog actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Product add' /></h3>} modal open={this.props.productAdd.open}>
         <TextField
           ref='name'
           hintText={<Translate id='Product name' />}
@@ -56,6 +56,12 @@ const ProductAdd = React.createClass({
           hintText={<Translate id='Product description' />}
           floatingLabelText={<Translate id='Product description' />}
           errorText={this.props.productAdd.fieldError.description}
+        />
+        <TextField
+          ref='barcode'
+          hintText={<Translate id='Product Bar code' />}
+          floatingLabelText={<Translate id='Product Bar code' />}
+          errorText={this.props.productAdd.fieldError.barcode}
         />
       </Dialog>
     )
