@@ -16,6 +16,7 @@ shop/bar/storage manager
     - ~~field for bar code~~
   - global config
     - global language
+    - add stores
+  - user management
     - user language
-  - ability to add stores
 - login
