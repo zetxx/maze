@@ -6,6 +6,7 @@ import {basket} from './Basket/reducers'
 import {heading} from './Heading/reducers'
 import {basketList} from './BasketList/reducers'
 import {siteConfig, updatedConfig} from './Config/reducers'
+import {shops, shopAdd} from './Config/Shop/reducers'
 
 export default {
   updatedConfig,
@@ -20,6 +21,8 @@ export default {
   basketList,
   siteConfig,
   heading,
+  shops,
+  shopAdd,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return state

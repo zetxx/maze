@@ -33,6 +33,7 @@ export const en = {
   'Kilograms': 'Kg',
   'grams': 'g',
   'Operations': 'Operations',
+  'Shops': 'Shops',
   'Category': 'Category',
   'Name': 'Name',
   'Product description': 'Product description',
