@@ -7,8 +7,16 @@ module.exports = function(registrar) {
     path: '/api/Shop',
     config: {
       handler: function (req, resp) {
+        var record = {
+          name: req.payload.name,
+          workingHours: '8:00-17:00',
+          description: '-',
+          workingDays: 'm-f'
+        }
+
+        record.location = {type: 'Point', coordinates: [req.payload.lon, req.payload.lat]}
         entity
-          .create(req.payload)
+          .create(record)
           .then(resp)
       },
       description: 'Add shop',
@@ -16,7 +24,9 @@ module.exports = function(registrar) {
       tags: ['api', 'add', 'shop'],
       validate: {
         payload: {
-          name: Joi.string().required().description('Category name')
+          name: Joi.string().required().description('Name'),
+          lon: Joi.number().min(1).required().description('Longitude'),
+          lat: Joi.number().min(1).required().description('Latitude')
         }
       }
     }

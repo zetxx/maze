@@ -15,7 +15,7 @@ const ShopAdd = React.createClass({
     shopAdd: React.PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name'])
+    var vals = getFieldValues(this.refs, ['name', 'lon', 'lat'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -42,12 +42,25 @@ const ShopAdd = React.createClass({
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title={<Translate id='Product category add' />} modal open={this.props.shopAdd.open}>
+      <Dialog ref='dialog' actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Shop add' /></h3>} modal open={this.props.shopAdd.open}>
         <TextField
           ref='name'
-          hintText={<Translate id='Category name' />}
-          floatingLabelText={<Translate id='Category name' />}
+          hintText={<Translate id='Name' />}
+          floatingLabelText={<Translate id='Name' />}
           errorText={this.props.shopAdd.fieldError.name}
+        />
+        <br />
+        <TextField
+          ref='lon'
+          hintText={<Translate id='Longitude' />}
+          floatingLabelText={<Translate id='Longitude' />}
+          errorText={this.props.shopAdd.fieldError.lon}
+        />
+        <TextField
+          ref='lat'
+          hintText={<Translate id='Latitude' />}
+          floatingLabelText={<Translate id='Latitude' />}
+          errorText={this.props.shopAdd.fieldError.lat}
         />
       </Dialog>
     )

@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setTitle} from '../Heading/actions'
-import {updateConfig, fetchSiteConfig} from '../Config/actions'
+import AppBar from 'material-ui/AppBar/AppBar'
 import {Card, CardActions, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import {setTitle} from '../Heading/actions'
+import {updateConfig, fetchSiteConfig} from '../Config/actions'
 import {Translate} from '../Translation'
 import Shop from './Shop'
 
@@ -44,6 +45,9 @@ const Config = React.createClass({
     return (
       <div>
         <Card>
+          <AppBar
+            title={<Translate id='Common config' />}
+          />
           <CardText>
             <SelectField floatingLabelText={<Translate id='Global language' />} style={{margin: '0 10px 10px 0'}} value={this.state.globalLanguage} ref='globalLanguage' onChange={this.handleChange('globalLanguage')}>
               <MenuItem value='en' primaryText={<Translate id='English' />} />
@@ -54,7 +58,7 @@ const Config = React.createClass({
             <FlatButton label={<Translate id='Cancel' />} />
             <FlatButton onTouchTap={this.updateConfig} label={<Translate id='Save' />} />
           </CardActions>
-        </Card>
+        </Card><br />
         <Shop />
       </div>
     )

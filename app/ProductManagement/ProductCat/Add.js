@@ -42,7 +42,7 @@ const ProductCatAdd = React.createClass({
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title={<Translate id='Product category add' />} modal open={this.props.productCatAdd.open}>
+      <Dialog ref='dialog' actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Product category add' /></h3>} modal open={this.props.productCatAdd.open}>
         <TextField
           ref='name'
           hintText={<Translate id='Category name' />}
