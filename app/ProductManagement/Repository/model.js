@@ -15,6 +15,13 @@ const repository = db.define('repository',
         key: 'id'
       }
     },
+    shopId: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'shop',
+        key: 'id'
+      }
+    },
     quantity: {
       type: Sequelize.FLOAT,
       allowNull: false,

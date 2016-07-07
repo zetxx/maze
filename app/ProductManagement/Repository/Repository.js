@@ -6,19 +6,22 @@ import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import QuantityType from './QuantityType.js'
 import {Translate} from '../../Translation'
+import ShopsDropdown from '../../Config/Shop/Dropdown'
 
 const Repository = React.createClass({
   propTypes: {
     add: React.PropTypes.func,
     cantAdd: React.PropTypes.func,
     cancelToggle: React.PropTypes.func,
+    fetch: React.PropTypes.func,
+    fetchShops: React.PropTypes.func,
     repository: React.PropTypes.object
   },
   getInitialState() {
     return {value: 'piece'}
   },
   add() {
-    var vals = getFieldValues(this.refs, ['quantity', 'quantityType', 'price'])
+    var vals = getFieldValues(this.refs, ['quantity', 'quantityType', 'price', 'shopId'])
     if (Object.keys(vals.incorrect).length === 0) {
       vals.correct.productId = this.props.repository.productId
       this.props.add(vals.correct)
@@ -50,6 +53,7 @@ const Repository = React.createClass({
 
     return (
       <Dialog actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Load' /></h3>} modal open={this.props.repository.open}>
+        <ShopsDropdown ref='shopId' value={1} />
         <TextField
           ref='quantity'
           hintText={<Translate id='Quantity' />}

@@ -12,7 +12,7 @@ const ProductAdd = React.createClass({
     add: React.PropTypes.func,
     cantAdd: React.PropTypes.func,
     cancelToggle: React.PropTypes.func,
-    fetch: React.PropTypes.func,
+    fetchProducts: React.PropTypes.func,
     productAdd: React.PropTypes.object
   },
   add() {
@@ -25,7 +25,7 @@ const ProductAdd = React.createClass({
   },
   componentWillReceiveProps(next) {
     if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
-      next.fetch()
+      next.fetchProducts()
     }
   },
   render() {
@@ -85,7 +85,7 @@ export default connect(
     cancelToggle() {
       return {type: 'TOGGLE_PRODUCT_ADD', canceled: true}
     },
-    fetch() {
+    fetchProducts() {
       return {
         type: 'FETCH_PRODUCTS', httpRequest: {
           method: 'GET',
