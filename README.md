@@ -16,7 +16,7 @@ shop/bar/storage manager
     - ~~add stores~~
     - ~~load quantuty in specific store~~
   - global config
-    - global language
+    - ~global language~
   - user management
     - users
     - user groups
