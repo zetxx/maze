@@ -14,10 +14,12 @@ shop/bar/storage manager
   - repository
     - add quantity per store
     - ~~field for bar code~~
+    - ~~add stores~~
+    - ~~load quantuty in specific store~~
   - global config
     - global language
-    - add stores
-    - load quantuty in specific store
   - user management
+    - users
+    - user groups
     - user language
-- login
+- login page
