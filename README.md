@@ -12,7 +12,6 @@ shop/bar/storage manager
 ### ToDo
 - config
   - repository
-    - add quantity per store
     - ~~field for bar code~~
     - ~~add stores~~
     - ~~load quantuty in specific store~~
