@@ -12,7 +12,8 @@ const Users = React.createClass({
   render() {
     return (
       <div>
-        Users
+        <div>Users</div>
+        <div>User groups</div>
       </div>
     )
   }

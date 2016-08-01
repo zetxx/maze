@@ -20,5 +20,12 @@ shop/bar/storage manager
   - user management
     - users
     - user groups
+    - actions (get,post...)
     - user language
 - login page
+
+users
+groups
+userGroup (user is member of group)
+actions
+permissions (action is member of permission with some right)
