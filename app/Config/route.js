@@ -9,8 +9,11 @@ module.exports = function(registrar) {
     config: {
       handler: (req, resp) => {
         config.findAll()
-        .then(resp)
-        .catch(resp)
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'App configuration',
       notes: 'App configuration',
@@ -30,8 +33,8 @@ module.exports = function(registrar) {
           })
         }
         return Promise
-            .all(forUpdate)
-            .then(resp)
+          .all(forUpdate)
+          .then(resp)
       },
       description: 'App configuration',
       notes: 'App configuration',

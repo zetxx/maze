@@ -52,5 +52,7 @@ export const en = {
   'Assign to': 'Assign to',
   'Product Bar code': 'Product Bar code',
   'Action ordered!': 'Action ordered!',
+  'User management': 'User management',
+  'User Groups management': 'User Groups management',
   '_currency': '&#36;'
 }

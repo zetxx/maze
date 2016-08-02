@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {setTitle} from '../Heading/actions'
+import Groups from './Groups'
+import Users from './Users'
 
-const Users = React.createClass({
+const UserConfig = React.createClass({
   propTypes: {
     setTitle: React.PropTypes.func
   },
@@ -12,8 +14,8 @@ const Users = React.createClass({
   render() {
     return (
       <div>
-        <div>Users</div>
-        <div>User groups</div>
+        <Users />
+        <Groups />
       </div>
     )
   }
@@ -22,4 +24,4 @@ const Users = React.createClass({
 export default connect(
   null,
   {setTitle}
-)(Users)
+)(UserConfig)
