@@ -22,6 +22,9 @@ module.exports = {
           key: 'id'
         }
       },
+      permission: {
+        type: Sequelize.INTEGER(1)
+      },
       addedAt: {
         type: Sequelize.DATE,
         defaultValue: new Date()
