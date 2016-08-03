@@ -2,16 +2,16 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('userGroup', {
+    return queryInterface.createTable('userRoles', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      groupId: {
+      roleId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'groups',
+          model: 'roles',
           key: 'id'
         }
       },
@@ -33,6 +33,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('userGroup')
+    return queryInterface.dropTable('userRoles')
   }
 }
