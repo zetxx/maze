@@ -8,26 +8,30 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import LockIcon from 'material-ui/svg-icons/action/lock'
 import {list, get, add, edit} from './actions'
 
-const Groups = React.createClass({
+const Roles = React.createClass({
   propTypes: {
     list: React.PropTypes.func,
     get: React.PropTypes.func,
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
-    groups: React.PropTypes.object
+    roles: React.PropTypes.object
+  },
+  componentDidMount() {
+    this.props.list()
   },
   getDefaultProps: function() {
     return {
-      groups: {data: []}
+      roles: {data: []}
     }
   },
   render() {
     return (
       <Card style={{float: 'left', width: '40%'}}>
         <AppBar
-          title={<Translate id='User Groups management' />}
+          title={<Translate id='Roles' />}
           iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
         />
 
@@ -39,12 +43,13 @@ const Groups = React.createClass({
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.props.groups.data && this.props.groups.data.map((el) => (
+            {this.props.roles.data && this.props.roles.data.map((el) => (
               <TableRow key={el.id}>
                 <TableRowColumn>{el.name}</TableRowColumn>
-                <TableRowColumn style={{width: '100px'}}>
+                <TableRowColumn style={{width: '120px'}}>
                   <IconButton><DeleteIcon /></IconButton>
                   <IconButton><EditIcon /></IconButton>
+                  <IconButton><LockIcon /></IconButton>
                 </TableRowColumn>
               </TableRow>
             ))}
@@ -56,6 +61,6 @@ const Groups = React.createClass({
 })
 
 export default connect(
-  (state) => ({userGroups: state.userGroups}),
+  (state) => ({roles: state.roles}),
   {get, list, add, edit}
-)(Groups)
+)(Roles)

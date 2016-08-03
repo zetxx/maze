@@ -29,21 +29,21 @@ module.exports = (registrar) => {
             })
         } else {
           b = transaction
-            .update({quantity: sequelize.literal(`quantity +${rq.quantity}`)}, {where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
-            .then((r) => {
-              if (r[0] > 0) {
-                return transaction
-                  .find({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}, attributes: ['quantity']})
-                  .then((r) => {
-                    if (r.dataValues.quantity <= 0) {
-                      return transaction.destroy({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
-                    }
-                    return true
-                  })
-              } else {
-                return transaction.create(rq)
-              }
-            })
+          .update({quantity: sequelize.literal(`quantity +${rq.quantity}`)}, {where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
+          .then((r) => {
+            if (r[0] > 0) {
+              return transaction
+                .find({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}, attributes: ['quantity']})
+                .then((r) => {
+                  if (r.dataValues.quantity <= 0) {
+                    return transaction.destroy({where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
+                  }
+                  return true
+                })
+            } else {
+              return transaction.create(rq)
+            }
+          })
         }
 
         b
@@ -98,7 +98,7 @@ module.exports = (registrar) => {
             where: {closed: 0}
           }]
         })
-          .then(resp)
+        .then(resp)
       },
       description: 'Get basket',
       notes: 'Get basket',
@@ -112,9 +112,9 @@ module.exports = (registrar) => {
     config: {
       handler: (req, resp) => {
         basket
-          .update({closed: 1}, {where: {id: req.payload.basketId}})
-          .then(() => ({id: req.payload.basketId}))
-          .then(resp)
+        .update({closed: 1}, {where: {id: req.payload.basketId}})
+        .then(() => ({id: req.payload.basketId}))
+        .then(resp)
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',
@@ -133,12 +133,12 @@ module.exports = (registrar) => {
     config: {
       handler: (req, resp) => {
         transaction
-          .update({basketId: req.payload.to}, {where: {basketId: req.payload.from}})
-          .then(() => {
-            basket.update({closed: 1}, {where: {id: req.payload.from}})
-            return {to: req.payload.to}
-          })
-          .then(resp)
+        .update({basketId: req.payload.to}, {where: {basketId: req.payload.from}})
+        .then(() => {
+          basket.update({closed: 1}, {where: {id: req.payload.from}})
+          return {to: req.payload.to}
+        })
+        .then(resp)
       },
       description: 'basket reassign',
       notes: 'basket reassign',

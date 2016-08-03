@@ -27,7 +27,7 @@ const Users = React.createClass({
     return (
       <Card style={{float: 'left', marginRight: '1%', width: '59%'}}>
         <AppBar
-          title={<Translate id='User management' />}
+          title={<Translate id='Users' />}
           iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
         />
 

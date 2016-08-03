@@ -11,7 +11,7 @@ export const list = () => ({
   type: actionList.LIST,
   httpRequest: {
     method: 'GET',
-    url: '/api/userGroups',
+    url: '/api/roles',
     json: true
   }
 })
@@ -20,7 +20,7 @@ export const get = (id) => ({
   type: actionList.GET,
   httpRequest: {
     method: 'GET',
-    url: `/api/userGroup/${id}`,
+    url: `/api/role/${id}`,
     json: true
   }
 })
@@ -33,7 +33,7 @@ export const edit = (id) => ({
   type: actionList.EDIT,
   httpRequest: {
     method: 'GET',
-    url: `/api/userGroup/${id}`,
+    url: `/api/role/${id}`,
     json: true
   }
 })
@@ -42,7 +42,7 @@ export const save = (params, id) => ({
   type: actionList.SAVE,
   httpRequest: {
     method: 'POST',
-    url: id ? `/api/userGroup/${id}` : '/api/userGroup',
+    url: id ? `/api/role/${id}` : '/api/role',
     body: params,
     json: true
   }

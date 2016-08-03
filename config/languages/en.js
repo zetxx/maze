@@ -52,7 +52,7 @@ export const en = {
   'Assign to': 'Assign to',
   'Product Bar code': 'Product Bar code',
   'Action ordered!': 'Action ordered!',
-  'User management': 'User management',
-  'User Groups management': 'User Groups management',
+  'Users': 'Users',
+  'Roles': 'Roles',
   '_currency': '&#36;'
 }

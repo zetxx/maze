@@ -7,8 +7,8 @@ import {heading} from './Heading/reducers'
 import {basketList} from './BasketList/reducers'
 import {siteConfig, updatedConfig} from './Config/reducers'
 import {shops, shopAdd} from './Config/Shop/reducers'
-import {userGroup} from './Users/Groups/reducers'
-import {user} from './Users/Users/reducers'
+import {role, roles} from './Users/Roles/reducers'
+import {user, users} from './Users/Users/reducers'
 
 export default {
   updatedConfig,
@@ -25,7 +25,9 @@ export default {
   heading,
   shops,
   shopAdd,
-  userGroup,
+  roles,
+  role,
+  users,
   user,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {

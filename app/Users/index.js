@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {setTitle} from '../Heading/actions'
-import Groups from './Groups'
+import Roles from './Roles'
 import Users from './Users'
 
 const UserConfig = React.createClass({
@@ -15,7 +15,7 @@ const UserConfig = React.createClass({
     return (
       <div>
         <Users />
-        <Groups />
+        <Roles />
       </div>
     )
   }
