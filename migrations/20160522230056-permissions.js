@@ -15,10 +15,10 @@ module.exports = {
           key: 'id'
         }
       },
-      groupId: {
+      roleId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'groups',
+          model: 'roles',
           key: 'id'
         }
       },
