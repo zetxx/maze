@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Immutable from 'immutable'
 import {Card} from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar/AppBar'
 import {Translate} from '../../Translation'
@@ -8,7 +9,6 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import LockIcon from 'material-ui/svg-icons/action/lock'
 import {list, get, add, edit} from './actions'
 
 const Roles = React.createClass({
@@ -43,13 +43,12 @@ const Roles = React.createClass({
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.props.roles.data && this.props.roles.data.map((el) => (
-              <TableRow key={el.id}>
-                <TableRowColumn>{el.name}</TableRowColumn>
+            {(this.props.roles.get('data') || []).map((el) => (
+              <TableRow key={el.get('id')}>
+                <TableRowColumn>{el.get('name')}</TableRowColumn>
                 <TableRowColumn style={{width: '120px'}}>
                   <IconButton><DeleteIcon /></IconButton>
                   <IconButton><EditIcon /></IconButton>
-                  <IconButton><LockIcon /></IconButton>
                 </TableRowColumn>
               </TableRow>
             ))}

@@ -8,7 +8,7 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {fetch, get, add, edit} from './actions'
+import {list, get, add, edit} from './actions'
 
 const Users = React.createClass({
   propTypes: {
@@ -17,6 +17,9 @@ const Users = React.createClass({
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
     users: React.PropTypes.object
+  },
+  componentDidMount() {
+    this.props.list()
   },
   getDefaultProps: function() {
     return {
@@ -34,14 +37,18 @@ const Users = React.createClass({
         <Table>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn><Translate id='Name' /></TableHeaderColumn>
+              <TableHeaderColumn><Translate id='User Name' /></TableHeaderColumn>
+              <TableHeaderColumn><Translate id='E-mail' /></TableHeaderColumn>
+              <TableHeaderColumn><Translate id='Roles' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Operations' /></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.props.users.data && this.props.users.data.map((el) => (
-              <TableRow key={el.id}>
-                <TableRowColumn>{el.name}</TableRowColumn>
+            {(this.props.users.get('data') || []).map((el) => (
+              <TableRow key={el.get('id')}>
+                <TableRowColumn>{el.get('userName')}</TableRowColumn>
+                <TableRowColumn>{el.get('email')}</TableRowColumn>
+                <TableRowColumn>{el.get('roles')}</TableRowColumn>
                 <TableRowColumn style={{width: '100px'}}>
                   <IconButton><DeleteIcon /></IconButton>
                   <IconButton><EditIcon /></IconButton>
@@ -57,5 +64,5 @@ const Users = React.createClass({
 
 export default connect(
   (state) => ({users: state.users}),
-  {fetch, get, add, edit}
+  {list, get, add, edit}
 )(Users)

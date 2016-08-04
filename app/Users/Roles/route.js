@@ -19,9 +19,9 @@ module.exports = (registrar) => {
             resp(err)
           })
       },
-      description: 'Get basket',
-      notes: 'Get basket',
-      tags: ['api', 'get', 'product basket']
+      description: 'Get roles',
+      notes: 'Get roles',
+      tags: ['api', 'get', 'roles']
     }
   })
 }

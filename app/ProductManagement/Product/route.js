@@ -42,7 +42,7 @@ module.exports = function(registrar) {
         LEFT JOIN (SELECT MAX(id) id, productId FROM repository GROUP BY productId) p1 ON p1.productId=p.id
         LEFT JOIN repository p2 ON p1.id=p2.id
         GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
-        .then(resp)
+          .then(resp)
       },
       description: 'List products',
       notes: 'List products',

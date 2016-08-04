@@ -1,19 +1,25 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const users = db.define('users', {
+const userRoles = db.define('userRoles', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  userName: {
-    type: Sequelize.STRING,
-    allowNull: false
+  roleId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'roles',
+      key: 'id'
+    }
   },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false
+  userId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
   addedAt: {
     type: Sequelize.DATE,
@@ -24,4 +30,4 @@ const users = db.define('users', {
   freezeTableName: true
 })
 
-module.exports = users
+module.exports = userRoles
