@@ -8,6 +8,8 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
+import Add from './Add'
+import Edit from './Edit'
 import {list, get, add, edit} from './actions'
 
 const Users = React.createClass({
@@ -57,12 +59,14 @@ const Users = React.createClass({
             ))}
           </TableBody>
         </Table>
+        <Add ref='add' />
+        <Edit ref='edit' />
       </Card>
     )
   }
 })
 
 export default connect(
-  (state) => ({users: state.users}),
+  (state) => ({users: state.users, add: state.add, edit: state.edit}),
   {list, get, add, edit}
 )(Users)
