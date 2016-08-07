@@ -10,14 +10,14 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import Add from './Add'
 import Edit from './Edit'
-import {list, get, add, edit} from './actions'
+import {list, get} from './actions'
+import {add} from './Add/actions'
 
 const Users = React.createClass({
   propTypes: {
     list: React.PropTypes.func,
     get: React.PropTypes.func,
     add: React.PropTypes.func,
-    edit: React.PropTypes.func,
     users: React.PropTypes.object
   },
   componentDidMount() {
@@ -67,6 +67,6 @@ const Users = React.createClass({
 })
 
 export default connect(
-  (state) => ({users: state.users, add: state.add, edit: state.edit}),
-  {list, get, add, edit}
+  (state) => ({users: state.users, edit: state.edit}),
+  {list, get, add}
 )(Users)

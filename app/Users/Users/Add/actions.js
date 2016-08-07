@@ -1,5 +1,6 @@
 export const actionList = {
   'GET': Symbol('GET'),
+  'ADD': Symbol('ADD'),
   'SAVE': Symbol('SAVE')
 }
 
@@ -21,3 +22,10 @@ export const save = (params, id) => ({
     json: true
   }
 })
+
+export const add = () => {
+  console.log('aaaaaaaaaaaaaaddddddddddd')
+  return {
+  type: actionList.ADD
+}
+}

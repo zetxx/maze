@@ -17,11 +17,3 @@ export const users = (state = Immutable.Map(), action) => {
   }
   return state
 }
-
-export const add = (state = {}, action) => {
-  return state
-}
-
-export const edit = (state = {}, action) => {
-  return state
-}

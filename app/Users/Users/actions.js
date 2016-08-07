@@ -1,10 +1,6 @@
 export const actionList = {
   'LIST': Symbol('LIST'),
-  'GET': Symbol('GET'),
-  'ADD': Symbol('ADD'),
-  'EDIT': Symbol('EDIT'),
-  'SAVE': Symbol('SAVE'),
-  'DELETE': Symbol('DELETE')
+  'GET': Symbol('GET')
 }
 
 export const list = () => ({
@@ -21,29 +17,6 @@ export const get = (id) => ({
   httpRequest: {
     method: 'GET',
     url: `/api/user/${id}`,
-    json: true
-  }
-})
-
-export const add = () => ({
-  type: actionList.ADD
-})
-
-export const edit = (id) => ({
-  type: actionList.EDIT,
-  httpRequest: {
-    method: 'GET',
-    url: `/api/user/${id}`,
-    json: true
-  }
-})
-
-export const save = (params, id) => ({
-  type: actionList.SAVE,
-  httpRequest: {
-    method: 'POST',
-    url: id ? `/api/user/${id}` : '/api/user',
-    body: params,
     json: true
   }
 })
