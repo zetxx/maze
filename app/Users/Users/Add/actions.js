@@ -23,9 +23,6 @@ export const save = (params, id) => ({
   }
 })
 
-export const add = () => {
-  console.log('aaaaaaaaaaaaaaddddddddddd')
-  return {
+export const add = () => ({
   type: actionList.ADD
-}
-}
+})

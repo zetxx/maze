@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import Immutable from 'immutable'
 import {Card} from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar/AppBar'
 import {Translate} from '../../Translation'

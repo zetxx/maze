@@ -2,16 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-// import RaisedButton from 'material-ui/RaisedButton'
-// import {Card} from 'material-ui/Card'
-// import {Translate} from '../../../Translation'
-// import FlatButton from 'material-ui/FlatButton/FlatButton'
-import {save} from './actions'
+import {Translate} from '../../../Translation'
+import {save, add} from './actions'
 
 export const Add = React.createClass({
   propTypes: {
     opened: React.PropTypes.bool,
     roles: React.PropTypes.object,
+    add: React.PropTypes.func,
     save: React.PropTypes.func
   },
   getDefaultProps() {
@@ -25,28 +23,28 @@ export const Add = React.createClass({
         title='Dialog With Actions'
         actions={[
           <FlatButton
-            label='Cancel'
+            label={<Translate id='Cancel' />}
             primary
-            onTouchTap={this.toggle}
+            onTouchTap={this.props.add}
           />,
           <FlatButton
-            label='Submit'
+            label={<Translate id='Save' />}
             primary
             keyboardFocused
-            onTouchTap={this.toggle}
+            onTouchTap={this.props.save}
           />
         ]}
         modal={false}
         open={this.props.opened}
-        onRequestClose={this.toggle}
+        onRequestClose={this.props.add}
       >
-          alabala
+          ali baba
       </Dialog>
     )
   }
 })
 
 export default connect(
-  (state) => ({roles: state.roles, opened: state.add.opened}),
-  {save}
+  (state) => ({roles: state.roles, opened: state.add.get('opened')}),
+  {save, add}
 )(Add)
