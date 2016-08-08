@@ -1,6 +1,7 @@
 export const actionList = {
   'GET': Symbol('GET'),
   'ADD': Symbol('ADD'),
+  'CHANGE': Symbol('CHANGE'),
   'SAVE': Symbol('SAVE')
 }
 
@@ -25,4 +26,9 @@ export const save = (params, id) => ({
 
 export const add = () => ({
   type: actionList.ADD
+})
+
+export const change = (params) => ({
+  type: actionList.CHANGE,
+  params
 })
