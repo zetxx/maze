@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
-import {getFieldValues} from '../../Helpers.js'
-import {Translate} from '../../Translation'
+import {getFieldValues} from '../../../Helpers.js'
+import {Translate} from '../../../Translation'
 
 const ShopAdd = React.createClass({
   propTypes: {

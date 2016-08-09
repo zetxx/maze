@@ -10,8 +10,8 @@ import {request} from './middleware'
 import Main from './Main'
 import Store from './Store'
 import ProductManagement from './ProductManagement'
-import Config from './Config'
-import Users from './Users'
+import Config from './Manage/Config'
+import Users from './Manage/Users'
 
 injectTapEventPlugin()
 

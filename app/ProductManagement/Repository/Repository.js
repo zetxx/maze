@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import QuantityType from './QuantityType.js'
 import {Translate} from '../../Translation'
-import ShopsDropdown from '../../Config/Shop/Dropdown'
+import ShopsDropdown from '../../Manage/Config/Shop/Dropdown'
 
 const Repository = React.createClass({
   propTypes: {

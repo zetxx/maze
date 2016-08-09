@@ -1,28 +1,17 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-module.exports = db.define('shop', {
+const config = db.define('config', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  name: {
+  key: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  workingHours: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  workingDays: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  location: {
-    type: Sequelize.GEOMETRY('POINT')
-  },
-  description: {
+  value: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -34,3 +23,5 @@ module.exports = db.define('shop', {
   timestamps: false,
   freezeTableName: true
 })
+
+module.exports = config

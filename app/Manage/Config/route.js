@@ -1,4 +1,3 @@
-// const sequelize = require('../../config/db')
 const config = require('../Config/model')
 const Promise = require('bluebird')
 

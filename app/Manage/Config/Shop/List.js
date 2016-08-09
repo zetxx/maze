@@ -7,7 +7,7 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {Translate} from '../../Translation'
+import {Translate} from '../../../Translation'
 import Add from './Add'
 
 class Shop extends React.Component {

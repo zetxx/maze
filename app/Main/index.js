@@ -4,7 +4,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 import heading from '../Heading'
-import {fetchSiteConfig} from '../Config/actions'
+import {fetchSiteConfig} from '../Manage/Config/actions'
 
 const Heading = connect(
   (state) => (state.heading)

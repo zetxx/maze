@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setTitle} from '../Heading/actions'
+import {setTitle} from '../../Heading/actions'
 import Roles from './Roles'
-import Users from './Users'
+import User from './User'
 
 const UserConfig = React.createClass({
   propTypes: {
@@ -14,7 +14,7 @@ const UserConfig = React.createClass({
   render() {
     return (
       <div>
-        <Users />
+        <User />
         <Roles />
       </div>
     )

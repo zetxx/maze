@@ -27,7 +27,7 @@ export const bg = {
   'Basket': 'Basket',
   'Users': 'Users',
   'Config': 'Конфигурация',
-  'Manage Producst': 'Manage Producst',
+  'Manage Products': 'Manage Products',
   'Product Management': 'Product Management',
   'Baskets/Clients': 'Baskets/Clients',
   'Kilograms': 'Kg',

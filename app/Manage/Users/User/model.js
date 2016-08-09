@@ -1,17 +1,17 @@
 const Sequelize = require('sequelize')
-const db = require('../../config/db')
+const db = require('../../../../config/db')
 
-const config = db.define('config', {
+const users = db.define('users', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  key: {
+  userName: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  value: {
+  email: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -24,4 +24,4 @@ const config = db.define('config', {
   freezeTableName: true
 })
 
-module.exports = config
+module.exports = users

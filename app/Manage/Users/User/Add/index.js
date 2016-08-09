@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Immutable from 'immutable'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import {Translate} from '../../../Translation'
+import {Translate} from '../../../../Translation'
 import TextField from 'material-ui/TextField'
 import Role from '../Role'
 import {save, add, change} from './actions'
@@ -17,11 +17,6 @@ export const Add = React.createClass({
     save: PropTypes.func,
     userName: PropTypes.string,
     email: PropTypes.string
-  },
-  getDefaultProps() {
-    return {
-      opened: false
-    }
   },
   handleChange(field, id, state) {
     this.props.change({field, id, state})
@@ -75,7 +70,8 @@ export const Add = React.createClass({
 Add.defaultProps = {
   userName: '',
   email: '',
-  roles: Immutable.Map()
+  roles: Immutable.Map(),
+  opened: false
 }
 
 export default connect(

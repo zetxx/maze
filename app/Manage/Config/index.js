@@ -5,9 +5,9 @@ import {Card, CardActions, CardText} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import {setTitle} from '../Heading/actions'
+import {setTitle} from '../../Heading/actions'
 import {updateConfig, fetchSiteConfig} from '../Config/actions'
-import {Translate} from '../Translation'
+import {Translate} from '../../Translation'
 import Shop from './Shop'
 
 const Config = React.createClass({

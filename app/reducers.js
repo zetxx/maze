@@ -5,11 +5,11 @@ import {storeProductSearch, quantitySelection} from './StoreProductSearch/reduce
 import {basket} from './Basket/reducers'
 import {heading} from './Heading/reducers'
 import {basketList} from './BasketList/reducers'
-import {siteConfig, updatedConfig} from './Config/reducers'
-import {shops, shopAdd} from './Config/Shop/reducers'
-import {role, roles} from './Users/Roles/reducers'
-import {user, users} from './Users/Users/reducers'
-import {add} from './Users/Users/Add/reducers'
+import {siteConfig, updatedConfig} from './Manage/Config/reducers'
+import {shops, shopAdd} from './Manage/Config/Shop/reducers'
+import {role, roles} from './Manage/Users/Roles/reducers'
+import {user, users} from './Manage/Users/User/reducers'
+import {add} from './Manage/Users/User/Add/reducers'
 
 export default {
   updatedConfig,
