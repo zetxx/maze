@@ -19,7 +19,6 @@ module.exports = {
         // entry: { index: './app/index.jsx' },
         output: settings.output,
         name: 'browser',
-        bail: true,
         node: {
           fs: 'empty',
           net: 'empty',
