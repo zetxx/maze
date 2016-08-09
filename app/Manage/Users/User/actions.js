@@ -1,6 +1,5 @@
 export const actionList = {
-  'LIST': Symbol('LIST'),
-  'GET': Symbol('GET')
+  'LIST': Symbol('LIST')
 }
 
 export const list = () => ({
@@ -8,15 +7,6 @@ export const list = () => ({
   httpRequest: {
     method: 'GET',
     url: '/api/users',
-    json: true
-  }
-})
-
-export const get = (id) => ({
-  type: actionList.GET,
-  httpRequest: {
-    method: 'GET',
-    url: `/api/user/${id}`,
     json: true
   }
 })

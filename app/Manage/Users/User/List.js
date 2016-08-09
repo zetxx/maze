@@ -10,23 +10,26 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import Add from './Add'
 import Edit from './Edit'
-import {list, get} from './actions'
+import {list} from './actions'
 import {add} from './Add/actions'
+import {edit} from './Edit/actions'
 
 const Users = React.createClass({
   propTypes: {
     list: React.PropTypes.func,
     get: React.PropTypes.func,
     add: React.PropTypes.func,
+    edit: React.PropTypes.func,
     users: React.PropTypes.object
   },
   componentDidMount() {
     this.props.list()
   },
-  getDefaultProps: function() {
-    return {
-      users: {data: []}
-    }
+  defaultProps: {
+    users: {data: []}
+  },
+  handleEdit(userId) {
+    return () => (this.props.edit(userId))
   },
   render() {
     return (
@@ -53,7 +56,7 @@ const Users = React.createClass({
                 <TableRowColumn>{el.get('roles')}</TableRowColumn>
                 <TableRowColumn style={{width: '100px'}}>
                   <IconButton><DeleteIcon /></IconButton>
-                  <IconButton><EditIcon /></IconButton>
+                  <IconButton onTouchTap={this.handleEdit(el.get('id'))}><EditIcon /></IconButton>
                 </TableRowColumn>
               </TableRow>
             ))}
@@ -68,5 +71,5 @@ const Users = React.createClass({
 
 export default connect(
   (state) => ({users: state.users, edit: state.edit}),
-  {list, get, add}
+  {list, add, edit}
 )(Users)

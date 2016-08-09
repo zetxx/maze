@@ -1,18 +1,8 @@
 export const actionList = {
-  'GET': Symbol('GET'),
   'ADD': Symbol('ADD'),
   'CHANGE': Symbol('CHANGE'),
   'SAVE': Symbol('SAVE')
 }
-
-export const get = (id) => ({
-  type: actionList.GET,
-  httpRequest: {
-    method: 'GET',
-    url: `/api/user/${id}`,
-    json: true
-  }
-})
 
 export const save = (params, id) => ({
   type: actionList.SAVE,

@@ -1,10 +1,10 @@
 import {actionList} from './actions'
 import Immutable from 'immutable'
 
-export const userAdd = (state = Immutable.Map(), action) => {
+export const userEdit = (state = Immutable.Map(), action) => {
   switch (action.type) {
-    case actionList.ADD:
-      return state.set('opened', !state.get('opened')).delete('data')
+    case actionList.EDIT:
+      return state.set('opened', !state.get('opened')).delete('data').set('userId', (!state.get('opened')) ? action.userId : '')
     case actionList.CHANGE:
       if (action.params.id === undefined) {
         return state.setIn(['data', action.params.field], action.params.state)

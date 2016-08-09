@@ -9,7 +9,9 @@ import {siteConfig, updatedConfig} from './Manage/Config/reducers'
 import {shops, shopAdd} from './Manage/Config/Shop/reducers'
 import {role, roles} from './Manage/Users/Roles/reducers'
 import {user, users} from './Manage/Users/User/reducers'
-import {add} from './Manage/Users/User/Add/reducers'
+import {userAdd} from './Manage/Users/User/Add/reducers'
+import {userEdit} from './Manage/Users/User/Edit/reducers'
+import {userRoles} from './Manage/Users/UserRoles/reducers'
 
 export default {
   updatedConfig,
@@ -30,7 +32,9 @@ export default {
   role,
   users,
   user,
-  add,
+  userAdd,
+  userEdit,
+  userRoles,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return state

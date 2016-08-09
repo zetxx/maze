@@ -5,14 +5,17 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../../Translation'
 import TextField from 'material-ui/TextField'
-import Role from '../Role'
+import RoleSelect from '../../Role/Select'
 import {save, add, change} from './actions'
 
 export const Add = React.createClass({
   propTypes: {
     opened: PropTypes.bool,
     roles: PropTypes.object,
+    userRoles: PropTypes.object,
     add: PropTypes.func,
+    edit: PropTypes.func,
+    getUserRoles: PropTypes.func,
     change: PropTypes.func,
     save: PropTypes.func,
     userName: PropTypes.string,
@@ -32,7 +35,7 @@ export const Add = React.createClass({
           <FlatButton
             label={<Translate id='Cancel' />}
             primary
-            onTouchTap={this.props.add}
+            onTouchTap={this.props.edit || this.props.add}
           />,
           <FlatButton
             label={<Translate id='Save' />}
@@ -48,6 +51,7 @@ export const Add = React.createClass({
         <h3><Translate id='Details' /></h3>
         <TextField
           floatingLabelText={<Translate id='User Name' />}
+          defaultValue={this.props.userName}
           onChange={this.handleInputChange}
           name='userName'
         />
@@ -55,12 +59,13 @@ export const Add = React.createClass({
         <TextField
           floatingLabelText={<Translate id='E-mail' />}
           onChange={this.handleInputChange}
+          defaultValue={this.props.email}
           name='email'
         />
         <br />
         <h3><Translate id='Roles' /></h3>
         {(this.props.roles.get('data') || Immutable.Map()).map((v, k) => {
-          return (<Role key={k} props={v} handleChange={this.handleChange} />)
+          return (<RoleSelect key={k} props={v} handleChange={this.handleChange} />)
         })}
       </Dialog>
     )
@@ -75,6 +80,6 @@ Add.defaultProps = {
 }
 
 export default connect(
-  (state) => ({roles: state.roles, opened: state.add.get('opened')}),
+  (state) => ({roles: state.roles, opened: state.userAdd.get('opened')}),
   {save, add, change}
 )(Add)
