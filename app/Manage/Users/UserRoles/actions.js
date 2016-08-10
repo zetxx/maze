@@ -1,6 +1,5 @@
 export const actionList = {
-  'GET': Symbol('GET'),
-  'SAVE': Symbol('SAVE')
+  'GET': Symbol('GET')
 }
 
 export const get = (id) => ({

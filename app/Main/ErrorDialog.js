@@ -32,8 +32,8 @@ ErrorDialog.propTypes = {
 export default connect(
   (state) => ({errorDialog: state.errorDialog}),
   {
-    cleanup(problems) {
-      return {type: 'CLEANUP_HIDE_ERRORS', problems}
+    cleanup() {
+      return {type: 'CLEANUP_HIDE_ERRORS'}
     }
   }
 )(ErrorDialog)

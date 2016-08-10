@@ -5,7 +5,7 @@ export const role = (state = {}, action) => {
   return state
 }
 
-export const roles = (state = Immutable.Map(), action) => {
+export const roles = (state = Immutable.Map({}).set('data', []), action) => {
   if (action.type === actionList.LIST && action.status === 'received') {
     return state
       .set('status', action.status)

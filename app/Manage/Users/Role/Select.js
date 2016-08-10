@@ -5,7 +5,7 @@ import Checkbox from 'material-ui/Checkbox'
 const Role = React.createClass({
   propTypes: {
     props: PropTypes.object,
-    data: PropTypes.object,
+    defaultChecked: PropTypes.bool,
     handleChange: PropTypes.func
   },
   onCheck(e, state) {
@@ -13,14 +13,13 @@ const Role = React.createClass({
   },
   render() {
     return (
-      <Checkbox onCheck={this.onCheck} defaultChecked={this.props.data.get(this.props.props.get('name'))} label={this.props.props.get('name')} />
+      <Checkbox onCheck={this.onCheck} defaultChecked={this.props.defaultChecked} label={this.props.props.get('name')} />
     )
   }
 })
 
 Role.defaultProps = {
   props: Immutable.Map(),
-  data: Immutable.Map(),
   handleChange: () => {}
 }
 

@@ -28,4 +28,28 @@ module.exports = (registrar) => {
       tags: ['api', 'get', 'users']
     }
   })
+
+  registrar({
+    method: 'GET',
+    path: '/api/user/{id}',
+    config: {
+      handler: (req, resp) => {
+        users.findAll({
+          where: {id: req.params.id},
+          include: [{
+            model: roles,
+            as: 'roles'
+          }]
+        })
+          .then(resp)
+          .catch((err) => {
+            console.error(err)
+            resp(err)
+          })
+      },
+      description: 'Get user',
+      notes: 'Get user by id',
+      tags: ['api', 'get', 'user']
+    }
+  })
 }

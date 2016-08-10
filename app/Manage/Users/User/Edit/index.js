@@ -1,14 +1,14 @@
 import {connect} from 'react-redux'
 import {Interaction} from '../Interaction'
-import {save, edit, change} from './actions'
-import {get as getUserRoles} from '../../UserRoles/actions'
+import {save, edit, change, get} from './actions'
 
 export default connect(
   (state) => ({
     roles: state.roles,
-    userRoles: state.userRoles,
+    userDetails: state.userEdit.get('data'),
     opened: state.userEdit.get('opened'),
+    userId: state.userEdit.get('userId'),
     title: 'Edit User'
   }),
-  {getUserRoles, save, edit, change}
+  {get, save, edit, change}
 )(Interaction)

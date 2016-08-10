@@ -58,7 +58,7 @@ export default {
       newState.errorStack.push(action.err)
       return newState
     } else if (action.type === 'CLEANUP_HIDE_ERRORS') {
-      return Object.assign({}, state, {open: false, errorStack: []})
+      return {open: false, errorStack: []}
     }
     return state
   }
