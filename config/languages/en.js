@@ -56,6 +56,7 @@ export const en = {
   'E-mail': 'E-mail',
   'Roles': 'Roles',
   'Details': 'Details',
-  'New User Add': 'New User Add',
+  'Edit User': 'Edit User',
+  'Add User': 'Add User',
   '_currency': '&#36;'
 }
