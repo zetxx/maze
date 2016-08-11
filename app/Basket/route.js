@@ -102,7 +102,12 @@ module.exports = (registrar) => {
       },
       description: 'Get basket',
       notes: 'Get basket',
-      tags: ['api', 'get', 'product basket']
+      tags: ['api', 'get', 'product basket'],
+      validate: {
+        params: {
+          basketId: Joi.number().min(1).required().description('Basket Id')
+        }
+      }
     }
   })
 

@@ -4,11 +4,11 @@ export const actionList = {
   'SAVE': Symbol('SAVE')
 }
 
-export const save = (params, id) => ({
+export const save = (params) => ({
   type: actionList.SAVE,
   httpRequest: {
     method: 'POST',
-    url: id ? `/api/user/${id}` : '/api/user',
+    url: '/api/user',
     body: params,
     json: true
   }

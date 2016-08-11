@@ -8,8 +8,8 @@ export const actionList = {
 export const save = (params, id) => ({
   type: actionList.SAVE,
   httpRequest: {
-    method: 'POST',
-    url: id ? `/api/user/${id}` : '/api/user',
+    method: 'PUT',
+    url: `/api/user/${id}`,
     body: params,
     json: true
   }

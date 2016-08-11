@@ -32,8 +32,10 @@ export const Interaction = React.createClass({
   handleInputChange(e) {
     this.handleChange(e.target.name, undefined, e.target.value)
   },
+  handleSave() {
+    this.props.save(this.props.userId)
+  },
   render() {
-    console.log(this.props.userDetails.get('userName'))
     return (
       <Dialog
         title={<h3><Translate id={this.props.title} /></h3>}
@@ -47,7 +49,7 @@ export const Interaction = React.createClass({
             label={<Translate id='Save' />}
             primary
             keyboardFocused
-            onTouchTap={this.props.save}
+            onTouchTap={this.handleSave}
           />
         ]}
         modal={false}
@@ -57,7 +59,7 @@ export const Interaction = React.createClass({
         <h3><Translate id='Details' /></h3>
         <TextField
           floatingLabelText={<Translate id='User Name' />}
-          defaultValue={this.props.userDetails.get('userName')}
+          value={this.props.userDetails.get('userName')}
           onChange={this.handleInputChange}
           name='userName'
         />
@@ -65,7 +67,7 @@ export const Interaction = React.createClass({
         <TextField
           floatingLabelText={<Translate id='E-mail' />}
           onChange={this.handleInputChange}
-          defaultValue={this.props.userDetails.get('email')}
+          value={this.props.userDetails.get('email')}
           name='email'
         />
         <br />
@@ -79,10 +81,8 @@ export const Interaction = React.createClass({
 })
 
 Interaction.defaultProps = {
-  userName: '',
-  email: '',
   title: '',
   roles: Immutable.Map({}).set('data', []),
-  userDetails: Immutable.Map({}),
+  userDetails: Immutable.fromJS({email: '', userName: ''}),
   opened: false
 }
