@@ -9,7 +9,7 @@ const Role = React.createClass({
     handleChange: PropTypes.func
   },
   onCheck(e, state) {
-    this.props.handleChange('role', this.props.props.get('id'), state)
+    this.props.handleChange('roles', this.props.props.get('id'), state)
   },
   render() {
     return (

@@ -10,7 +10,7 @@ export const Interaction = React.createClass({
   propTypes: {
     opened: PropTypes.bool,
     userId: PropTypes.number,
-    roles: PropTypes.object,
+    availableRoles: PropTypes.object,
     userDetails: PropTypes.object,
     add: PropTypes.func,
     edit: PropTypes.func,
@@ -33,7 +33,11 @@ export const Interaction = React.createClass({
     this.handleChange(e.target.name, undefined, e.target.value)
   },
   handleSave() {
-    this.props.save(this.props.userId)
+    var newDetails = this.props.userDetails
+      .delete(['roles'])
+      .set('roles', (this.props.userDetails.get('roles') || Immutable.Map()).keySeq())
+
+    this.props.save(newDetails.toJS(), this.props.userId)
   },
   render() {
     return (
@@ -72,8 +76,15 @@ export const Interaction = React.createClass({
         />
         <br />
         <h3><Translate id='Roles' /></h3>
-        {this.props.roles.get('data').map((v, k) => {
-          return (<RoleSelect key={k} props={v} handleChange={this.handleChange} defaultChecked={!!this.props.userDetails.getIn(['role', v.get('id')])} />)
+        {this.props.availableRoles.get('data').map((v, k) => {
+          return (
+            <RoleSelect
+              key={k}
+              props={v}
+              handleChange={this.handleChange}
+              defaultChecked={!!this.props.userDetails.getIn(['roles', parseInt(v.get('id'))])}
+            />
+          )
         })}
       </Dialog>
     )
@@ -82,7 +93,7 @@ export const Interaction = React.createClass({
 
 Interaction.defaultProps = {
   title: '',
-  roles: Immutable.Map({}).set('data', []),
+  availableRoles: Immutable.Map({}).set('data', []),
   userDetails: Immutable.fromJS({email: '', userName: ''}),
   opened: false
 }

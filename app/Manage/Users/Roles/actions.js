@@ -1,5 +1,5 @@
 export const actionList = {
-  'LIST': Symbol('LIST'),
+  'FETCH': Symbol('FETCH'),
   'GET': Symbol('GET'),
   'ADD': Symbol('ADD'),
   'EDIT': Symbol('EDIT'),
@@ -7,8 +7,8 @@ export const actionList = {
   'DELETE': Symbol('DELETE')
 }
 
-export const list = () => ({
-  type: actionList.LIST,
+export const fetch = () => ({
+  type: actionList.FETCH,
   httpRequest: {
     method: 'GET',
     url: '/api/roles',

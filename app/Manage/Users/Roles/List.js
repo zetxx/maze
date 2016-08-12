@@ -8,18 +8,18 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {list, get, add, edit} from './actions'
+import {fetch, get, add, edit} from './actions'
 
 const Roles = React.createClass({
   propTypes: {
-    list: React.PropTypes.func,
+    fetch: React.PropTypes.func,
     get: React.PropTypes.func,
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
     roles: React.PropTypes.object
   },
   componentDidMount() {
-    this.props.list()
+    this.props.fetch()
   },
   getDefaultProps: function() {
     return {
@@ -60,5 +60,5 @@ const Roles = React.createClass({
 
 export default connect(
   (state) => ({roles: state.roles}),
-  {get, list, add, edit}
+  {get, fetch, add, edit}
 )(Roles)

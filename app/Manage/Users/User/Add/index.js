@@ -4,8 +4,8 @@ import {save, add, change} from './actions'
 
 export default connect(
   (state) => ({
-    roles: state.roles,
-    userDetails: state.userEdit.get('data'),
+    availableRoles: state.roles,
+    userDetails: state.userAdd.get('data'),
     opened: state.userAdd.get('opened'),
     title: 'Add User'
   }),

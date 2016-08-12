@@ -10,20 +10,28 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import Add from './Add'
 import Edit from './Edit'
-import {list} from './actions'
+import {fetch} from './actions'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
 
 const Users = React.createClass({
   propTypes: {
-    list: React.PropTypes.func,
-    get: React.PropTypes.func,
+    fetch: React.PropTypes.func,
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
-    users: React.PropTypes.object
+    users: React.PropTypes.object,
+    addTrigger: React.PropTypes.number,
+    editTrigger: React.PropTypes.number
   },
   componentDidMount() {
-    this.props.list()
+    this.props.fetch()
+  },
+  shouldComponentUpdate(newProps) {
+    if (this.props.addTrigger !== newProps.addTrigger || this.props.editTrigger !== newProps.editTrigger) {
+      newProps.fetch()
+      return false
+    }
+    return true
   },
   defaultProps: {
     users: {data: []}
@@ -70,6 +78,10 @@ const Users = React.createClass({
 })
 
 export default connect(
-  (state) => ({users: state.users, edit: state.edit}),
-  {list, add, edit}
+  (state) => ({
+    users: state.users,
+    addTrigger: state.userAdd.get('triggerId'),
+    editTrigger: state.userEdit.get('triggerId')
+  }),
+  {fetch, add, edit}
 )(Users)

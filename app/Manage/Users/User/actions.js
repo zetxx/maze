@@ -1,9 +1,9 @@
 export const actionList = {
-  'LIST': Symbol('LIST')
+  'FETCH': Symbol('FETCH')
 }
 
-export const list = () => ({
-  type: actionList.LIST,
+export const fetch = () => ({
+  type: actionList.FETCH,
   httpRequest: {
     method: 'GET',
     url: '/api/users',

@@ -6,7 +6,7 @@ export const role = (state = {}, action) => {
 }
 
 export const roles = (state = Immutable.Map({}).set('data', []), action) => {
-  if (action.type === actionList.LIST && action.status === 'received') {
+  if (action.type === actionList.FETCH && action.status === 'received') {
     return state
       .set('status', action.status)
       .set('data', Immutable.fromJS(action.data))

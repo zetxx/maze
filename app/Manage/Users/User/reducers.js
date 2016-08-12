@@ -6,7 +6,7 @@ export const user = (state = {}, action) => {
 }
 
 export const users = (state = Immutable.Map(), action) => {
-  if (action.type === actionList.LIST && action.status === 'received') {
+  if (action.type === actionList.FETCH && action.status === 'received') {
     return state
       .set('status', action.status)
       .set('data', Immutable.fromJS(action.data).map((v, k) => {
