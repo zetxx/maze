@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const sequelize = require('../../../../../config/db.js')
 const users = require('../model')
 const roles = require('../../Roles/model')
 const userRoles = require('../../UserRoles/model')
@@ -11,7 +12,33 @@ module.exports = (registrar) => {
     path: '/api/user/{id}',
     config: {
       handler: (req, resp) => {
-        resp('Not implemented')
+        sequelize.transaction((t) => {
+          return users
+            .update({
+              email: req.payload.email
+            }, {
+              where: {id: req.params.id}
+            }, {
+              transaction: t
+            })
+            .then((user) => {
+              return userRoles.destroy({
+                where: {userId: req.params.id}
+              })
+              .then((destroyed) => {
+                if (req.payload.roles) {
+                  return userRoles.bulkCreate(req.payload.roles.map((roleId) => {
+                    return {roleId, userId: req.params.id}
+                  }))
+                }
+                return destroyed
+              })
+            })
+        })
+        .then((res) => {
+          console.log(res)
+          resp(res)
+        })
       },
       description: 'User update',
       notes: 'User update',

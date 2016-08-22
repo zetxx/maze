@@ -15,11 +15,13 @@ export const userEdit = (state = defState, action) => {
           .set('triggerId', state.get('triggerId') + 1)
           .set('opened', false)
           .set('data', defState.get('data'))
+          .delete('userId')
       }
       break
     case actionList.GET:
       if (action.status === 'received') {
         let data = Immutable.fromJS((action.data && action.data.shift()) || {})
+
         return state
           .setIn(['data'], data.delete('roles'))
           .setIn(['data', 'roles'], data.get('roles').reduce((prev, cur) => {
@@ -28,7 +30,6 @@ export const userEdit = (state = defState, action) => {
       }
       break
     case actionList.CHANGE:
-        // debugger
       if (action.params.id === undefined) {
         return state.setIn(['data', action.params.field], action.params.state)
       } else if (action.params.id) {

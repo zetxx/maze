@@ -10,7 +10,10 @@ export const save = (params, id) => ({
   httpRequest: {
     method: 'PUT',
     url: `/api/user/${id}`,
-    body: params,
+    body: {
+      roles: params.roles,
+      email: params.email
+    },
     json: true
   }
 })
