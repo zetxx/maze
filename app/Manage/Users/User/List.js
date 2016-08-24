@@ -20,14 +20,14 @@ const Users = React.createClass({
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
     users: React.PropTypes.object,
-    addTrigger: React.PropTypes.number,
-    editTrigger: React.PropTypes.number
+    addFetchTriggerId: React.PropTypes.number,
+    editFetchTriggerId: React.PropTypes.number
   },
   componentDidMount() {
     this.props.fetch()
   },
   shouldComponentUpdate(newProps) {
-    if (this.props.addTrigger !== newProps.addTrigger || this.props.editTrigger !== newProps.editTrigger) {
+    if (this.props.addFetchTriggerId !== newProps.addFetchTriggerId || this.props.editFetchTriggerId !== newProps.editFetchTriggerId) {
       newProps.fetch()
       return false
     }
@@ -80,8 +80,8 @@ const Users = React.createClass({
 export default connect(
   (state) => ({
     users: state.users,
-    addTrigger: state.userAdd.get('triggerId'),
-    editTrigger: state.userEdit.get('triggerId')
+    addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
+    editTrigger: state.userEdit.get('fetchTriggerId')
   }),
   {fetch, add, edit}
 )(Users)

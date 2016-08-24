@@ -8,7 +8,10 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {fetch, get, add, edit} from './actions'
+import {fetch, get, edit} from './actions'
+// import Add from '../Role/Add'
+import {add} from '../Role/Add/actions'
+// import {edit} from '../Role/Edit/actions'
 
 const Roles = React.createClass({
   propTypes: {
@@ -16,10 +19,19 @@ const Roles = React.createClass({
     get: React.PropTypes.func,
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
-    roles: React.PropTypes.object
+    roles: React.PropTypes.object,
+    addFetchTriggerId: React.PropTypes.number,
+    editFetchTriggerId: React.PropTypes.number
   },
   componentDidMount() {
     this.props.fetch()
+  },
+  shouldComponentUpdate(newProps) {
+    if (this.props.addFetchTriggerId !== newProps.addFetchTriggerId || this.props.editFetchTriggerId !== newProps.editFetchTriggerId) {
+      newProps.fetch()
+      return false
+    }
+    return true
   },
   getDefaultProps: function() {
     return {
@@ -59,6 +71,10 @@ const Roles = React.createClass({
 })
 
 export default connect(
-  (state) => ({roles: state.roles}),
+  (state) => ({
+    roles: state.roles,
+    addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
+    // editFetchTriggerId: state.userEdit.get('fetchTriggerId')
+  }),
   {get, fetch, add, edit}
 )(Roles)

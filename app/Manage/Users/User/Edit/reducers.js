@@ -1,6 +1,6 @@
 import {actionList} from './actions'
 import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.Map({email: '', userName: ''})).set('triggerId', 0)
+const defState = Immutable.Map().set('data', Immutable.Map({email: '', userName: ''})).set('fetchTriggerId', 0)
 
 export const userEdit = (state = defState, action) => {
   switch (action.type) {
@@ -12,7 +12,7 @@ export const userEdit = (state = defState, action) => {
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {
         return state
-          .set('triggerId', state.get('triggerId') + 1)
+          .set('fetchTriggerId', state.get('fetchTriggerId') + 1)
           .set('opened', false)
           .set('data', defState.get('data'))
           .delete('userId')
