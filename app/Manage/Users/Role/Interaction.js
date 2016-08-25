@@ -16,7 +16,10 @@ export const Interaction = React.createClass({
   propTypes: {
     opened: PropTypes.bool,
     roleId: PropTypes.number,
-    actions: PropTypes.object,
+    actions: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      description: PropTypes.string
+    })),
     add: PropTypes.func,
     fetch: PropTypes.func,
     edit: PropTypes.func,
@@ -67,7 +70,7 @@ export const Interaction = React.createClass({
           return (
             <Chip style={actionBoxStyle} key={k} backgroundColor={colorAllowed}>
               <Avatar icon={<IconAllowed hoverColor={colorNotAllowed} style={actionBoxIconStyle} />} color={colorAllowed} backgroundColor='#e0e0e0' />
-              {el.get('description')}
+              {el['description']}
             </Chip>
           )
         })}
