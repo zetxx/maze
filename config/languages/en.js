@@ -58,5 +58,7 @@ export const en = {
   'Details': 'Details',
   'Edit User': 'Edit User',
   'Add User': 'Add User',
+  'Add Role': 'Add Role',
+  'Actions': 'Actions',
   '_currency': '&#36;'
 }

@@ -2,7 +2,7 @@ import {actionList} from './actions'
 import Immutable from 'immutable'
 const defState = Immutable.Map().set('data', Immutable.Map()).set('fetchTriggerId', 0)
 
-export const userAdd = (state = defState, action) => {
+export const roleAdd = (state = defState, action) => {
   switch (action.type) {
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {

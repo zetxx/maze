@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {fetch, get, edit} from './actions'
-// import Add from '../Role/Add'
+import Add from '../Role/Add'
 import {add} from '../Role/Add/actions'
 // import {edit} from '../Role/Edit/actions'
 
@@ -65,6 +65,7 @@ const Roles = React.createClass({
             ))}
           </TableBody>
         </Table>
+        <Add ref='add' />
       </Card>
     )
   }
@@ -73,7 +74,7 @@ const Roles = React.createClass({
 export default connect(
   (state) => ({
     roles: state.roles,
-    addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
+    addFetchTriggerId: state.userAdd.get('fetchTriggerId')
     // editFetchTriggerId: state.userEdit.get('fetchTriggerId')
   }),
   {get, fetch, add, edit}
