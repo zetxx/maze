@@ -81,7 +81,7 @@ export default connect(
   (state) => ({
     users: state.users,
     addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
-    editTrigger: state.userEdit.get('fetchTriggerId')
+    editFetchTriggerId: state.userEdit.get('fetchTriggerId')
   }),
   {fetch, add, edit}
 )(Users)

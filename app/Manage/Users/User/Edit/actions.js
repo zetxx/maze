@@ -20,7 +20,7 @@ export const save = (params, id) => ({
 
 export const edit = (userId) => ({
   type: actionList.EDIT,
-  userId: (!isNaN(parseInt(userId)) ? userId : '')
+  userId: userId
 })
 
 export const change = (params) => ({
