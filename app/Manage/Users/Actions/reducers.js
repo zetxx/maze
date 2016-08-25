@@ -1,6 +1,6 @@
 import {actionList} from './actions'
 import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.Map()).set('fetchTriggerId', 0)
+const defState = Immutable.Map().set('data', Immutable.List()).set('fetchTriggerId', 0)
 
 export const actions = (state = defState, action) => {
   switch (action.type) {
