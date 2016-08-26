@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react'
 import Avatar from 'material-ui/Avatar'
 import IconAllowed from 'material-ui/svg-icons/action/thumb-up'
-import IconNotAllowed from 'material-ui/svg-icons/action/thumb-down'
-import IconAllowedNotSet from 'material-ui/svg-icons/action/thumbs-up-down'
 import {green300 as colorAllowed, red300 as colorNotAllowed} from 'material-ui/styles/colors'
 // import Immutable from 'immutable'
 import Dialog from 'material-ui/Dialog'
@@ -11,6 +9,40 @@ import {Translate} from '../../../Translation'
 import Chip from 'material-ui/Chip'
 const actionBoxStyle = {float: 'left', margin: '0 2px 5px 2px'}
 const actionBoxIconStyle = {cursor: 'pointer'}
+const permissionStyles = {
+  permAllowed: {chipBg: colorAllowed, iconHover: colorNotAllowed, avatarColor: colorAllowed, avatarBg: '#e0e0e0'},
+  permNotAllowed: {chipBg: colorNotAllowed, iconHover: '#ccc', avatarColor: colorNotAllowed, avatarBg: '#e0e0e0'},
+  permNotSet: {chipBg: '#ccc', iconHover: colorNotAllowed, avatarColor: '#ccc', avatarBg: '#e0e0e0'}
+}
+
+export const Permission = React.createClass({
+  propTypes: {
+    description: PropTypes.string.isRequired,
+    value: PropTypes.oneOf([1, -1])
+  },
+  getColorStyles() {
+    if (this.props.value === 1) {
+      return permissionStyles['permAllowed']
+    } else if (this.props.value === -1) {
+      return permissionStyles['permNotAllowed']
+    }
+    return permissionStyles['permNotSet']
+  },
+  render() {
+    let colorStyles = this.getColorStyles()
+    return (
+      <Chip style={actionBoxStyle} backgroundColor={colorStyles.chipBg}>
+        <Avatar icon={<IconAllowed hoverColor={colorStyles.iconHover} style={actionBoxIconStyle} />} color={colorStyles.avatarColor} backgroundColor={colorStyles.avatarBg} />
+        {this.props.description}
+      </Chip>
+    )
+  }
+})
+
+Permission.defaultProps = {
+  title: ''
+}
+
 
 export const Interaction = React.createClass({
   propTypes: {
@@ -66,12 +98,9 @@ export const Interaction = React.createClass({
         onRequestClose={this.props.edit || this.props.add}
       >
         <h3><Translate id='Actions' /></h3>
-        {this.props.actions.map((el, k) => {
+        {this.props.actions.map((data, k) => {
           return (
-            <Chip style={actionBoxStyle} key={k} backgroundColor={colorAllowed}>
-              <Avatar icon={<IconAllowed hoverColor={colorNotAllowed} style={actionBoxIconStyle} />} color={colorAllowed} backgroundColor='#e0e0e0' />
-              {el['description']}
-            </Chip>
+            <Permission description={data.description} key={k} />
           )
         })}
       </Dialog>
