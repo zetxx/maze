@@ -60,5 +60,6 @@ export const en = {
   'Add User': 'Add User',
   'Add Role': 'Add Role',
   'Actions': 'Actions',
+  'Role': 'Role',
   '_currency': '&#36;'
 }

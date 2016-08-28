@@ -1,6 +1,8 @@
 import {actionList} from './actions'
 import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.Map()).set('fetchTriggerId', 0)
+const defState = Immutable.Map()
+  .set('name', '')
+  .set('permissions', Immutable.Map())
 
 export const roleAdd = (state = defState, action) => {
   switch (action.type) {
@@ -15,14 +17,13 @@ export const roleAdd = (state = defState, action) => {
     case actionList.ADD:
       return state.set('opened', !state.get('opened')).set('data', defState.get('data'))
     case actionList.CHANGE:
-      if (!state.getIn(['data', action.params.field, action.params.id])) {
+      if (!action.params.id) { // field
         return state
-          .setIn(
-            ['data', action.params.field, action.params.id], true
-          )
+          .set(action.params.field, action.params.state)
+      } else { // permissions
+        return state
+          .setIn(['permissions', action.params.id], action.params.state)
       }
-      return state
-          .deleteIn(['data', action.params.field, action.params.id])
   }
   return state
 }
