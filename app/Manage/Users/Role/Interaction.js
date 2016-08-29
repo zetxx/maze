@@ -96,6 +96,10 @@ export const Interaction = React.createClass({
     this.handleChange('permission', id, state)
   },
   handleSave() {
+    this.props.save({
+      permissions: Object.keys(this.props.permissions).map((actionId) => ({actionId, permission: this.props.permissions[actionId]})),
+      name: this.props.name
+    }, this.props.roleId)
   },
   render() {
     return (

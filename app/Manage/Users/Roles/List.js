@@ -74,8 +74,8 @@ const Roles = React.createClass({
 export default connect(
   (state) => ({
     roles: state.roles,
-    addFetchTriggerId: state.userAdd.get('fetchTriggerId')
-    // editFetchTriggerId: state.userEdit.get('fetchTriggerId')
+    addFetchTriggerId: state.roleAdd.get('fetchTriggerId')
+    // editFetchTriggerId: state.roleEdit.get('fetchTriggerId')
   }),
   {get, fetch, add, edit}
 )(Roles)

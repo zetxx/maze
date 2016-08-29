@@ -2,10 +2,11 @@ import {actionList} from './actions'
 import Immutable from 'immutable'
 const defState = Immutable.Map()
   .set('name', '')
+  .set('roleId', 0)
   .set('fetchTriggerId', 0)
   .set('permissions', Immutable.Map())
 
-export const roleAdd = (state = defState, action) => {
+export const roleEdit = (state = defState, action) => {
   switch (action.type) {
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {
@@ -14,7 +15,7 @@ export const roleAdd = (state = defState, action) => {
           .set('opened', false)
       }
       break
-    case actionList.ADD:
+    case actionList.EDIT:
       return defState
         .set('opened', !state.get('opened'))
     case actionList.CHANGE:

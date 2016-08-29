@@ -13,6 +13,7 @@ import {userAdd} from './Manage/Users/User/Add/reducers'
 import {userEdit} from './Manage/Users/User/Edit/reducers'
 import {userRoles} from './Manage/Users/UserRoles/reducers'
 import {roleAdd} from './Manage/Users/Role/Add/reducers'
+import {roleEdit} from './Manage/Users/Role/Edit/reducers'
 import {actions} from './Manage/Users/Actions/reducers'
 
 export default {
@@ -38,6 +39,7 @@ export default {
   userEdit,
   userRoles,
   roleAdd,
+  roleEdit,
   actions,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
