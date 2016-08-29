@@ -21,8 +21,14 @@ export const roleAdd = (state = defState, action) => {
         return state
           .set(action.params.field, action.params.state)
       } else { // permissions
-        return state
+        let newState = state
           .setIn(['permissions', action.params.id], action.params.state)
+        if (!action.params.state) {
+          return newState
+            .deleteIn(['permissions', action.params.id])
+        } else {
+          return newState
+        }
       }
   }
   return state
