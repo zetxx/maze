@@ -82,7 +82,6 @@ export const Interaction = React.createClass({
     if (newProps.opened && !this.props.opened) {
       newProps.fetch()
       if (newProps.get && newProps.roleId !== this.props.roleId) {
-        debugger;
         newProps.get(newProps.roleId)
       }
     }
