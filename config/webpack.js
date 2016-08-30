@@ -14,7 +14,7 @@ module.exports = {
     if (config.env === 'development') {
       const Webpack = require('webpack')
       const wpconf = {
-        devtool: 'cheap-module-eval-source-map',
+        devtool: 'eval-source-map',
         entry: ['babel-polyfill', 'webpack-hot-middleware/client', settings.entry],
         // entry: { index: './app/index.jsx' },
         output: settings.output,
