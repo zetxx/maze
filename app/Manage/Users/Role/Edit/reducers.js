@@ -18,6 +18,7 @@ export const roleEdit = (state = defState, action) => {
     case actionList.EDIT:
       return defState
         .set('opened', !state.get('opened'))
+        .set('roleId', action.roleId)
     case actionList.CHANGE:
       if (!action.params.id) { // field
         return state

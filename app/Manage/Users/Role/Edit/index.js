@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {List} from 'immutable'
 import {Interaction} from '../Interaction'
-import {save, add, change} from './actions'
+import {save, edit, change, get} from './actions'
 import {fetch} from '../../Actions/actions'
 
 export default connect(
@@ -13,5 +13,5 @@ export default connect(
     roleId: state.roleEdit.get('roleId'),
     permissions: state.roleEdit.get('permissions' || Map()).toJS()
   }),
-  {save, add, change, fetch}
+  {save, edit, change, fetch, get}
 )(Interaction)

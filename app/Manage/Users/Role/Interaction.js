@@ -81,7 +81,8 @@ export const Interaction = React.createClass({
   componentWillReceiveProps(newProps) {
     if (newProps.opened && !this.props.opened) {
       newProps.fetch()
-      if (newProps.get && newProps.roleId) {
+      if (newProps.get && newProps.roleId !== this.props.roleId) {
+        debugger;
         newProps.get(newProps.roleId)
       }
     }
@@ -101,6 +102,9 @@ export const Interaction = React.createClass({
       name: this.props.name
     }, this.props.roleId)
   },
+  handleCancel() {
+    (this.props.edit || this.props.add)()
+  },
   render() {
     return (
       <Dialog
@@ -109,7 +113,7 @@ export const Interaction = React.createClass({
           <FlatButton
             label={<Translate id='Cancel' />}
             primary
-            onTouchTap={this.props.edit || this.props.add}
+            onTouchTap={this.handleCancel}
           />,
           <FlatButton
             label={<Translate id='Save' />}

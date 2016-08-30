@@ -8,10 +8,11 @@ import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColu
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {fetch, get, edit} from './actions'
+import {fetch, get} from './actions'
 import Add from '../Role/Add'
+import Edit from '../Role/Edit'
 import {add} from '../Role/Add/actions'
-// import {edit} from '../Role/Edit/actions'
+import {edit} from '../Role/Edit/actions'
 
 const Roles = React.createClass({
   propTypes: {
@@ -38,6 +39,9 @@ const Roles = React.createClass({
       roles: {data: []}
     }
   },
+  handleEdit(roleId) {
+    return () => (this.props.edit(roleId))
+  },
   render() {
     return (
       <Card style={{float: 'left', width: '40%'}}>
@@ -59,13 +63,14 @@ const Roles = React.createClass({
                 <TableRowColumn>{el.get('name')}</TableRowColumn>
                 <TableRowColumn style={{width: '120px'}}>
                   <IconButton><DeleteIcon /></IconButton>
-                  <IconButton><EditIcon /></IconButton>
+                  <IconButton onTouchTap={this.handleEdit(el.get('id'))}><EditIcon /></IconButton>
                 </TableRowColumn>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <Add ref='add' />
+        <Edit ref='edit' />
       </Card>
     )
   }
@@ -74,8 +79,8 @@ const Roles = React.createClass({
 export default connect(
   (state) => ({
     roles: state.roles,
-    addFetchTriggerId: state.roleAdd.get('fetchTriggerId')
-    // editFetchTriggerId: state.roleEdit.get('fetchTriggerId')
+    addFetchTriggerId: state.roleAdd.get('fetchTriggerId'),
+    editFetchTriggerId: state.roleEdit.get('fetchTriggerId')
   }),
   {get, fetch, add, edit}
 )(Roles)

@@ -61,5 +61,6 @@ export const en = {
   'Add Role': 'Add Role',
   'Actions': 'Actions',
   'Role': 'Role',
+  'Edit Role': 'Edit Role',
   '_currency': '&#36;'
 }
