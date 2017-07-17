@@ -1,17 +1,17 @@
 import {actionList} from './actions'
-import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.List()).set('fetchTriggerId', 0)
+import {Map, List, fromJS} from 'immutable'
+const defState = fromJS({data: List(), fetchTriggerId: 0})
 
 export const actions = (state = defState, action) => {
   switch (action.type) {
     case actionList.FETCH:
       if (action.status === 'received' && !action.err) {
         return state
-          .set('fetchTriggerId', state.get('fetchTriggerId') + 1)
+          .update('fetchTriggerId', (v) => (v + 1))
           .set('data', action.data.reduce((prev, cur) => {
             return prev
-              .push(Immutable.Map({id: cur.id, description: cur.description}))
-          }, Immutable.List()))
+              .push(Map({id: cur.id, description: cur.description}))
+          }, List()))
       }
       break
   }
