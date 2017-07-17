@@ -1,6 +1,7 @@
 const config = require('./server.js')
 var path = require('path')
 const settings = {
+  context: path.resolve(__dirname, 'app'),
   entry: './app/index.jsx',
   output: {
     filename: 'index.js',
@@ -15,8 +16,11 @@ module.exports = {
       const Webpack = require('webpack')
       const wpconf = {
         devtool: 'eval-source-map',
-        entry: ['babel-polyfill', 'webpack-hot-middleware/client', settings.entry],
-        // entry: { index: './app/index.jsx' },
+        entry: [
+          'babel-polyfill',
+          'webpack-hot-middleware/client',
+          settings.entry
+        ],
         output: settings.output,
         name: 'browser',
         node: {
@@ -24,29 +28,28 @@ module.exports = {
           net: 'empty',
           tls: 'empty'
         },
+        resolve: {
+          extensions: ['.js', '.jsx']
+        },
         module: {
-          loaders: [
+          rules: [
             {
               test: /\.jsx?$/,
               exclude: /(node_modules|bower_components)/,
-              loader: 'babel', // 'babel-loader' is also a legal name to reference
-              query: {
-                presets: ['es2015', 'stage-0', 'react', 'react-hmre']
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['env', 'react', 'react-hmre']
+                }
               }
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' }, // use ! to chain loaders
-            { test: /\.png$/, loader: 'url-loader?limit=100000&mimetype=image/png' },
-            { test: /\.json$/, loader: 'json' }
+            { test: /\.json$/, use: {loader: 'json'} },
+            { test: /\.css$/, use: {loader: 'style-loader!css-loader'} },
+            { test: /\.png$/, use: {loader: 'url-loader?limit=100000&mimetype=image/png'} }
           ]
         },
         plugins: [
-          new Webpack.SourceMapDevToolPlugin({
-            filename: 'bundle.js.map',
-            moduleFilenameTemplate: '[absolute-resource-path]',
-            fallbackModuleFilenameTemplate: '[absolute-resource-path]'
-          }),
-          new Webpack.HotModuleReplacementPlugin(),
-          new Webpack.NoErrorsPlugin()
+          new Webpack.HotModuleReplacementPlugin()
         ]
       }
       const compiler = new Webpack(wpconf)
@@ -91,20 +94,22 @@ module.exports = {
         tls: 'empty'
       },
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
-            loader: 'babel', // 'babel-loader' is also a legal name to reference
-            query: {
-              presets: ['es2015', 'stage-0', 'react']
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['env', 'react', 'react-hmre']
+              }
             }
           },
-          {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff'},
-          {test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'},
-          {test: /\.json$/, loader: 'json'},
-          {test: /.*\.(gif|png|jpe?g|svg)$/i, loaders: ['url-loader?limit=30720000']},
-          {test: /\.css$/, loader: 'style-loader!css-loader'}
+          { test: /\.json$/, use: {loader: 'json'} },
+          { test: /\.css$/, use: {loader: 'style-loader!css-loader'} },
+          {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: {loader: 'url-loader?limit=10000&minetype=application/font-woff'}},
+          {test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: {loader: 'file-loader'}},
+          {test: /.*\.(gif|png|jpe?g|svg)$/i, use: {loader: 'url-loader?limit=30720000'}}
         ]
       },
       plugins: [

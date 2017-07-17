@@ -3,7 +3,7 @@ const roles = require('./model')
 const permissions = require('../Permissions/model')
 const actions = require('../Actions/model')
 roles.belongsToMany(actions, {through: permissions})
-roles.hasMany(permissions)
+// roles.hasMany(permissions)
 actions.belongsToMany(roles, {through: permissions})
 
 module.exports = (registrar) => {
