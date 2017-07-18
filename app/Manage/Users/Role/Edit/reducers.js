@@ -8,6 +8,18 @@ const defState = Immutable.Map()
 
 export const roleEdit = (state = defState, action) => {
   switch (action.type) {
+    case actionList.GET:
+      if (action.status === 'received' && !action.err) {
+        state = state
+          .set('name', action.data.name)
+        if (action.data.rolePermissions) {
+          state = action.data.rolePermissions.reduce((accum, cur) => {
+            return accum.setIn(['permissions', cur.actionId], cur.permission)
+          }, state)
+        }
+        return state
+      }
+      break
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {
         return defState
@@ -24,6 +36,7 @@ export const roleEdit = (state = defState, action) => {
         return state
           .set(action.params.field, action.params.state)
       } else { // permissions
+        // state : permission; id: actionId;
         let newState = state
           .setIn(['permissions', action.params.id], action.params.state)
         if (!action.params.state) {

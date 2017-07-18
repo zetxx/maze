@@ -69,9 +69,7 @@ export const Interaction = React.createClass({
       description: PropTypes.string
     })),
     add: PropTypes.func,
-    fetch: PropTypes.func,
     edit: PropTypes.func,
-    get: PropTypes.func,
     change: PropTypes.func,
     save: PropTypes.func,
     title: PropTypes.string,
