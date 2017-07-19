@@ -34,7 +34,6 @@ module.exports = (registrar) => {
             })
         })
         .then((res) => {
-          console.log(res)
           resp(res)
         })
       },
