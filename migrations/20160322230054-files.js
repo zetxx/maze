@@ -9,12 +9,12 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        productId: {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'product',
-            key: 'id'
-          }
+        itemId: {
+          type: Sequelize.INTEGER
+        },
+        itemType: {
+          type: Sequelize.ENUM('product', 'supplier'),
+          allowNull: false
         },
         isDefault: {
           type: Sequelize.INTEGER,
