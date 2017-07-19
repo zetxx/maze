@@ -62,5 +62,9 @@ export const en = {
   'Actions': 'Actions',
   'Role': 'Role',
   'Edit Role': 'Edit Role',
+  'Suppliers': 'Suppliers',
+  'Supplier add': 'Supplier add',
+  'Supplier name': 'Supplier name',
+  'Description': 'Description',
   '_currency': '&#36;'
 }

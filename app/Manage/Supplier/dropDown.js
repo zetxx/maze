@@ -3,18 +3,18 @@ import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 
-const ProductCat = React.createClass({
+const SupplierDropDown = React.createClass({
   propTypes: {
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
     value: React.PropTypes.number,
-    shops: React.PropTypes.object
+    suppliers: React.PropTypes.object
   },
   getInitialState() {
     return {value: this.props.value}
   },
   componentWillMount() {
-    if (!this.props.shops.status) {
+    if (!this.props.suppliers.status) {
       this.props.fetch()
     }
   },
@@ -22,12 +22,12 @@ const ProductCat = React.createClass({
     this.setState({value: value})
   },
   getValue() {
-    return this.props.shops.data[this.state.value - 1].id
+    return this.props.suppliers.data[this.state.value - 1].id
   },
   render() {
     return (
       <DropDownMenu ref='dropdown' value={this.state.value} onChange={this.handleChange}>
-        {this.props.shops.data && this.props.shops.data.map((el, idx) => {
+        {this.props.suppliers.data && this.props.suppliers.data.map((el, idx) => {
           return (
             <MenuItem value={idx + 1} key={idx} primaryText={el.name} />
           )
@@ -38,13 +38,13 @@ const ProductCat = React.createClass({
 })
 
 export default connect(
-  (state) => ({shops: state.shops}),
+  (state) => ({suppliers: state.suppliers}),
   {
     fetch() {
       return {
-        type: 'FETCH_SHOPS', httpRequest: {
+        type: 'FETCH', httpRequest: {
           method: 'GET',
-          url: '/api/shop',
+          url: '/api/productCategory',
           json: true
         }
       }
@@ -52,4 +52,4 @@ export default connect(
   },
   null,
   {withRef: true}
-)(ProductCat)
+)(SupplierDropDown)

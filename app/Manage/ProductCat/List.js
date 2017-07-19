@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {Translate} from '../../Translation'
+import {actionList} from './reducers.js'
 
 class ProductCat extends React.Component {
   componentDidMount() {
@@ -60,7 +61,7 @@ export default connect(
   {
     fetch() {
       return {
-        type: 'FETCH_PRODUCT_CATEGORIES', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
           url: '/api/productCategory',
           json: true
@@ -68,7 +69,7 @@ export default connect(
       }
     },
     add() {
-      return {type: 'TOGGLE_PRODUCT_CAT_ADD'}
+      return {type: actionList.TOGGLE_ADD}
     }
   }
 )(ProductCat)

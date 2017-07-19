@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const product = db.define('product', {
+const supplier = db.define('supplier', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -11,27 +11,13 @@ const product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  barcode: {
-    type: Sequelize.INTEGER,
+  location: {
+    type: Sequelize.GEOMETRY('POINT'),
     allowNull: true
-  },
-  category: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'productCategory',
-      key: 'id'
-    }
-  },
-  supplier: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'supplier',
-      key: 'id'
-    }
   },
   description: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: false
   },
   addedAt: {
     type: Sequelize.DATE,
@@ -42,4 +28,4 @@ const product = db.define('product', {
   freezeTableName: true
 })
 
-module.exports = product
+module.exports = supplier

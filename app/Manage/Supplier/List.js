@@ -1,16 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'material-ui/Card/Card'
+import Add from './Add'
 import AppBar from 'material-ui/AppBar/AppBar'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-import {Translate} from '../../../Translation'
-import Add from './Add'
+import {Translate} from '../../Translation'
+import {actionList} from './reducers.js'
 
-class Shop extends React.Component {
+class Suppliers extends React.Component {
   componentDidMount() {
     this.props.fetch()
   }
@@ -19,7 +20,7 @@ class Shop extends React.Component {
       <div>
         <Card>
           <AppBar
-            title={<Translate id='Shops' />}
+            title={<Translate id='Suppliers' />}
             iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
           />
 
@@ -31,7 +32,7 @@ class Shop extends React.Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.props.shops.data && this.props.shops.data.map((el) => (
+              {this.props.suppliers.data && this.props.suppliers.data.map((el) => (
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
                   <TableRowColumn style={{width: '100px'}}>
@@ -49,26 +50,26 @@ class Shop extends React.Component {
   }
 }
 
-Shop.propTypes = {
+Suppliers.propTypes = {
   fetch: React.PropTypes.func,
   add: React.PropTypes.func,
-  shops: React.PropTypes.object
+  suppliers: React.PropTypes.object
 }
 
 export default connect(
-  (state) => ({shops: state.shops}),
+  (state) => ({suppliers: state.suppliers}),
   {
     fetch() {
       return {
-        type: 'FETCH_SHOPS', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
-          url: '/api/shop',
+          url: '/api/supplier',
           json: true
         }
       }
     },
     add() {
-      return {type: 'TOGGLE_SHOP_ADD'}
+      return {type: actionList.TOGGLE_ADD}
     }
   }
-)(Shop)
+)(Suppliers)

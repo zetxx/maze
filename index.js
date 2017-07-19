@@ -63,6 +63,7 @@ server.route([{
 webpackFrontendWatch(server)
 // register dynamic routes
 require('./app/Manage/ProductCat/route.js')(server.route.bind(server))
+require('./app/Manage/Supplier/route.js')(server.route.bind(server))
 require('./app/Manage/Product/route.js')(server.route.bind(server))
 require('./app/Manage/Repository/route.js')(server.route.bind(server))
 require('./app/StoreProductSearch/route.js')(server.route.bind(server))

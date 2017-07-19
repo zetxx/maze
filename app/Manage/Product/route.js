@@ -20,7 +20,8 @@ module.exports = function(registrar) {
           name: Joi.string().required().description('Product name'),
           barcode: Joi.number().min(3).description('Product Bar code'),
           description: Joi.string().required().description('Product description'),
-          category: Joi.number().min(1).required().description('Product category')
+          category: Joi.number().min(1).required().description('Product category'),
+          supplier: Joi.number().min(1).required().description('Supplier')
         }
       }
     }

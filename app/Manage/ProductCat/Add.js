@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import {Translate} from '../../Translation'
+import {actionList} from './reducers.js'
 
 const ProductCatAdd = React.createClass({
   propTypes: {
@@ -58,7 +59,7 @@ export default connect(
   (state) => ({productCatAdd: state.productCatAdd}),
   {
     add(body) {
-      return {type: 'PRODUCT_CAT_ADD', httpRequest: {
+      return {type: actionList.ADD, httpRequest: {
         method: 'POST',
         url: '/api/productCategory',
         json: true,
@@ -66,14 +67,14 @@ export default connect(
       }}
     },
     cantAdd(problems) {
-      return {type: 'PRODUCT_CAT_ADD_VALIDATION_PROBLEM', problems}
+      return {type: actionList.ADD_VALIDATION_PROBLEM, problems}
     },
     cancelToggle() {
-      return {type: 'TOGGLE_PRODUCT_CAT_ADD', canceled: true}
+      return {type: actionList.TOGGLE_ADD, canceled: true}
     },
     fetch(httpRequest) {
       return {
-        type: 'FETCH_PRODUCT_CATEGORIES', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
           url: '/api/productCategory',
           json: true

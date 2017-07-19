@@ -1,30 +1,29 @@
 const Joi = require('joi')
-const entity = require('./model.js')
+const supplier = require('./model.js')
 
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/shop',
+    path: '/api/supplier',
     config: {
       handler: function (req, resp) {
         var record = {
           name: req.payload.name,
-          workingHours: '8:00-17:00',
-          description: '-',
-          workingDays: 'm-f'
+          description: req.payload.description
         }
 
         record.location = {type: 'Point', coordinates: [req.payload.lon, req.payload.lat]}
-        entity
+        supplier
           .create(record)
           .then(resp)
       },
-      description: 'Add shop',
-      notes: 'Adds a shop',
-      tags: ['api', 'add', 'shop'],
+      description: 'Add supplier',
+      notes: 'Adds a supplier',
+      tags: ['api', 'add', 'supplier'],
       validate: {
         payload: {
           name: Joi.string().required().description('Name'),
+          description: Joi.string().required().description('description'),
           lon: Joi.number().min(1).required().description('Longitude'),
           lat: Joi.number().min(1).required().description('Latitude')
         }
@@ -34,10 +33,10 @@ module.exports = function(registrar) {
 
   registrar({
     method: 'GET',
-    path: '/api/shop',
+    path: '/api/supplier',
     config: {
       handler: function (req, resp) {
-        entity
+        supplier
           .findAll({})
           .then(resp)
           .catch((err) => {
@@ -45,9 +44,9 @@ module.exports = function(registrar) {
             resp(err)
           })
       },
-      description: 'List Shops',
-      notes: 'List Shops',
-      tags: ['api', 'get', 'Shops']
+      description: 'List suppliers',
+      notes: 'List suppliers',
+      tags: ['api', 'get', 'supplier']
     }
   })
 }

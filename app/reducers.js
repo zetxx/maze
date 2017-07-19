@@ -1,4 +1,5 @@
 import {productCatAdd, productCategories} from './Manage/ProductCat/reducers'
+import {supplierAdd, suppliers} from './Manage/Supplier/reducers'
 import {productAdd, products} from './Manage/Product/reducers'
 import {repository} from './Manage/Repository/reducers'
 import {storeProductSearch, quantitySelection} from './StoreProductSearch/reducers'
@@ -41,6 +42,8 @@ export default {
   roleAdd,
   roleEdit,
   actions,
+  supplierAdd,
+  suppliers,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return state

@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 
-const ProductCat = React.createClass({
+const ProductCatDropDown = React.createClass({
   propTypes: {
+    fixTop: React.PropTypes.bool,
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
     value: React.PropTypes.number,
@@ -42,7 +43,7 @@ export default connect(
   {
     fetch() {
       return {
-        type: 'FETCH_PRODUCT_CATEGORIES', httpRequest: {
+        type: 'FETCH', httpRequest: {
           method: 'GET',
           url: '/api/productCategory',
           json: true
@@ -52,4 +53,4 @@ export default connect(
   },
   null,
   {withRef: true}
-)(ProductCat)
+)(ProductCatDropDown)

@@ -3,19 +3,20 @@ import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
-import {getFieldValues} from '../../../Helpers.js'
-import {Translate} from '../../../Translation'
+import {getFieldValues} from '../../Helpers.js'
+import {Translate} from '../../Translation'
+import {actionList} from './reducers.js'
 
-const ShopAdd = React.createClass({
+const SupplierAdd = React.createClass({
   propTypes: {
     add: React.PropTypes.func,
     cantAdd: React.PropTypes.func,
     cancelToggle: React.PropTypes.func,
     fetch: React.PropTypes.func,
-    shopAdd: React.PropTypes.object
+    SupplierAdd: React.PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'lon', 'lat'])
+    var vals = getFieldValues(this.refs, ['name', 'lon', 'lat', 'description'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -23,7 +24,7 @@ const ShopAdd = React.createClass({
     }
   },
   componentWillReceiveProps(next) {
-    if (this.props.shopAdd.open && !next.shopAdd.open && !next.shopAdd.canceled) {
+    if (this.props.supplierAdd.open && !next.supplierAdd.open && !next.supplierAdd.canceled) {
       next.fetch()
     }
   },
@@ -42,25 +43,32 @@ const ShopAdd = React.createClass({
     ]
 
     return (
-      <Dialog ref='dialog' actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Shop add' /></h3>} modal open={this.props.shopAdd.open}>
+      <Dialog ref='dialog' actions={actions} title={<h3 style={{padding: '24px'}}><Translate id='Supplier add' /></h3>} modal open={this.props.supplierAdd.open}>
         <TextField
           ref='name'
           hintText={<Translate id='Name' />}
           floatingLabelText={<Translate id='Name' />}
-          errorText={this.props.shopAdd.fieldError.name}
+          errorText={this.props.supplierAdd.fieldError.name}
         />
         <br />
         <TextField
           ref='lon'
           hintText={<Translate id='Longitude' />}
           floatingLabelText={<Translate id='Longitude' />}
-          errorText={this.props.shopAdd.fieldError.lon}
+          errorText={this.props.supplierAdd.fieldError.lon}
         />
         <TextField
           ref='lat'
           hintText={<Translate id='Latitude' />}
           floatingLabelText={<Translate id='Latitude' />}
-          errorText={this.props.shopAdd.fieldError.lat}
+          errorText={this.props.supplierAdd.fieldError.lat}
+        />
+        <br />
+        <TextField
+          ref='description'
+          hintText={<Translate id='Description' />}
+          floatingLabelText={<Translate id='Description' />}
+          errorText={this.props.supplierAdd.fieldError.description}
         />
       </Dialog>
     )
@@ -68,30 +76,30 @@ const ShopAdd = React.createClass({
 })
 
 export default connect(
-  (state) => ({shopAdd: state.shopAdd}),
+  (state) => ({supplierAdd: state.supplierAdd}),
   {
     add(body) {
-      return {type: 'SHOP_ADD', httpRequest: {
+      return {type: actionList.ADD, httpRequest: {
         method: 'POST',
-        url: '/api/shop',
+        url: '/api/supplier',
         json: true,
         body: body
       }}
     },
     cantAdd(problems) {
-      return {type: 'SHOP_ADD_VALIDATION_PROBLEM', problems}
+      return {type: actionList.ADD_VALIDATION_PROBLEM, problems}
     },
     cancelToggle() {
-      return {type: 'TOGGLE_SHOP_ADD', canceled: true}
+      return {type: actionList.TOGGLE_ADD, canceled: true}
     },
     fetch(httpRequest) {
       return {
-        type: 'FETCH_SHOPS', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
-          url: '/api/shop',
+          url: '/api/supplier',
           json: true
         }
       }
     }
   }
-)(ShopAdd)
+)(SupplierAdd)

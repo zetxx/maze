@@ -14,7 +14,16 @@ module.exports = {
           references: {
             model: 'productCategory',
             key: 'id'
-          }
+          },
+          allowNull: false
+        },
+        supplier: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'supplier',
+            key: 'id'
+          },
+          allowNull: false
         },
         name: {
           type: Sequelize.STRING,

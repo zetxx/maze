@@ -5,7 +5,7 @@ export const actionList = {
   FETCH: Symbol('FETCH')
 };
 
-export const productCatAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
+export const supplierAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === actionList.TOGGLE_ADD) {
     return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled, fieldError: {}})
   } else if (action.type === actionList.ADD) {
@@ -18,7 +18,7 @@ export const productCatAdd = (state = {open: false, canceled: false, fieldError:
   return state
 }
 
-export const productCategories = (state = {}, action) => {
+export const suppliers = (state = {}, action) => {
   if (action.type === actionList.FETCH) {
     return Object.assign({}, state, {status: action.status, data: action.data})
   }

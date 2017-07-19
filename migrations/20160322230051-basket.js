@@ -27,6 +27,7 @@ module.exports = {
     })
     .then(() => {
       queryInterface.addIndex('basket', ['closed'])
+      return 1;
     })
   },
 
