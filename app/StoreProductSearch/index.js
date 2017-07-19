@@ -12,6 +12,7 @@ const StoreProductSearch = React.createClass({
     search: React.PropTypes.func
   },
   handleChange(e, value) {
+    this.targetElement = e.currentTarget;
     a.push(value)
     setTimeout(() => {
       a.shift()
@@ -21,7 +22,7 @@ const StoreProductSearch = React.createClass({
           this.props.search({product: val})
         }
       }
-    }, 1000)
+    }, 300)
   },
   focus() {
     this.refs.search.input.focus()
@@ -35,6 +36,9 @@ const StoreProductSearch = React.createClass({
   getPosition() {
     var pos = this.refs.searchHolder.getBoundingClientRect()
     return {top: pos.bottom, left: pos.left}
+  },
+  getTargetElement() {
+    return this.targetElement;
   },
   shouldComponentUpdate(nextProps) {
     setTimeout(this.focus, 1000)
@@ -53,7 +57,7 @@ const StoreProductSearch = React.createClass({
           />
         </div>
 
-        <SearchResults getPosition={this.getPosition} focusSearch={this.focus} />
+        <SearchResults getPosition={this.getPosition} getTargetElement={this.getTargetElement} focusSearch={this.focus} />
         <QuantitySelection focusSearch={this.focus} />
       </div>
     )

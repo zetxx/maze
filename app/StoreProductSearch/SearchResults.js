@@ -10,6 +10,7 @@ const SearchResults = React.createClass({
     data: React.PropTypes.array,
     clearSearch: React.PropTypes.func,
     getPosition: React.PropTypes.func,
+    getTargetElement: React.PropTypes.func,
     quantitySelectToggle: React.PropTypes.func,
     focus: React.PropTypes.func,
     focusSearch: React.PropTypes.func,
@@ -29,7 +30,13 @@ const SearchResults = React.createClass({
     }
 
     return (
-      <Popover open style={this.props.getPosition()} onRequestClose={this.handleRequestClose}>
+      <Popover
+        anchorEl={this.props.getTargetElement()}
+        anchorOrigin={{horizontal: 'left',vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left',vertical: 'top'}}
+        open
+        style={this.props.getPosition()}
+        onRequestClose={this.handleRequestClose}>
         <Menu ref='menu' desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
           {this.props.data.map((data, idx) => {
             return (
