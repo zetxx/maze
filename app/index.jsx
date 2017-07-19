@@ -9,7 +9,7 @@ import reducers from './reducers'
 import {request} from './middleware'
 import Main from './Main'
 import Store from './Store'
-import ProductManagement from './ProductManagement/Product'
+import ProductManagement from './Manage/Product'
 import Config from './Manage/Config'
 import Users from './Manage/Users'
 
