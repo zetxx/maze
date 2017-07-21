@@ -16,6 +16,7 @@ import {userRoles} from './Manage/Users/UserRoles/reducers'
 import {roleAdd} from './Manage/Users/Role/Add/reducers'
 import {roleEdit} from './Manage/Users/Role/Edit/reducers'
 import {actions} from './Manage/Users/Actions/reducers'
+import {quantityTypes} from './Manage/QuantityType/reducers'
 
 export default {
   updatedConfig,
@@ -44,6 +45,7 @@ export default {
   actions,
   supplierAdd,
   suppliers,
+  quantityTypes,
   prefetchDialog(state = {open: false, count: 0}, action) {
     if (action.preloader === false) {
       return state

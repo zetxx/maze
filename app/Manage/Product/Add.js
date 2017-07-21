@@ -5,9 +5,10 @@ import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import ProductCatDropDown from './dropDown'
-import QuantityType from './QuantityType.js'
+import QuantityType from '../QuantityType/dropDown'
 import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
+import {actionList} from './reducers'
 
 const ProductAdd = React.createClass({
   propTypes: {
@@ -18,7 +19,7 @@ const ProductAdd = React.createClass({
     productAdd: React.PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityType'])
+    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -52,15 +53,12 @@ const ProductAdd = React.createClass({
           floatingLabelText={<Translate id='Product name' />}
           errorText={this.props.productAdd.fieldError.name}
         />
-        <ProductCatDropDown ref='category' value={1} />
-        <SupplierDropDown ref='supplier' value={1} />
-        <QuantityType ref='quantityType' />
         <TextField
           ref='price'
           hintText={<Translate id='Price' />}
           floatingLabelText={<Translate id='Price' />}
           errorText={this.props.productAdd.fieldError.price}
-        />
+        /><br />
         <TextField
           ref='description'
           hintText={<Translate id='Product description' />}
@@ -73,6 +71,9 @@ const ProductAdd = React.createClass({
           floatingLabelText={<Translate id='Product Bar code' />}
           errorText={this.props.productAdd.fieldError.barcode}
         />
+        <ProductCatDropDown ref='category' value={1} />
+        <SupplierDropDown ref='supplier' value={1} />
+        <QuantityType ref='quantityTypeId' value={1} />
       </Dialog>
     )
   }
@@ -82,7 +83,7 @@ export default connect(
   (state) => ({productAdd: state.productAdd}),
   {
     add(body) {
-      return {type: 'PRODUCT_ADD', httpRequest: {
+      return {type: actionList.ADD, httpRequest: {
         method: 'POST',
         url: '/api/product',
         json: true,
@@ -90,14 +91,14 @@ export default connect(
       }}
     },
     cantAdd(problems) {
-      return {type: 'PRODUCT_ADD_VALIDATION_PROBLEM', problems}
+      return {type: actionList.ADD_VALIDATION_PROBLEM, problems}
     },
     cancelToggle() {
-      return {type: 'TOGGLE_PRODUCT_ADD', canceled: true}
+      return {type: actionList.TOGGLE_ADD, canceled: true}
     },
     fetchProducts() {
       return {
-        type: 'FETCH_PRODUCTS', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
           url: '/api/product',
           json: true

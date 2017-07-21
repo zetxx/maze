@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import {Translate} from '../../Translation'
 import ShopsDropdown from '../../Manage/Config/Shop/Dropdown'
+import {actionList as productActionList} from '../Product/reducers'
 
 const Repository = React.createClass({
   propTypes: {
@@ -20,7 +21,7 @@ const Repository = React.createClass({
     return {value: 'piece'}
   },
   add() {
-    var vals = getFieldValues(this.refs, ['quantity', 'quantityType', 'price', 'shopId'])
+    var vals = getFieldValues(this.refs, ['quantity', 'shopId'])
     if (Object.keys(vals.incorrect).length === 0) {
       vals.correct.productId = this.props.repository.productId
       this.props.add(vals.correct)
@@ -83,7 +84,7 @@ export default connect(
     },
     fetch() {
       return {
-        type: 'FETCH_PRODUCTS', httpRequest: {
+        type: productActionList.FETCH, httpRequest: {
           method: 'GET',
           url: '/api/product',
           json: true

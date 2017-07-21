@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import EjectIcon from 'material-ui/svg-icons/action/eject'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import CachedIcon from 'material-ui/svg-icons/action/cached'
+import {actionList} from './reducers'
 
 class Product extends React.Component {
   componentDidMount() {
@@ -47,8 +48,8 @@ class Product extends React.Component {
               {this.props.products.data && this.props.products.data.map((el) => (
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
-                  <TableRowColumn>{productsCat[el.category] || ''}</TableRowColumn>
-                  <TableHeaderColumn style={{width: '150px'}}>{el.quantity}</TableHeaderColumn>
+                  <TableRowColumn>{productsCat[el.productCategory.id] || ''}</TableRowColumn>
+                  <TableHeaderColumn style={{width: '150px'}}>{el.quantityTotal}</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>{el.price}</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
                     <IconButton title={<Translate id='Load' />} onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>
@@ -83,7 +84,7 @@ export default connect(
   {
     fetch() {
       return {
-        type: 'FETCH_PRODUCTS', httpRequest: {
+        type: actionList.FETCH, httpRequest: {
           method: 'GET',
           url: '/api/product',
           json: true
@@ -91,7 +92,7 @@ export default connect(
       }
     },
     add() {
-      return {type: 'TOGGLE_PRODUCT_ADD'}
+      return {type: actionList.TOGGLE_ADD}
     },
     load(productId) {
       return {type: 'TOGGLE_REPOSITORY_ADD', productId: productId}

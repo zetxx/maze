@@ -2,9 +2,11 @@ const Joi = require('joi')
 const product = require('./model.js')
 const repository = require('../Repository/model')
 const quantityType = require('../QuantityType/model')
+const productCategory = require('../ProductCat/model')
 const sequelize = require('../../../config/db')
 product.hasMany(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
+product.belongsTo(productCategory, {foreignKey : 'category'})
 repository.hasOne(product, {foreignKey : 'id'})
 
 module.exports = function(registrar) {
@@ -27,7 +29,7 @@ module.exports = function(registrar) {
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
           supplier: Joi.number().min(1).required().description('Supplier'),
-          quantityType: Joi.any().valid(['piece', 'kg', 'g']).required().description('one of: piece or weight'),
+          quantityTypeId: Joi.number().min(1).required().description('one of: piece or weight'),
           price: Joi.string().regex(/[\d]+\.[\d]{2,2}/).required().description('Product Price')
         }
       }
@@ -45,6 +47,8 @@ module.exports = function(registrar) {
             model: repository
           }, {
             model: quantityType
+          }, {
+            model: productCategory
           }],
           group: 'product.id'
         })
@@ -53,18 +57,6 @@ module.exports = function(registrar) {
             console.error(e)
             resp(e)
           })
-        // sequelize.query(`SELECT
-        //   p.id,
-        //   p.name,
-        //   p.description,
-        //   p.quantityType,
-        //   p.price,
-        //   sum(IFNULL(m.quantity, 0)) quantity,
-        //   p.price
-        // FROM product p
-        // LEFT JOIN repository m ON m.productId=p.id
-        // GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
-        //   .then(resp)
       },
       description: 'List products',
       notes: 'List products',
