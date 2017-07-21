@@ -27,16 +27,6 @@ module.exports = {
         allowNull: false,
         defaultValue: 0.00
       },
-      quantityType: {
-        type: Sequelize.ENUM('kg', 'piece', 'g'),
-        allowNull: false,
-        defaultValue: 'piece'
-      },
-      price: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 0.00
-      },
       addedAt: {
         type: Sequelize.DATE,
         defaultValue: new Date()

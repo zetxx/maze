@@ -4,7 +4,6 @@ import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
-import QuantityType from './QuantityType.js'
 import {Translate} from '../../Translation'
 import ShopsDropdown from '../../Manage/Config/Shop/Dropdown'
 
@@ -59,13 +58,6 @@ const Repository = React.createClass({
           hintText={<Translate id='Quantity' />}
           floatingLabelText={<Translate id='Quantity' />}
           errorText={this.props.repository.fieldError.quantity}
-        />
-        <QuantityType ref='quantityType' />
-        <TextField
-          ref='price'
-          hintText={<Translate id='Price' />}
-          floatingLabelText={<Translate id='Price' />}
-          errorText={this.props.repository.fieldError.price}
         />
       </Dialog>
     )

@@ -1,6 +1,11 @@
 const Joi = require('joi')
-const entity = require('./model.js')
+const product = require('./model.js')
+const repository = require('../Repository/model')
+const quantityType = require('../QuantityType/model')
 const sequelize = require('../../../config/db')
+product.hasMany(repository, {foreignKey : 'productId'})
+product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
+repository.hasOne(product, {foreignKey : 'id'})
 
 module.exports = function(registrar) {
   registrar({
@@ -8,7 +13,7 @@ module.exports = function(registrar) {
     path: '/api/product',
     config: {
       handler: function (req, resp) {
-        entity
+        product
           .create(req.payload)
           .then(resp)
       },
@@ -21,7 +26,9 @@ module.exports = function(registrar) {
           barcode: Joi.number().min(3).description('Product Bar code'),
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
-          supplier: Joi.number().min(1).required().description('Supplier')
+          supplier: Joi.number().min(1).required().description('Supplier'),
+          quantityType: Joi.any().valid(['piece', 'kg', 'g']).required().description('one of: piece or weight'),
+          price: Joi.string().regex(/[\d]+\.[\d]{2,2}/).required().description('Product Price')
         }
       }
     }
@@ -32,18 +39,32 @@ module.exports = function(registrar) {
     path: '/api/product',
     config: {
       handler: function (req, resp) {
-        sequelize.query(`SELECT
-          p.id,
-            p.name,
-            p.description,
-            sum(IFNULL(m.quantity, 0)) quantity,
-            p2.price
-        FROM product p
-        LEFT JOIN repository m ON m.productId=p.id
-        LEFT JOIN (SELECT MAX(id) id, productId FROM repository GROUP BY productId) p1 ON p1.productId=p.id
-        LEFT JOIN repository p2 ON p1.id=p2.id
-        GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
+        product.findAll({
+          attributes: ['id', 'name', 'price', [sequelize.fn('SUM', sequelize.col('repositories.quantity')), 'quantityTotal']],
+          include: [{
+            model: repository
+          }, {
+            model: quantityType
+          }],
+          group: 'product.id'
+        })
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
+        // sequelize.query(`SELECT
+        //   p.id,
+        //   p.name,
+        //   p.description,
+        //   p.quantityType,
+        //   p.price,
+        //   sum(IFNULL(m.quantity, 0)) quantity,
+        //   p.price
+        // FROM product p
+        // LEFT JOIN repository m ON m.productId=p.id
+        // GROUP BY p.id;`, {type: sequelize.QueryTypes.SELECT})
+        //   .then(resp)
       },
       description: 'List products',
       notes: 'List products',

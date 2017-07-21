@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import TextField from 'material-ui/TextField/TextField'
 import ProductCatDropDown from './dropDown'
+import QuantityType from './QuantityType.js'
 import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
 
@@ -17,7 +18,7 @@ const ProductAdd = React.createClass({
     productAdd: React.PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode'])
+    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityType'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -53,6 +54,13 @@ const ProductAdd = React.createClass({
         />
         <ProductCatDropDown ref='category' value={1} />
         <SupplierDropDown ref='supplier' value={1} />
+        <QuantityType ref='quantityType' />
+        <TextField
+          ref='price'
+          hintText={<Translate id='Price' />}
+          floatingLabelText={<Translate id='Price' />}
+          errorText={this.props.productAdd.fieldError.price}
+        />
         <TextField
           ref='description'
           hintText={<Translate id='Product description' />}

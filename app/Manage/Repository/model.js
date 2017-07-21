@@ -27,16 +27,6 @@ const repository = db.define('repository',
       allowNull: false,
       defaultValue: 0.00
     },
-    quantityType: {
-      type: Sequelize.ENUM('kg', 'g', 'piece'),
-      allowNull: false,
-      defaultValue: 'piece'
-    },
-    price: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
-      defaultValue: 0.00
-    },
     addedAt: {
       type: Sequelize.DATE,
       defaultValue: new Date()

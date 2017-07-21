@@ -33,6 +33,19 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: true
         },
+        quantityTypeId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'quantityType',
+            key: 'id'
+          },
+          allowNull: false
+        },
+        price: {
+          type: Sequelize.FLOAT,
+          allowNull: false,
+          defaultValue: 0.00
+        },
         description: {
           type: Sequelize.STRING,
           allowNull: true

@@ -29,6 +29,19 @@ const product = db.define('product', {
       key: 'id'
     }
   },
+  quantityTypeId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'quantityType',
+      key: 'id'
+    },
+    allowNull: false
+  },
+  price: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0.00
+  },
   description: {
     type: Sequelize.STRING,
     allowNull: true
