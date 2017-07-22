@@ -7,6 +7,8 @@ import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton/IconButton'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
+import {actionList} from './reducers'
+import {actionList as actionListBasket} from '../Basket/reducers'
 
 var rootStyle = {float: 'left', minWidth: '200px', margin: '5px'}
 var selectedStyle = Object.assign({}, rootStyle, {boxShadow: '#2CAC10 0px 1px 6px, #2CAC10 0px 1px 4px'})
@@ -25,7 +27,11 @@ const BasketList = React.createClass({
     this.props.fetch()
   },
   componentWillReceiveProps(nextProps) {
-    if (typeof (this.props.basket.id) === 'undefined' && nextProps.basket.id !== this.props.basket.id || (nextProps.basket.products.length !== this.props.basket.products.length)) {
+    if (
+      (nextProps.basket.id !== this.props.basket.id)
+      || (nextProps.basket.products.length !== this.props.basket.products.length)
+      || (nextProps.basket.products.reduce((accum, cur) => accum + cur.transaction.quantity, 0) !== this.props.basket.products.reduce((accum, cur) => accum + cur.transaction.quantity, 0))
+    ) {
       this.props.fetch()
     }
   },
@@ -103,18 +109,18 @@ const BasketList = React.createClass({
 export default connect(
   (state) => ({basketList: state.basketList, basket: state.basket}),
   {
-    fetch: (body) => ({type: 'FETCH_BASKETS', httpRequest: {
+    fetch: (body) => ({type: actionList.FETCH, httpRequest: {
       method: 'GET',
       url: '/api/baskets',
       json: true
     }}),
-    close: (basketId) => ({type: 'CLOSE_BASKET', httpRequest: {
+    close: (basketId) => ({type: actionList.CLOSE, httpRequest: {
       method: 'DELETE',
       url: '/api/basket',
       json: true,
       body: {basketId}
     }}),
-    reassign: (from, to, direction) => ({type: 'REASSIGN_BASKET', httpRequest: {
+    reassign: (from, to, direction) => ({type: actionListBasket.REASSIGN, httpRequest: {
       method: 'POST',
       url: '/api/basket/reassign',
       json: true,

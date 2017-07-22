@@ -10,6 +10,7 @@ import {setTitle} from '../Heading/actions'
 import Search from '../StoreProductSearch'
 import Basket from '../Basket'
 import {Translate} from '../Translation'
+import {actionList} from '../Basket/reducers'
 
 const Sell = React.createClass({
   propTypes: {
@@ -52,7 +53,7 @@ export default connect(
   (state) => ({activeBasket: state.basket}),
   {
     toggleNavigation: () => ({type: 'MAIN_MENU_TOGGLE'}),
-    newBasket: () => ({type: 'NEW_BASKET'}),
+    newBasket: () => ({type: actionList.NEW}),
     setTitle
   }
 )(Sell)

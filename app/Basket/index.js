@@ -9,6 +9,7 @@ import TableHeader from 'material-ui/Table/TableHeader'
 import TableBody from 'material-ui/Table/TableBody'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
+import {actionList} from './reducers'
 
 const Basket = React.createClass({
   propTypes: {
@@ -62,13 +63,13 @@ const Basket = React.createClass({
       <div>
         <Card>
           <CardTitle style={{background: '#ccc', textAlign: 'right', fontWeight: 'bold', fontSize: '26pt'}}>{Math.round(this.props.products.reduce((cur, next) => {
-            return cur + (next.transaction.quantity * next.repository.price)
+            return cur + (next.transaction.quantity * next.product.price)
           }, 0) * 100) / 100}</CardTitle>
         </Card>
         <Table>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn style={{width: '100px'}}>Name</TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Quantity' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Price' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Total' /></TableHeaderColumn>
@@ -90,11 +91,11 @@ export default connect(
   (state) => (state.basket),
   {
     newBasket() {
-      return {type: 'NEW_BASKET'}
+      return {type: actionList.NEW}
     },
     fetch(basketId) {
       return {
-        type: 'BASKET_FETCH',
+        type: actionList.FETCH,
         httpRequest: {
           method: 'GET',
           url: `/api/basket/${basketId}`,

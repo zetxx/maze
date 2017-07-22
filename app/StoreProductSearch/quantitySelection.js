@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog/Dialog'
 import TextField from 'material-ui/TextField'
 import {Translate} from '../Translation'
+import {actionList} from './reducers'
+import {actionList as actionListBasket} from '../Basket/reducers'
 
 const QuantitySelection = React.createClass({
   propTypes: {
@@ -48,17 +50,17 @@ export default connect(
   }),
   {
     quantitySelectToggle() {
-      return {type: 'QUANTITY_SELECT_TOGGLE'}
+      return {type: actionList.TOGGLE}
     },
     basketCreateAndFill(product) {
       return {
-        type: 'BASKET_ADD',
+        type: actionListBasket.ADD,
         httpRequest: {
           method: 'POST',
           url: '/api/basket/fill',
           json: true,
           body: {
-            repositoryId: product.repositoryId,
+            repositoryId: product.repositories[0].id,
             quantity: product.quantity,
             basketId: product.basketId
           }

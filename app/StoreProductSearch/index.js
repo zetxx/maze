@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField'
 import SearchResults from './SearchResults'
 import QuantitySelection from './quantitySelection'
 import {Translate} from '../Translation'
+import {actionList} from './reducers.js'
 
 var a = []
 
@@ -68,7 +69,7 @@ export default connect(
   (state) => (state.basket),
   {
     search(body) {
-      return {type: 'SEARCH', preloader: false, httpRequest: {
+      return {type: actionList.FETCH, preloader: false, httpRequest: {
         method: 'POST',
         url: '/api/storeProductSearch',
         json: true,

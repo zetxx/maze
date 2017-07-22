@@ -1,7 +1,9 @@
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
+const quantityType = require('../Manage/QuantityType/model')
 const repository = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
+product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 repository.belongsTo(product)
 transaction.belongsTo(repository)
 transaction.belongsTo(basket)
@@ -18,7 +20,11 @@ module.exports = function(registrar) {
             as: 'repository',
             include: [{
               model: product,
-              as: 'product'
+              as: 'product',
+              include: [{
+                model: quantityType,
+                as: 'quantityType'
+              }]
             }]
           }, {
             model: basket,

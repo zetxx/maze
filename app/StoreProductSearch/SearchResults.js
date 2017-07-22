@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Menu from 'material-ui/Menu/Menu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 import Popover from 'material-ui/Popover'
+import {actionList} from './reducers'
 
 const SearchResults = React.createClass({
   propTypes: {
@@ -40,7 +41,7 @@ const SearchResults = React.createClass({
         <Menu ref='menu' desktop initiallyKeyboardFocused onItemTouchTap={this.handleSelect}>
           {this.props.data.map((data, idx) => {
             return (
-              <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={<span>{data.price} <TranslateHTML id='_currency' /> '/' {data.quantityType}</span>} />
+              <MenuItem key={idx} value={data} primaryText={<b>{data.name}</b>} secondaryText={<span>{data.price} <TranslateHTML id='_currency' /> '/' {data.quantityType.label}</span>} />
             )
           })}
         </Menu>
@@ -53,10 +54,10 @@ export default connect(
   (state) => (state.storeProductSearch),
   {
     clearSearch() {
-      return {type: 'SEARCH_CLEAR'}
+      return {type: actionList.CLEAR}
     },
     quantitySelectToggle(product) {
-      return {type: 'QUANTITY_SELECT_TOGGLE', product: product}
+      return {type: actionList.TOGGLE, product: product}
     }
   }
 )(SearchResults)
