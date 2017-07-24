@@ -81,7 +81,7 @@ export default connect(
     add(body) {
       return {type: actionList.ADD, httpRequest: {
         method: 'POST',
-        url: '/api/supplier',
+        url: '/api/suppliers',
         json: true,
         body: body
       }}
@@ -96,7 +96,7 @@ export default connect(
       return {
         type: actionList.FETCH, httpRequest: {
           method: 'GET',
-          url: '/api/supplier',
+          url: '/api/suppliers',
           json: true
         }
       }

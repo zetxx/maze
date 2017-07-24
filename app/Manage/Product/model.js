@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const product = db.define('product', {
+const products = db.define('products', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -18,21 +18,21 @@ const product = db.define('product', {
   category: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'productCategory',
+      model: 'productCategories',
       key: 'id'
     }
   },
   supplier: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'supplier',
+      model: 'suppliers',
       key: 'id'
     }
   },
   quantityTypeId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'quantityType',
+      model: 'quantityTypes',
       key: 'id'
     },
     allowNull: false
@@ -55,4 +55,4 @@ const product = db.define('product', {
   freezeTableName: true
 })
 
-module.exports = product
+module.exports = products

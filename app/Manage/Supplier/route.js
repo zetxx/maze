@@ -4,7 +4,7 @@ const supplier = require('./model.js')
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/supplier',
+    path: '/api/suppliers',
     config: {
       handler: function (req, resp) {
         var record = {
@@ -33,7 +33,7 @@ module.exports = function(registrar) {
 
   registrar({
     method: 'GET',
-    path: '/api/supplier',
+    path: '/api/suppliers',
     config: {
       handler: function (req, resp) {
         supplier

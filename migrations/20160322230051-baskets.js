@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('shop', {
+    return queryInterface.createTable('baskets', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -12,21 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      workingHours: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      workingDays: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      location: {
-        type: Sequelize.GEOMETRY('POINT'),
-        allowNull: true
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: false
+      closed: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       addedAt: {
         type: Sequelize.DATE,
@@ -36,9 +25,13 @@ module.exports = {
       engine: 'MYISAM',
       charset: 'utf8'
     })
+    .then(() => {
+      queryInterface.addIndex('baskets', ['closed'])
+      return 1;
+    })
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('shop')
+    return queryInterface.dropTable('baskets')
   }
 }

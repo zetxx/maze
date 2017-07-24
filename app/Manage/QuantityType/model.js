@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const quantityType = db.define('quantityType', {
+const quantityTypes = db.define('quantityTypes', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -24,4 +24,4 @@ const quantityType = db.define('quantityType', {
   freezeTableName: true
 })
 
-module.exports = quantityType
+module.exports = quantityTypes

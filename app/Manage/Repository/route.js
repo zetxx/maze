@@ -4,7 +4,7 @@ const entity = require('./model.js')
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/repository',
+    path: '/api/repositories',
     config: {
       handler: function (req, resp) {
         entity

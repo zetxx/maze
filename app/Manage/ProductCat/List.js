@@ -63,7 +63,7 @@ export default connect(
       return {
         type: actionList.FETCH, httpRequest: {
           method: 'GET',
-          url: '/api/productCategory',
+          url: '/api/productCategories',
           json: true
         }
       }

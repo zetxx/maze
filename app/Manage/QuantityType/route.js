@@ -1,15 +1,15 @@
 const Joi = require('joi')
 const product = require('./model.js')
 const repository = require('../Repository/model')
-const quantityType = require('./model')
+const quantityTypes = require('./model')
 
 module.exports = function(registrar) {
   registrar({
     method: 'GET',
-    path: '/api/quantityType',
+    path: '/api/quantityTypes',
     config: {
       handler: function (req, resp) {
-        quantityType.findAll()
+        quantityTypes.findAll()
           .then(resp)
           .catch((e) => {
             console.error(e)

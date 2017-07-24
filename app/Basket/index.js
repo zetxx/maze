@@ -98,7 +98,7 @@ export default connect(
         type: actionList.FETCH,
         httpRequest: {
           method: 'GET',
-          url: `/api/basket/${basketId}`,
+          url: `/api/baskets/${basketId}`,
           json: true
         }
       }

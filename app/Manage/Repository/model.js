@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const repository = db.define('repository',
+const repositories = db.define('repositories',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -11,14 +11,14 @@ const repository = db.define('repository',
     productId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'product',
+        model: 'products',
         key: 'id'
       }
     },
     shopId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'shop',
+        model: 'shops',
         key: 'id'
       }
     },
@@ -37,4 +37,4 @@ const repository = db.define('repository',
   }
 )
 
-module.exports = repository
+module.exports = repositories

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../config/db')
 
-const basket = db.define('basket', {
+const basket = db.define('baskets', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,

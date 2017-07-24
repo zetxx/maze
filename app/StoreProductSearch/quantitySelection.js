@@ -57,7 +57,7 @@ export default connect(
         type: actionListBasket.ADD,
         httpRequest: {
           method: 'POST',
-          url: '/api/basket/fill',
+          url: '/api/baskets/fill',
           json: true,
           body: {
             repositoryId: product.repositories[0].id,

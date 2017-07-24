@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const supplier = db.define('supplier', {
+const suppliers = db.define('suppliers', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -28,4 +28,4 @@ const supplier = db.define('supplier', {
   freezeTableName: true
 })
 
-module.exports = supplier
+module.exports = suppliers

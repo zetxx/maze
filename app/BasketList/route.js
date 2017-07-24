@@ -1,12 +1,12 @@
 const transaction = require('../Transaction/model')
-const basket = require('../Basket/model')
+const baskets = require('../Basket/model')
 const quantityType = require('../Manage/QuantityType/model')
-const repository = require('../Manage/Repository/model')
+const repositories = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
-repository.belongsTo(product)
-transaction.belongsTo(repository)
-transaction.belongsTo(basket)
+repositories.belongsTo(product)
+transaction.belongsTo(repositories, {foreignKey : 'repositoryId'})
+transaction.belongsTo(baskets)
 
 module.exports = function(registrar) {
   registrar({
@@ -16,7 +16,7 @@ module.exports = function(registrar) {
       handler: function (req, resp) {
         transaction.findAll({
           include: [{
-            model: repository,
+            model: repositories,
             as: 'repository',
             include: [{
               model: product,
@@ -27,7 +27,7 @@ module.exports = function(registrar) {
               }]
             }]
           }, {
-            model: basket,
+            model: baskets,
             where: {closed: false},
             as: 'basket'
           }]

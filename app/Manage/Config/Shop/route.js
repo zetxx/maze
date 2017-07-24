@@ -4,7 +4,7 @@ const entity = require('./model.js')
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/shop',
+    path: '/api/shops',
     config: {
       handler: function (req, resp) {
         var record = {
@@ -34,7 +34,7 @@ module.exports = function(registrar) {
 
   registrar({
     method: 'GET',
-    path: '/api/shop',
+    path: '/api/shops',
     config: {
       handler: function (req, resp) {
         entity

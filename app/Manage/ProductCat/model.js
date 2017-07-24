@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const productCategory = db.define('productCategory', {
+const productCategories = db.define('productCategories', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -20,4 +20,4 @@ const productCategory = db.define('productCategory', {
   freezeTableName: true
 })
 
-module.exports = productCategory
+module.exports = productCategories

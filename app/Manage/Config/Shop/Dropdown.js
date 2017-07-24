@@ -44,7 +44,7 @@ export default connect(
       return {
         type: 'FETCH_SHOPS', httpRequest: {
           method: 'GET',
-          url: '/api/shop',
+          url: '/api/shops',
           json: true
         }
       }

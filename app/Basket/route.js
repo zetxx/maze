@@ -2,18 +2,18 @@ const Joi = require('joi')
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
 const quantityType = require('../Manage/QuantityType/model')
-const repository = require('../Manage/Repository/model')
+const repositories = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
 const sequelize = require('../../config/db')
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
-repository.belongsTo(product)
-transaction.belongsTo(repository)
+repositories.belongsTo(product)
+transaction.belongsTo(repositories)
 transaction.belongsTo(basket)
 
 module.exports = (registrar) => {
   registrar({
     method: 'POST',
-    path: '/api/basket/fill',
+    path: '/api/baskets/fill',
     config: {
       handler: (req, resp) => {
         var b, rq
@@ -53,7 +53,7 @@ module.exports = (registrar) => {
             return transaction.findAll({
               where: {basketId: rq.basketId},
               include: [{
-                model: repository,
+                model: repositories,
                 as: 'repository',
                 include: [{
                   model: product,
@@ -86,13 +86,13 @@ module.exports = (registrar) => {
 
   registrar({
     method: 'GET',
-    path: '/api/basket/{basketId}',
+    path: '/api/baskets/{basketId}',
     config: {
       handler: (req, resp) => {
         transaction.findAll({
           where: {basketId: req.params.basketId},
           include: [{
-            model: repository,
+            model: repositories,
             as: 'repository',
             include: [{
               model: product,
@@ -123,7 +123,7 @@ module.exports = (registrar) => {
 
   registrar({
     method: 'DELETE',
-    path: '/api/basket',
+    path: '/api/baskets',
     config: {
       handler: (req, resp) => {
         basket
@@ -144,7 +144,7 @@ module.exports = (registrar) => {
 
   registrar({
     method: 'POST',
-    path: '/api/basket/reassign',
+    path: '/api/baskets/reassign',
     config: {
       handler: (req, resp) => {
         transaction

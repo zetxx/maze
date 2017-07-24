@@ -73,7 +73,7 @@ export default connect(
     add(body) {
       return {type: 'SHOP_ADD', httpRequest: {
         method: 'POST',
-        url: '/api/shop',
+        url: '/api/shops',
         json: true,
         body: body
       }}
@@ -88,7 +88,7 @@ export default connect(
       return {
         type: 'FETCH_SHOPS', httpRequest: {
           method: 'GET',
-          url: '/api/shop',
+          url: '/api/shops',
           json: true
         }
       }

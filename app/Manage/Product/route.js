@@ -2,17 +2,17 @@ const Joi = require('joi')
 const product = require('./model.js')
 const repository = require('../Repository/model')
 const quantityType = require('../QuantityType/model')
-const productCategory = require('../ProductCat/model')
+const productCategories = require('../ProductCat/model')
 const sequelize = require('../../../config/db')
 product.hasMany(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
-product.belongsTo(productCategory, {foreignKey : 'category'})
+product.belongsTo(productCategories, {foreignKey : 'category'})
 repository.hasOne(product, {foreignKey : 'id'})
 
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
-    path: '/api/product',
+    path: '/api/products',
     config: {
       handler: function (req, resp) {
         product
@@ -38,7 +38,7 @@ module.exports = function(registrar) {
 
   registrar({
     method: 'GET',
-    path: '/api/product',
+    path: '/api/products',
     config: {
       handler: function (req, resp) {
         product.findAll({
@@ -48,9 +48,9 @@ module.exports = function(registrar) {
           }, {
             model: quantityType
           }, {
-            model: productCategory
+            model: productCategories
           }],
-          group: 'product.id'
+          group: 'products.id'
         })
           .then(resp)
           .catch((e) => {

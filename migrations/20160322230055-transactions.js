@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('transaction', {
+    return queryInterface.createTable('transactions', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -11,14 +11,14 @@ module.exports = {
       repositoryId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'repository',
+          model: 'repositories',
           key: 'id'
         }
       },
       basketId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'basket',
+          model: 'baskets',
           key: 'id'
         }
       },
@@ -38,6 +38,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('transaction')
+    return queryInterface.dropTable('transactions')
   }
 }

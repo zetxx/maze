@@ -116,13 +116,13 @@ export default connect(
     }}),
     close: (basketId) => ({type: actionList.CLOSE, httpRequest: {
       method: 'DELETE',
-      url: '/api/basket',
+      url: '/api/baskets',
       json: true,
       body: {basketId}
     }}),
     reassign: (from, to, direction) => ({type: actionListBasket.REASSIGN, httpRequest: {
       method: 'POST',
-      url: '/api/basket/reassign',
+      url: '/api/baskets/reassign',
       json: true,
       body: {from, to}
     }, direction: direction})

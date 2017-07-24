@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../../config/db')
 
-const transaction = db.define('transaction', {
+const transactions = db.define('transactions', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -10,14 +10,14 @@ const transaction = db.define('transaction', {
   repositoryId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'repository',
+      model: 'repositories',
       key: 'id'
     }
   },
   basketId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'basket',
+      model: 'baskets',
       key: 'id'
     }
   },
@@ -35,4 +35,4 @@ const transaction = db.define('transaction', {
   freezeTableName: true
 })
 
-module.exports = transaction
+module.exports = transactions

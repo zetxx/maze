@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('product', [
+    return queryInterface.bulkInsert('products', [
         {id: 1, category: 1, supplier: 1, barcode: 11212121, quantityTypeId: 1, price: 22.0, name: 'Хляб 1кг', description: '1-но килограмов хляб', addedAt: '2016-04-30 19:35:15'},
         {id: 2, category: 1, supplier: 1, barcode: 11212121, quantityTypeId: 1, price: 22.0, name: 'Хляб 0.5кг', description: 'половин килограмов хляб', addedAt: '2016-04-30 19:35:15'},
         {id: 3, category: 1, supplier: 1, barcode: 11212121, quantityTypeId: 1, price: 22.0, name: 'Питка', description: 'Хляб тип питка', addedAt: '2016-05-06 14:02:36'},
@@ -15,6 +15,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('product', null, {})
+    return queryInterface.bulkDelete('products', null, {})
   }
 }

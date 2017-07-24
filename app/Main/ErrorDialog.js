@@ -15,7 +15,7 @@ class ErrorDialog extends React.Component {
     ]
 
     return (
-      <Dialog title='ERROR STACK BELOW' modal open={this.props.errorDialog.open} actions={actions}>
+      <Dialog style={{zIndex: 9999}} title='ERROR STACK BELOW' modal open={this.props.errorDialog.open} actions={actions}>
         {this.props.errorDialog.errorStack.map((err, idx) => {
           return errorParser(err, idx)
         })}

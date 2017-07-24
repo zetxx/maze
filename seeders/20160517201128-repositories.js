@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('repository', [
+    return queryInterface.bulkInsert('repositories', [
       {id: 4, productId: 2, shopId: 1, quantity: 2.0, addedAt: '2016-05-03 19:39:27'},
       {id: 2, productId: 1, shopId: 2, quantity: 10.0, addedAt: '2016-04-30 21:05:03'},
       {id: 3, productId: 1, shopId: 2, quantity: 10.0, addedAt: '2016-04-30 21:05:03'},
@@ -18,6 +18,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('repository', null, {})
+    return queryInterface.bulkDelete('repositories', null, {})
   }
 }

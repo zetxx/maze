@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('quantityType', {
+    return queryInterface.createTable('suppliers', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -12,7 +12,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      label: {
+      location: {
+        type: Sequelize.GEOMETRY('POINT'),
+        allowNull: true
+      },
+      description: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -27,6 +31,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('quantityType')
+    return queryInterface.dropTable('suppliers')
   }
 }

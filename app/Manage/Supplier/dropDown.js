@@ -44,7 +44,7 @@ export default connect(
       return {
         type: 'FETCH', httpRequest: {
           method: 'GET',
-          url: '/api/productCategory',
+          url: '/api/productCategories',
           json: true
         }
       }

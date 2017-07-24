@@ -71,7 +71,7 @@ export default connect(
     add(body) {
       return {type: 'REPOSITORY_ADD', httpRequest: {
         method: 'POST',
-        url: '/api/repository',
+        url: '/api/repositories',
         json: true,
         body: body
       }}
@@ -86,7 +86,7 @@ export default connect(
       return {
         type: productActionList.FETCH, httpRequest: {
           method: 'GET',
-          url: '/api/product',
+          url: '/api/products',
           json: true
         }
       }
