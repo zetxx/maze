@@ -72,5 +72,8 @@ export default {
       return {open: false, errorStack: []}
     }
     return state
+  },
+  login(state = {shopId: 1}) {
+    return state
   }
 }

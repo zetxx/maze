@@ -49,7 +49,7 @@ class Product extends React.Component {
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
                   <TableRowColumn>{productsCat[el.productCategory.id] || ''}</TableRowColumn>
-                  <TableHeaderColumn style={{width: '150px'}}>{el.quantityTotal}</TableHeaderColumn>
+                  <TableHeaderColumn style={{width: '150px'}}>{el.repository && el.repository.quantity}</TableHeaderColumn>
                   <TableHeaderColumn style={{width: '150px'}}>{el.price}</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
                     <IconButton title={<Translate id='Load' />} onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>

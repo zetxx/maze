@@ -2,13 +2,13 @@ const Joi = require('joi')
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
 const quantityType = require('../Manage/QuantityType/model')
-const repositories = require('../Manage/Repository/model')
+const repository = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
 const sequelize = require('../../config/db')
-product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
-repositories.belongsTo(product)
-transaction.belongsTo(repositories)
+transaction.belongsTo(repository)
 transaction.belongsTo(basket)
+product.belongsTo(quantityType)
+repository.belongsTo(product)
 
 module.exports = (registrar) => {
   registrar({
@@ -31,7 +31,7 @@ module.exports = (registrar) => {
             })
         } else {
           b = transaction
-            .update({quantity: sequelize.literal(`quantity +${rq.quantity}`)}, {where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
+            .update({quantity: sequelize.literal(`quantity +${parseInt(rq.quantity)}`)}, {where: {basketId: rq.basketId, repositoryId: rq.repositoryId}})
             .then((r) => {
               if (r[0] > 0) {
                 return transaction
@@ -53,7 +53,7 @@ module.exports = (registrar) => {
             return transaction.findAll({
               where: {basketId: rq.basketId},
               include: [{
-                model: repositories,
+                model: repository,
                 as: 'repository',
                 include: [{
                   model: product,
@@ -70,6 +70,10 @@ module.exports = (registrar) => {
             })
           })
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Add product to basket',
       notes: 'Adds a product to basket',
@@ -92,23 +96,31 @@ module.exports = (registrar) => {
         transaction.findAll({
           where: {basketId: req.params.basketId},
           include: [{
-            model: repositories,
+            attributes: ['id', 'quantity'],
+            model: repository,
             as: 'repository',
             include: [{
+              attributes: ['id', 'price'],
               model: product,
               as: 'product',
               include: [{
+                attributes: ['label'],
                 model: quantityType,
                 as: 'quantityType'
               }]
             }]
           }, {
+            attributes: ['id', 'name'],
             model: basket,
-            as: 'basket',
-            where: {closed: 0}
+            where: {closed: false},
+            as: 'basket'
           }]
         })
-          .then(resp)
+        .then(resp)
+        .catch((e) => {
+          console.error(e)
+          resp(e)
+        })
       },
       description: 'Get basket',
       notes: 'Get basket',
@@ -130,6 +142,10 @@ module.exports = (registrar) => {
           .update({closed: 1}, {where: {id: req.payload.basketId}})
           .then(() => ({id: req.payload.basketId}))
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',
@@ -154,6 +170,10 @@ module.exports = (registrar) => {
             return {to: req.payload.to}
           })
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'basket reassign',
       notes: 'basket reassign',

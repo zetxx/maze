@@ -32,6 +32,10 @@ const repositories = db.define('repositories',
       defaultValue: new Date()
     }
   }, {
+    indexes: [{
+      unique: true,
+      fields: ['productId', 'shopId']
+    }],
     timestamps: false,
     freezeTableName: true
   }

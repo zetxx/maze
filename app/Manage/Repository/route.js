@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const entity = require('./model.js')
+const sequelize = require('../../../config/db')
 
 module.exports = function(registrar) {
   registrar({
@@ -8,8 +9,21 @@ module.exports = function(registrar) {
     config: {
       handler: function (req, resp) {
         entity
-          .create(req.payload)
+          .find({where: {productId: req.payload.productId, shopId: req.payload.shopId}})
+          .then((r) => {
+            if (!r) {
+              return entity
+                .create(req.payload)
+            } else {
+              return entity
+                .update({quantity: sequelize.literal(`quantity +${parseInt(req.payload.quantity)}`)}, {where: {shopId: req.payload.shopId, productId: req.payload.productId}})
+            }
+          })
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Add to repository',
       notes: 'loads products  into repository',

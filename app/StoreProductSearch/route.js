@@ -5,10 +5,11 @@ const quantityType = require('../Manage/QuantityType/model')
 const productCategories = require('../Manage/ProductCat/model')
 const product = require('../Manage/Product/model')
 
-product.hasMany(repository, {foreignKey : 'productId'})
+product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 product.belongsTo(productCategories, {foreignKey : 'category'})
-repository.hasOne(product, {foreignKey : 'id'})
+repository.hasOne(product)
+var shopId = 1;
 
 module.exports = function(registrar) {
   registrar({
@@ -22,18 +23,21 @@ module.exports = function(registrar) {
           where.barcode = {$like: `%${prod}%`}
           where = {$or: [{name: where.name}, {barcode: where.barcode}]}
         }
-        console.log(where)
+
         product.findAll({
-          attributes: ['id', 'name', 'price', [sequelize.fn('SUM', sequelize.col('repositories.quantity')), 'quantityTotal']],
+          attributes: ['id', 'name', 'price'],
           include: [{
-            model: repository
+            attributes: ['shopId', 'quantity', 'id'],
+            model: repository,
+            where: {shopId}
           }, {
+            attributes: ['label'],
             model: quantityType
           }, {
+            attributes: ['id', 'name'],
             model: productCategories
           }],
-          where,
-          group: 'products.id'
+          where
         })
           .then(resp)
           .catch((e) => {

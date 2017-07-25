@@ -4,10 +4,10 @@ const repository = require('../Repository/model')
 const quantityType = require('../QuantityType/model')
 const productCategories = require('../ProductCat/model')
 const sequelize = require('../../../config/db')
-product.hasMany(repository, {foreignKey : 'productId'})
+product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 product.belongsTo(productCategories, {foreignKey : 'category'})
-repository.hasOne(product, {foreignKey : 'id'})
+repository.hasOne(product)
 
 module.exports = function(registrar) {
   registrar({
@@ -18,6 +18,10 @@ module.exports = function(registrar) {
         product
           .create(req.payload)
           .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Add Product',
       notes: 'Adds a product category',
@@ -42,8 +46,9 @@ module.exports = function(registrar) {
     config: {
       handler: function (req, resp) {
         product.findAll({
-          attributes: ['id', 'name', 'price', [sequelize.fn('SUM', sequelize.col('repositories.quantity')), 'quantityTotal']],
+          attributes: ['id', 'name', 'price'],
           include: [{
+            attributes: ['quantity'],
             model: repository
           }, {
             model: quantityType
