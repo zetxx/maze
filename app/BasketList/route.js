@@ -15,13 +15,13 @@ module.exports = function(registrar) {
     config: {
       handler: function (req, resp) {
         transaction.findAll({
-          attributes: ['id'],
+          attributes: ['id', 'quantity'],
           include: [{
             attributes: ['id', 'quantity'],
             model: repository,
             as: 'repository',
             include: [{
-              attributes: ['id', 'price'],
+              attributes: ['id', 'price', 'name'],
               model: product,
               as: 'product',
               include: [{

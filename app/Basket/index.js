@@ -70,7 +70,7 @@ const Basket = React.createClass({
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn style={{width: '100px'}}>Name</TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><Translate id='Quantity' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '30px'}}><Translate id='Quantity' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Price' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '100px'}}><Translate id='Total' /></TableHeaderColumn>
               <TableHeaderColumn style={{width: '30px'}}>&nbsp;</TableHeaderColumn>

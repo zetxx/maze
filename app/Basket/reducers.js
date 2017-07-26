@@ -27,7 +27,7 @@ export const basket = (state = basketDef, action) => {
       return Object.assign({}, state, {
         action: 'fetch',
         direction: '',
-        id: action.data.length && action.data[0].basketId,
+        id: action.data.length && action.data[0].basket.id,
         name: action.data.length && action.data[0].basket.name,
         products: action.data.map((data) => {
           return {
@@ -45,7 +45,7 @@ export const basket = (state = basketDef, action) => {
         return Object.assign({}, state, {
           action: 'add',
           direction: '',
-          id: action.data[0].basketId,
+          id: action.data[0].basket.id,
           name: action.data[0].basket.name,
           products: action.data.map((data) => {
             return {

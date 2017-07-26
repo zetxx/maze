@@ -12,10 +12,10 @@ export const basketList = (state = basketListDef, action) => {
     var baskets = {}
     return Object.assign({}, state, {
       data: action.data.reduce((prev, cur) => {
-        if (typeof (baskets[cur.basketId]) === 'undefined') {
-          baskets[cur.basketId] = prev.push({products: [], id: cur.basket.id, name: cur.basket.name}) - 1
+        if (typeof (baskets[cur.basket.id]) === 'undefined') {
+          baskets[cur.basket.id] = prev.push({products: [], id: cur.basket.id, name: cur.basket.name}) - 1
         }
-        prev[baskets[cur.basketId]].products.push({quantity: cur.quantity, price: cur.repository.product.price, quantityType: cur.repository.product.quantityType.label, name: cur.repository.product.name})
+        prev[baskets[cur.basket.id]].products.push({quantity: cur.quantity, price: cur.repository.product.price, quantityType: cur.repository.product.quantityType.label, name: cur.repository.product.name})
         return prev
       }, [])
     })

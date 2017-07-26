@@ -51,19 +51,24 @@ module.exports = (registrar) => {
         b
           .then((r) => {
             return transaction.findAll({
+              attributes: ['id', 'quantity'],
               where: {basketId: rq.basketId},
               include: [{
+                attributes: ['id', 'quantity'],
                 model: repository,
                 as: 'repository',
                 include: [{
+                  attributes: ['id', 'price', 'name'],
                   model: product,
                   as: 'product',
                   include: [{
+                    attributes: ['label'],
                     model: quantityType,
                     as: 'quantityType'
                   }]
                 }]
               }, {
+                attributes: ['id', 'name'],
                 model: basket,
                 as: 'basket'
               }]
@@ -94,13 +99,14 @@ module.exports = (registrar) => {
     config: {
       handler: (req, resp) => {
         transaction.findAll({
+          attributes: ['id', 'quantity'],
           where: {basketId: req.params.basketId},
           include: [{
             attributes: ['id', 'quantity'],
             model: repository,
             as: 'repository',
             include: [{
-              attributes: ['id', 'price'],
+              attributes: ['id', 'price', 'name'],
               model: product,
               as: 'product',
               include: [{
