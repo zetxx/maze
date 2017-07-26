@@ -144,14 +144,40 @@ module.exports = (registrar) => {
     path: '/api/baskets',
     config: {
       handler: (req, resp) => {
-        basket
-          .update({closed: 1}, {where: {id: req.payload.basketId}})
-          .then(() => ({id: req.payload.basketId}))
-          .then(resp)
-          .catch((e) => {
-            console.error(e)
-            resp(e)
+        sequelize.transaction((t) => {
+          return transaction.findAll({
+            attributes: ['quantity', 'repositoryId'],
+            where: {basketId: req.payload.basketId}
+          }, {transaction: t})
+          .then((r) => {
+            return r.reduce((a, cur) => {
+              if (!a) {
+                return repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t})
+              } else {
+                return a.then(() => repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t}))
+              }
+            }, false);
           })
+        })
+        .then((tr) => {
+          return basket
+            .update({closed: 1}, {where: {id: req.payload.basketId}})
+            .then(() => ({id: req.payload.basketId}))
+        })
+          .then(resp)
+            .catch((e) => {
+              console.error(e)
+              resp(e)
+            })
+        ////////////////////
+        // basket
+        //   .update({closed: 1}, {where: {id: req.payload.basketId}})
+        //   .then(() => ({id: req.payload.basketId}))
+        //   .then(resp)
+        //   .catch((e) => {
+        //     console.error(e)
+        //     resp(e)
+        //   })
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',

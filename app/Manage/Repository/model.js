@@ -23,7 +23,7 @@ const repositories = db.define('repositories',
       }
     },
     quantity: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.FLOAT.UNSIGNED,
       allowNull: false,
       defaultValue: 0.00
     },

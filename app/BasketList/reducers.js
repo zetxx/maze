@@ -5,7 +5,7 @@ export const actionList = {
 const basketListDef = {data: []}
 
 export const basketList = (state = basketListDef, action) => {
-  if (action.type === actionList.CLOSE && action.status === 'received') {
+  if (action.type === actionList.CLOSE && action.status === 'received' && !action.err) {
     return {data: state.data.filter((el) => (!(el.id === action.data.id)))}
   }
   if (action.type === actionList.FETCH && action.status === 'received') {
