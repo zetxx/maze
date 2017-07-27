@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const preHandlers = require('../../preHandlers')
 const product = require('./model.js')
 const repository = require('../Repository/model')
 const quantityTypes = require('./model')
@@ -8,6 +9,7 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/quantityTypes',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         quantityTypes.findAll()
           .then(resp)

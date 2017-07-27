@@ -1,11 +1,13 @@
 const Joi = require('joi')
 const supplier = require('./model.js')
+const preHandlers = require('../../preHandlers')
 
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
     path: '/api/suppliers',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         var record = {
           name: req.payload.name,
@@ -35,6 +37,7 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/suppliers',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         supplier
           .findAll({})

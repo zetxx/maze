@@ -4,18 +4,19 @@ const repository = require('../Manage/Repository/model')
 const quantityType = require('../Manage/QuantityType/model')
 const productCategories = require('../Manage/ProductCat/model')
 const product = require('../Manage/Product/model')
+const preHandlers = require('../preHandlers')
 
 product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 product.belongsTo(productCategories, {foreignKey : 'category'})
 repository.hasOne(product)
-var shopId = 1;
 
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
     path: '/api/storeProductSearch',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         var prod = req.payload.product
         var where = {name: {$like: `%${prod}%`}}
@@ -29,7 +30,7 @@ module.exports = function(registrar) {
           include: [{
             attributes: ['shopId', 'quantity', 'id'],
             model: repository,
-            where: {shopId}
+            where: {shopId: req.pre.user.shopId}
           }, {
             attributes: ['label'],
             model: quantityType

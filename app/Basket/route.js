@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const preHandlers = require('../preHandlers')
 const transaction = require('../Transaction/model')
 const basket = require('../Basket/model')
 const quantityType = require('../Manage/QuantityType/model')
@@ -15,6 +16,7 @@ module.exports = (registrar) => {
     method: 'POST',
     path: '/api/baskets/fill',
     config: {
+      pre: preHandlers,
       handler: (req, resp) => {
         var b, rq
         rq = Object.assign({}, req.payload)
@@ -97,6 +99,7 @@ module.exports = (registrar) => {
     method: 'GET',
     path: '/api/baskets/{basketId}',
     config: {
+      pre: preHandlers,
       handler: (req, resp) => {
         transaction.findAll({
           attributes: ['id', 'quantity'],
@@ -143,6 +146,7 @@ module.exports = (registrar) => {
     method: 'DELETE',
     path: '/api/baskets',
     config: {
+      pre: preHandlers,
       handler: (req, resp) => {
         sequelize.transaction((t) => {
           return transaction.findAll({
@@ -194,6 +198,7 @@ module.exports = (registrar) => {
     method: 'POST',
     path: '/api/baskets/reassign',
     config: {
+      pre: preHandlers,
       handler: (req, resp) => {
         transaction
           .update({basketId: req.payload.to}, {where: {basketId: req.payload.from}})

@@ -1,9 +1,11 @@
 const Joi = require('joi')
+const preHandlers = require('../../preHandlers')
 const product = require('./model.js')
 const repository = require('../Repository/model')
 const quantityType = require('../QuantityType/model')
 const productCategories = require('../ProductCat/model')
 const sequelize = require('../../../config/db')
+
 product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 product.belongsTo(productCategories, {foreignKey : 'category'})
@@ -14,6 +16,7 @@ module.exports = function(registrar) {
     method: 'POST',
     path: '/api/products',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         product
           .create(req.payload)
@@ -44,6 +47,7 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/products',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         product.findAll({
           attributes: ['id', 'name', 'price'],

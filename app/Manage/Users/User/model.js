@@ -15,6 +15,22 @@ const users = db.define('users', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  priceRuleId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'priceRules',
+      key: 'id'
+    },
+    allowNull: false
+  },
+  shopId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'shops',
+      key: 'id'
+    },
+    allowNull: false
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()

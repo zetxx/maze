@@ -1,11 +1,13 @@
 const Joi = require('joi')
 const entity = require('./model.js')
+const preHandlers = require('../../preHandlers')
 
 module.exports = function(registrar) {
   registrar({
     method: 'POST',
     path: '/api/productCategories',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         entity
           .create(req.payload)
@@ -26,6 +28,7 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/productCategories',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         entity
           .findAll({})

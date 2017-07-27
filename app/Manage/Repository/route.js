@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const preHandlers = require('../../preHandlers')
 const entity = require('./model.js')
 const sequelize = require('../../../config/db')
 
@@ -7,6 +8,7 @@ module.exports = function(registrar) {
     method: 'POST',
     path: '/api/repositories',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
         entity
           .find({where: {productId: req.payload.productId, shopId: req.payload.shopId}})
