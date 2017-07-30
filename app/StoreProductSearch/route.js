@@ -5,6 +5,7 @@ const quantityType = require('../Manage/QuantityType/model')
 const productCategories = require('../Manage/ProductCat/model')
 const product = require('../Manage/Product/model')
 const preHandlers = require('../preHandlers')
+const backendHelpers = require('../backendHelpers')
 
 product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
@@ -40,6 +41,7 @@ module.exports = function(registrar) {
           }],
           where
         })
+          .then(backendHelpers.priceCalc(req.pre.user.priceRule))
           .then(resp)
           .catch((e) => {
             console.error(e)
