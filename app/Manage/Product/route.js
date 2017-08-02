@@ -72,4 +72,34 @@ module.exports = function(registrar) {
       tags: ['api', 'get', 'product']
     }
   })
+
+  registrar({
+    method: 'GET',
+    path: '/api/config/products',
+    config: {
+      pre: preHandlers,
+      handler: function (req, resp) {
+        product.findAll({
+          attributes: ['id', 'name', 'price'],
+          include: [{
+            attributes: ['quantity'],
+            model: repository
+          }, {
+            model: quantityType
+          }, {
+            model: productCategories
+          }],
+          group: 'products.id'
+        })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
+      },
+      description: 'List products',
+      notes: 'List products',
+      tags: ['api', 'get', 'product']
+    }
+  })
 }

@@ -3,6 +3,9 @@ const baskets = require('../Basket/model')
 const quantityType = require('../Manage/QuantityType/model')
 const repository = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
+const backendHelpers = require('../backendHelpers')
+const preHandlers = require('../preHandlers')
+
 transaction.belongsTo(repository)
 transaction.belongsTo(baskets)
 product.belongsTo(quantityType)
@@ -13,7 +16,9 @@ module.exports = function(registrar) {
     method: 'GET',
     path: '/api/baskets',
     config: {
+      pre: preHandlers,
       handler: function (req, resp) {
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
         transaction.findAll({
           attributes: ['id', 'quantity'],
           include: [{
@@ -36,6 +41,12 @@ module.exports = function(registrar) {
             where: {closed: false},
             as: 'basket'
           }]
+        })
+        .then((v) => {
+          return v.map((item) => {
+            item.repository.product.price = pc(item.repository.product.price)
+            return item
+          })
         })
        .then(resp)
        .catch((e) => {

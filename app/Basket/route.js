@@ -6,6 +6,7 @@ const quantityType = require('../Manage/QuantityType/model')
 const repository = require('../Manage/Repository/model')
 const product = require('../Manage/Product/model')
 const sequelize = require('../../config/db')
+const backendHelpers = require('../backendHelpers')
 transaction.belongsTo(repository)
 transaction.belongsTo(basket)
 product.belongsTo(quantityType)
@@ -20,6 +21,7 @@ module.exports = (registrar) => {
       handler: (req, resp) => {
         var b, rq
         rq = Object.assign({}, req.payload)
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
 
         // prepare basket
         if (!req.payload.basketId) { // create basket or
@@ -76,6 +78,12 @@ module.exports = (registrar) => {
               }]
             })
           })
+          .then((v) => {
+            return v.map((item) => {
+              item.repository.product.price = pc(item.repository.product.price)
+              return item
+            })
+          })
           .then(resp)
           .catch((e) => {
             console.error(e)
@@ -101,6 +109,7 @@ module.exports = (registrar) => {
     config: {
       pre: preHandlers,
       handler: (req, resp) => {
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
         transaction.findAll({
           attributes: ['id', 'quantity'],
           where: {basketId: req.params.basketId},
@@ -124,6 +133,12 @@ module.exports = (registrar) => {
             where: {closed: false},
             as: 'basket'
           }]
+        })
+        .then((v) => {
+          return v.map((item) => {
+            item.repository.product.price = pc(item.repository.product.price)
+            return item
+          })
         })
         .then(resp)
         .catch((e) => {
@@ -173,15 +188,6 @@ module.exports = (registrar) => {
               console.error(e)
               resp(e)
             })
-        ////////////////////
-        // basket
-        //   .update({closed: 1}, {where: {id: req.payload.basketId}})
-        //   .then(() => ({id: req.payload.basketId}))
-        //   .then(resp)
-        //   .catch((e) => {
-        //     console.error(e)
-        //     resp(e)
-        //   })
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',

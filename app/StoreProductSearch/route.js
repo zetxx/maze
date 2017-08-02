@@ -21,6 +21,7 @@ module.exports = function(registrar) {
       handler: function (req, resp) {
         var prod = req.payload.product
         var where = {name: {$like: `%${prod}%`}}
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRule);
         if (!isNaN(parseInt(prod))) {
           where.barcode = {$like: `%${prod}%`}
           where = {$or: [{name: where.name}, {barcode: where.barcode}]}
@@ -41,7 +42,9 @@ module.exports = function(registrar) {
           }],
           where
         })
-          .then(backendHelpers.priceCalc(req.pre.user.priceRule))
+          .then((res) => {
+            return res.map((item) => (Object.assign(item, {price: pc(item.price)})))
+          })
           .then(resp)
           .catch((e) => {
             console.error(e)
