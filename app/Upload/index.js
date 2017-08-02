@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Translate} from '../../Translation'
+import {Translate} from '../Translation'
 import Dropzone from 'react-dropzone'
-import {actionListUpload} from './reducers'
+import {actionList} from './reducers'
 
 class Upload extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default connect(
   },
   {
     add(filesData) {
-      return {type: actionListUpload.ADD, filesData}
+      return {type: actionList.ADD, filesData}
     }
   }
 )(Upload)

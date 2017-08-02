@@ -8,7 +8,8 @@ import ProductCatDropDown from './dropDown'
 import QuantityType from '../QuantityType/dropDown'
 import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
-import Upload from './Upload'
+import Upload from '../../Upload'
+import {actionList as actionListUpload} from '../../Upload/reducers'
 
 import {actionList} from './reducers'
 
