@@ -36,12 +36,14 @@ module.exports = {
             {
               test: /\.jsx?$/,
               exclude: /(node_modules|bower_components)/,
-              use: {
+              use: [{
+                loader: 'react-hot-loader/webpack'
+              }, {
                 loader: 'babel-loader',
                 options: {
-                  presets: ['env', 'react', 'react-hmre']
+                  presets: ['env', 'react', 'stage-0', 'react-hmre']
                 }
-              }
+              }]
             },
             { test: /\.json$/, use: {loader: 'json'} },
             { test: /\.css$/, use: {loader: 'style-loader!css-loader'} },

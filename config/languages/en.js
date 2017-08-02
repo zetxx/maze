@@ -63,8 +63,11 @@ export const en = {
   'Role': 'Role',
   'Edit Role': 'Edit Role',
   'Suppliers': 'Suppliers',
+  'bytes': 'bytes',
   'Supplier add': 'Supplier add',
   'Supplier name': 'Supplier name',
   'Description': 'Description',
+  'Dropped files': 'Dropped files',
+  'Try dropping some files here': 'Try dropping some files here',
   '_currency': '&#36;'
 }

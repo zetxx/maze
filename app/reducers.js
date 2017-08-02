@@ -1,6 +1,6 @@
 import {productCatAdd, productCategories} from './Manage/ProductCat/reducers'
 import {supplierAdd, suppliers} from './Manage/Supplier/reducers'
-import {productAdd, products} from './Manage/Product/reducers'
+import {productAdd, products, uploadFiles} from './Manage/Product/reducers'
 import {repository} from './Manage/Repository/reducers'
 import {storeProductSearch, quantitySelection} from './StoreProductSearch/reducers'
 import {basket} from './Basket/reducers'
@@ -24,6 +24,7 @@ export default {
   productCategories,
   productAdd,
   products,
+  uploadFiles,
   repository,
   storeProductSearch,
   quantitySelection,

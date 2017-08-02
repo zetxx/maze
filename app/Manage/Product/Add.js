@@ -8,6 +8,8 @@ import ProductCatDropDown from './dropDown'
 import QuantityType from '../QuantityType/dropDown'
 import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
+import Upload from './Upload'
+
 import {actionList} from './reducers'
 
 const ProductAdd = React.createClass({
@@ -21,7 +23,12 @@ const ProductAdd = React.createClass({
   add() {
     var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
     if (Object.keys(vals.incorrect).length === 0) {
-      this.props.add(vals.correct)
+      if(this.props.filesForUpload.length) {
+        this.props.upload(this.props.filesForUpload)
+        // this.props.add(vals.correct)
+      } else {
+        this.props.add(vals.correct)
+      }
     } else {
       return this.props.cantAdd(vals.incorrect)
     }
@@ -73,14 +80,16 @@ const ProductAdd = React.createClass({
         />
         <ProductCatDropDown ref='category' value={1} />
         <SupplierDropDown ref='supplier' value={1} />
-        <QuantityType ref='quantityTypeId' value={1} />
+        <QuantityType ref='quantityTypeId' value={1} /><br/>
+        <hr />
+        <Upload />
       </Dialog>
     )
   }
 })
 
 export default connect(
-  (state) => ({productAdd: state.productAdd}),
+  (state) => ({productAdd: state.productAdd, filesForUpload: state.uploadFiles.get('list').toJS()}),
   {
     add(body) {
       return {type: actionList.ADD, httpRequest: {
@@ -95,6 +104,14 @@ export default connect(
     },
     cancelToggle() {
       return {type: actionList.TOGGLE_ADD, canceled: true}
+    },
+    upload(filesData) {
+      return {type: actionListUpload.UPLOAD, httpRequest: {
+        method: 'UPLOAD',
+        url: '/api/upload',
+        json: true,
+        body: filesData
+      }}
     },
     fetchProducts() {
       return {
