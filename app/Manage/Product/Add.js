@@ -19,24 +19,29 @@ const ProductAdd = React.createClass({
     cantAdd: React.PropTypes.func,
     cancelToggle: React.PropTypes.func,
     fetchProducts: React.PropTypes.func,
+    filesForUpload: React.PropTypes.array,
+    uploadedList: React.PropTypes.array,
     productAdd: React.PropTypes.object
+  },
+  componentWillReceiveProps(next) {
+    if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
+      next.fetchProducts()
+    }
+    if(next.uploadedList.length && !this.props.uploadedList.length) { // fire add action after successfully upload
+      var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
+      this.props.add(Object.assign({}, vals.correct, {files: next.uploadedList}))
+    }
   },
   add() {
     var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
     if (Object.keys(vals.incorrect).length === 0) {
       if(this.props.filesForUpload.length) {
         this.props.upload(this.props.filesForUpload)
-        // this.props.add(vals.correct)
       } else {
         this.props.add(vals.correct)
       }
     } else {
       return this.props.cantAdd(vals.incorrect)
-    }
-  },
-  componentWillReceiveProps(next) {
-    if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
-      next.fetchProducts()
     }
   },
   render() {
@@ -90,7 +95,7 @@ const ProductAdd = React.createClass({
 })
 
 export default connect(
-  (state) => ({productAdd: state.productAdd, filesForUpload: state.uploadFiles.get('list').toJS()}),
+  (state) => ({productAdd: state.productAdd, filesForUpload: state.uploadFiles.get('list').toJS(), uploadedList: state.uploadFiles.get('uploadedList').toJS()}),
   {
     add(body) {
       return {type: actionList.ADD, httpRequest: {
@@ -110,8 +115,7 @@ export default connect(
       return {type: actionListUpload.UPLOAD, httpRequest: {
         method: 'UPLOAD',
         url: '/api/upload',
-        json: true,
-        body: filesData
+        filesData
       }}
     },
     fetchProducts() {

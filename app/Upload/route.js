@@ -1,5 +1,6 @@
 // const Joi = require('joi')
 const path = require('path')
+const fs = require('fs')
 const preHandlers = require('../preHandlers')
 
 module.exports = function(registrar) {
@@ -15,25 +16,31 @@ module.exports = function(registrar) {
       },
       handler: function (req, resp) {
         var data = req.payload;
-        if (data.file) {
-          var name = data.file.hapi.filename;
-          var path = path.join(__dirname, 'uploads', name);
-          var file = fs.createWriteStream(path);
+        var filenames = Object.keys(data);
+        if (filenames) {
+          filenames
+            .reduce((chain, originFileName) => {
+              return chain
+                .then((r) => {
+                  return new Promise((resolve, reject) => {
+                    var file = data[originFileName]
+                    var fileName = `${Math.random()}_${Date.now()}_${originFileName}`
+                    var fullFilePath = path.join(path.dirname(require.main.filename), 'uploads', fileName);
+                    var destFile = fs.createWriteStream(fullFilePath);
+                    file.pipe(destFile);
 
-          file.on('error', function (err) {
-              console.error(err)
-              resp(new Error('File upload error'));
-          });
-
-          data.file.pipe(file);
-
-          data.file.on('end', function (err) {
-            var ret = {
-              filename: data.file.hapi.filename,
-              headers: data.file.hapi.headers
-            }
-            resp(JSON.stringify(ret));
-          })
+                    file.on('end', function (err) {
+                      r.push({
+                        fileName: fileName,
+                        originFileName: originFileName,
+                        'content-type': file.hapi.headers['content-type']
+                      })
+                      resolve(r)
+                    })
+                  })
+                })
+            }, Promise.resolve([]))
+            .then(resp)
         }
       },
       description: 'File upload',

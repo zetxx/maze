@@ -1,16 +1,32 @@
-import httpRequest from 'browser-request'
+import rq from 'superagent'
 import Promise from 'bluebird'
 
 export const request = (store) => (next) => (action) => {
   if (action.httpRequest && typeof (action.httpRequest) === 'object') {
     action.status = 'sent'
     var p = new Promise((resolve, reject) => {
-      httpRequest(action.httpRequest, (err, resp) => {
-        if (err) {
-          return reject(err)
-        }
-        return resolve(resp)
-      })
+      var isUpload = action.httpRequest.method === 'UPLOAD'
+      var rqPrepare = rq(
+        (isUpload ? 'POST' : action.httpRequest.method),
+        action.httpRequest.url
+      )
+      if (isUpload) {
+        (action.httpRequest.filesData || [])
+          .map((file) => {
+            rqPrepare.attach(file.name, file)
+          })
+      } else {
+        rqPrepare
+          .set('Content-Type', 'application/json')
+          .send(action.httpRequest.body)
+      }
+      rqPrepare
+        .end((err, resp) => {
+          if (err) {
+            return reject(err)
+          }
+          return resolve(resp)
+        })
     })
 
     p

@@ -22,7 +22,9 @@ const SupplierDropDown = React.createClass({
     this.setState({value: value})
   },
   getValue() {
-    return this.props.suppliers.data[this.state.value - 1].id
+    if(this.props.suppliers.data.length) {
+      return this.props.suppliers.data[this.state.value - 1].id
+    }
   },
   render() {
     return (
