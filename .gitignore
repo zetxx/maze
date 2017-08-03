@@ -1,7 +1,9 @@
 node_modules/**/*
 .history/**/*
 .vscode/**/*
-!uploads/.gitkeep
 uploads/**/*
+storage/**/*
+!uploads/.gitkeep
+!storage/files/.gitkeep
 yarn.lock
 package-lock.json

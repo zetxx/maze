@@ -36,6 +36,11 @@ module.exports = function(registrar) {
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
           supplier: Joi.number().min(1).required().description('Supplier'),
+          files: Joi.array().items(Joi.object({
+            'content-type': Joi.string(),
+            'fileName': Joi.string(),
+            'originFileName': Joi.string()
+          })),
           quantityTypeId: Joi.number().min(1).required().description('one of: piece or weight'),
           price: Joi.string().regex(/[\d]+\.[\d]{2,2}/).required().description('Product Price')
         }
