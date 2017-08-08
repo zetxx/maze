@@ -9,7 +9,7 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        itemId: {
+        itemId: { // productId or supplierId
           type: Sequelize.INTEGER
         },
         itemType: {
@@ -24,6 +24,10 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false
         },
+        contentType: {
+          type: Sequelize.STRING,
+          allowNull: false
+        },
         description: {
           type: Sequelize.STRING,
           allowNull: true
@@ -33,7 +37,7 @@ module.exports = {
           defaultValue: new Date()
         }
       }, {
-        engine: 'MYISAM',
+        engine: 'InnoDB',
         charset: 'utf8'
       }
     )

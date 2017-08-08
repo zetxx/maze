@@ -27,7 +27,7 @@ module.exports = {
         defaultValue: new Date()
       }
     }, {
-      engine: 'MYISAM',
+      engine: 'InnoDB',
       charset: 'utf8'
     })
   },

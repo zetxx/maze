@@ -21,13 +21,14 @@ const ProductAdd = React.createClass({
     fetchProducts: React.PropTypes.func,
     filesForUpload: React.PropTypes.array,
     uploadedList: React.PropTypes.array,
+    uploadRequestId: React.PropTypes.number,
     productAdd: React.PropTypes.object
   },
   componentWillReceiveProps(next) {
     if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
       next.fetchProducts()
     }
-    if(next.uploadedList.length && !this.props.uploadedList.length) { // fire add action after successfully upload
+    if(next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire add action after successfully upload
       var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
       this.props.add(Object.assign({}, vals.correct, {files: next.uploadedList}))
     }
@@ -95,7 +96,12 @@ const ProductAdd = React.createClass({
 })
 
 export default connect(
-  (state) => ({productAdd: state.productAdd, filesForUpload: state.uploadFiles.get('list').toJS(), uploadedList: state.uploadFiles.get('uploadedList').toJS()}),
+  (state) => ({
+    productAdd: state.productAdd,
+    filesForUpload: state.uploadFiles.get('list').toJS(),
+    uploadedList: state.uploadFiles.get('uploadedList').toJS(),
+    uploadRequestId: state.uploadFiles.get('uploadRequestId')
+  }),
   {
     add(body) {
       return {type: actionList.ADD, httpRequest: {

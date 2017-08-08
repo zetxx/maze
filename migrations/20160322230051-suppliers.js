@@ -18,14 +18,14 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       addedAt: {
         type: Sequelize.DATE,
         defaultValue: new Date()
       }
     }, {
-      engine: 'MYISAM',
+      engine: 'InnoDB',
       charset: 'utf8'
     })
   },

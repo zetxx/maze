@@ -68,7 +68,7 @@ export default {
   errorDialog(state = {open: false, errorStack: []}, action) {
     if (action.httpRequest && action.status === 'received' && action.err) {
       var newState = Object.assign({}, state, {open: true})
-      newState.errorStack.push(action.err)
+      newState.errorStack.push((action.err.response && action.err.response.body) || action.err)
       return newState
     } else if (action.type === 'CLEANUP_HIDE_ERRORS') {
       return {open: false, errorStack: []}
