@@ -6,6 +6,10 @@ const config = {
     dbDialect: 'mysql',
     httpServer: {
       host: '0.0.0.0', port: 3000
+    },
+    upload: {
+      uploadDir: ['uploads'],
+      storeDir: ['storage', 'files']
     }
   },
   test: {
@@ -14,6 +18,10 @@ const config = {
     dbDialect: 'mysql',
     httpServer: {
       host: '0.0.0.0', port: 3000
+    },
+    upload: {
+      uploadDir: ['uploads'],
+      storeDir: ['storage', 'files']
     }
   },
   production: {
@@ -22,6 +30,10 @@ const config = {
     dbDialect: 'mysql',
     httpServer: {
       host: '0.0.0.0', port: 3000
+    },
+    upload: {
+      uploadDir: ['uploads'],
+      storeDir: ['storage', 'files']
     }
   }
 }

@@ -8,10 +8,11 @@ const quantityType = require('../QuantityType/model')
 const productCategories = require('../ProductCat/model')
 const filesModel = require('../Files/model')
 const sequelize = require('../../../config/db')
+const config = require('../../../config/server')
 const baseDir = path.dirname(require.main.filename)
 const filesDirectory = {
-  uploadDir: path.join(baseDir, 'uploads'),
-  storeDir: path.join(baseDir, 'storage', 'files')
+  uploadDir: path.join.apply(null, [baseDir].concat(config.upload.uploadDir)),
+  storeDir: path.join.apply(null, [baseDir].concat(config.upload.storeDir))
 }
 
 product.hasOne(repository, {foreignKey : 'productId'})
