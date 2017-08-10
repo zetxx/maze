@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import EjectIcon from 'material-ui/svg-icons/action/eject'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import CachedIcon from 'material-ui/svg-icons/action/cached'
+import Edit from './Edit'
 import {actionList} from './reducers'
 
 class Product extends React.Component {
@@ -19,6 +20,11 @@ class Product extends React.Component {
   }
   load(productId) {
     return this.props.load.bind(null, productId)
+  }
+  edit(productId) {
+    return () => {
+      this.props.edit(productId)
+    }
   }
   render() {
     var productsCat = (this.props.productCategories && this.props.productCategories.data || []).reduce((prev, cur) => {
@@ -53,7 +59,7 @@ class Product extends React.Component {
                   <TableHeaderColumn style={{width: '150px'}}>{el.price}</TableHeaderColumn>
                   <TableRowColumn style={{width: '150px'}}>
                     <IconButton title={<Translate id='Load' />} onTouchTap={this.load(el.id)}><CachedIcon /></IconButton>
-                    <IconButton><EditIcon title={<Translate id='Edit' />} /></IconButton>
+                    <IconButton><EditIcon title={<Translate id='Edit' />} onTouchTap={this.edit(el.id)} /></IconButton>
                     <IconButton><EjectIcon title={<Translate id='Disable' />} /></IconButton>
                   </TableRowColumn>
                 </TableRow>
@@ -63,6 +69,7 @@ class Product extends React.Component {
         </Card>
         <Add />
         <Repository />
+        <Edit />
       </div>
     )
   }
@@ -71,6 +78,7 @@ class Product extends React.Component {
 Product.propTypes = {
   fetch: React.PropTypes.func,
   add: React.PropTypes.func,
+  edit: React.PropTypes.func,
   load: React.PropTypes.func,
   products: React.PropTypes.object,
   productCategories: React.PropTypes.object
@@ -93,6 +101,15 @@ export default connect(
     },
     add() {
       return {type: actionList.TOGGLE_ADD}
+    },
+    edit(productId) {
+      return {
+        type: actionList.FETCH_PRODUCT, httpRequest: {
+          method: 'GET',
+          url: `/api/config/products/${productId}`,
+          json: true
+        }
+      }
     },
     load(productId) {
       return {type: 'TOGGLE_REPOSITORY_ADD', productId: productId}

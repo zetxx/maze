@@ -4,6 +4,7 @@ const fs = require('fs')
 const preHandlers = require('../../preHandlers')
 const product = require('./model.js')
 const repository = require('../Repository/model')
+const files = require('../Files/model')
 const quantityType = require('../QuantityType/model')
 const productCategories = require('../ProductCat/model')
 const filesModel = require('../Files/model')
@@ -19,6 +20,7 @@ product.hasOne(repository, {foreignKey : 'productId'})
 product.belongsTo(quantityType, {foreignKey : 'quantityTypeId'})
 product.belongsTo(productCategories, {foreignKey : 'category'})
 repository.hasOne(product)
+product.hasMany(files, {foreignKey : 'itemId'})
 
 module.exports = function(registrar) {
   registrar({
@@ -115,6 +117,10 @@ module.exports = function(registrar) {
             model: quantityType
           }, {
             model: productCategories
+          }, {
+            model: files,
+            required: false,
+            where: {itemType: 'product'}
           }],
           group: 'products.id'
         })
@@ -145,6 +151,10 @@ module.exports = function(registrar) {
             model: quantityType
           }, {
             model: productCategories
+          }, {
+            model: files,
+            required: false,
+            where: {itemType: 'product'}
           }],
           group: 'products.id'
         })
@@ -156,7 +166,41 @@ module.exports = function(registrar) {
       },
       description: 'List products',
       notes: 'List products',
-      tags: ['api', 'get', 'product']
+      tags: ['api', 'get', 'products']
+    }
+  })
+
+  registrar({
+    method: 'GET',
+    path: '/api/config/products/{productId}',
+    config: {
+      pre: preHandlers,
+      handler: function (req, resp) {
+        product.find({
+          attributes: ['id', 'name', 'price', 'supplier', 'category', 'quantityTypeId'],
+          where: {id: req.params.productId},
+          include: [{
+            attributes: ['id', 'name', 'contentType'],
+            model: files,
+            required: false,
+            where: {itemType: 'product'}
+          }],
+          group: 'products.id'
+        })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
+      },
+      description: 'List product',
+      notes: 'List product',
+      tags: ['api', 'get', 'product'],
+      validate: {
+        params: {
+          productId: Joi.number().min(1).required().description('Product Id')
+        }
+      }
     }
   })
 }
