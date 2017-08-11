@@ -184,8 +184,7 @@ module.exports = function(registrar) {
             model: files,
             required: false,
             where: {itemType: 'product'}
-          }],
-          group: 'products.id'
+          }]
         })
           .then(resp)
           .catch((e) => {

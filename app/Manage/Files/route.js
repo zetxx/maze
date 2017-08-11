@@ -13,6 +13,51 @@ const filesDirectory = {
   storeDir: path.join.apply(null, [baseDir].concat(config.upload.storeDir))
 }
 
+function fileCreator(req) {
+  return (r) => {
+    if(!r) {
+      throw Boom.notFound('missing resource');
+    }
+    var originFileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
+    var fileName = path.join(
+      filesDirectory.storeDir,
+      r.itemId.toString(),
+      [r.id.toString(), '_', req.params.width.toString(), 'x', req.params.height.toString()].join('')
+    )
+    return new Promise((resolve, reject) => {
+      fs.stat(fileName, (err, stats) => {
+        if (err) {
+          if (err.errno !== -2) {
+            return reject(err)
+          }
+          jimp
+            .read(originFileName)
+            .then((img) => {
+              img.resize(req.params.width, req.params.height)
+                .quality(90)
+                .getBuffer(img.getMIME(), (err, buffer) => {
+                  fs.open(fileName, 'w', (err, fd) => {
+                    if (err) {
+                      return reject(err)
+                    }
+                    fs.write(fd, buffer, (err) => {
+                      if (err) {
+                        return reject(err)
+                      }
+                      resolve({contentType: r.contentType, fileName})
+                    })
+                  })
+                })
+            })
+            .catch(reject)
+        } else {
+          resolve({contentType: r.contentType, fileName})
+        }
+      })
+    })
+  }
+}
+
 module.exports = function(registrar) {
   registrar({
     method: 'GET',
@@ -21,48 +66,7 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         files.find({where: {id: req.params.fileId}})
-        .then((r) => {
-          if(!r) {
-            throw Boom.notFound('missing resource');
-          }
-          var originFileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
-          var fileName = path.join(
-            filesDirectory.storeDir,
-            r.itemId.toString(),
-            [r.id.toString(), '_', req.params.width.toString(), 'x', req.params.height.toString()].join('')
-          )
-          return new Promise((resolve, reject) => {
-            fs.stat(fileName, (err, stats) => {
-              if (err) {
-                if (err.errno !== -2) {
-                  return reject(err)
-                }
-                jimp
-                  .read(originFileName)
-                  .then((img) => {
-                    img.resize(req.params.width, req.params.height)
-                      .quality(90)
-                      .getBuffer(img.getMIME(), (err, buffer) => {
-                        fs.open(fileName, 'w', (err, fd) => {
-                          if (err) {
-                            return reject(err)
-                          }
-                          fs.write(fd, buffer, (err) => {
-                            if (err) {
-                              return reject(err)
-                            }
-                            resolve({contentType: r.contentType, fileName})
-                          })
-                        })
-                      })
-                  })
-                  .catch(reject)
-              } else {
-                resolve({contentType: r.contentType, fileName})
-              }
-            })
-          })
-        })
+        .then(fileCreator(req))
         .then((f) => {
           resp(fs.createReadStream(f.fileName))
           .type(f.contentType)

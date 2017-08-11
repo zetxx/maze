@@ -10,6 +10,7 @@ import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
 import Upload from '../../Upload'
 import {actionList as actionListUpload} from '../../Upload/reducers'
+import FileList from '../Files/List'
 
 import {actionList} from './reducers'
 
@@ -44,19 +45,6 @@ const ProductEdit = React.createClass({
     } else {
       return this.props.cantEdit(vals.incorrect)
     }
-  },
-  renderFiles() {
-    return (<div>
-      <ul>
-        {this.props.productEdit.item.files.map((file) => {
-          console.log(file)
-          return (<div>
-            <img src={`/api/files/image/${file.id}/80x80`} alt={file.name} />
-          </div>)
-        })}
-      </ul>
-      <hr />
-    </div>)
   },
   render() {
     const actions = [
@@ -106,7 +94,8 @@ const ProductEdit = React.createClass({
         <SupplierDropDown ref='supplier' value={this.props.productEdit.item.supplier} />
         <QuantityType ref='quantityTypeId' value={this.props.productEdit.item.quantityTypeId} /><br/>
         <hr />
-        {this.renderFiles()}
+
+        <FileList />
         <Upload />
       </Dialog>
     )
@@ -116,9 +105,9 @@ const ProductEdit = React.createClass({
 export default connect(
   (state) => ({
     productEdit: state.productEdit,
-    filesForUpload: state.uploadFiles.get('list').toJS(),
-    uploadedList: state.uploadFiles.get('uploadedList').toJS(),
-    uploadRequestId: state.uploadFiles.get('uploadRequestId')
+    filesForUpload: state.uploadFilesEdit.get('list').toJS(),
+    uploadedList: state.uploadFilesEdit.get('uploadedList').toJS(),
+    uploadRequestId: state.uploadFilesEdit.get('uploadRequestId')
   }),
   {
     edit(body) {
@@ -136,7 +125,7 @@ export default connect(
       return {type: actionList.TOGGLE_EDIT, canceled: true}
     },
     upload(filesData) {
-      return {type: actionListUpload.UPLOAD, httpRequest: {
+      return {type: actionListUpload.EDIT_UPLOAD, httpRequest: {
         method: 'UPLOAD',
         url: '/api/upload',
         filesData

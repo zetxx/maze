@@ -11,7 +11,7 @@ class Upload extends React.Component {
     this.droppedFiles = this.droppedFiles.bind(this)
   }
   onDrop(files) {
-    this.props.add(files)
+    this.props.add(files, this.props.edit)
   }
   droppedFiles(uploadFilesList) {
     if(uploadFilesList.length) {
@@ -41,6 +41,7 @@ class Upload extends React.Component {
 Upload.propTypes = {
   upload: React.PropTypes.func,
   add: React.PropTypes.func,
+  edit: React.PropTypes.bool,
   uploadFilesList: React.PropTypes.array
 }
 
@@ -49,8 +50,8 @@ export default connect(
     return {uploadFilesList: state.uploadFiles.get('list').toJS()};
   },
   {
-    add(filesData) {
-      return {type: actionList.ADD, filesData}
+    add(filesData, edit) {
+      return {type: edit ? actionList.EDIT : actionList.ADD, filesData}
     }
   }
 )(Upload)

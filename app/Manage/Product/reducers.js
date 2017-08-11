@@ -16,7 +16,7 @@ export const productAdd = (state = {open: false, canceled: false, fieldError: {}
     return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled, fieldError: {}})
   } else if (action.type === actionList.ADD) {
     if (action.data && action.status === 'received') {
-      return Object.assign({}, state, {open: !state.open, canceled: false, fieldError: {}})
+      return Object.assign({}, state, {open: false, canceled: false, fieldError: {}})
     }
   } else if (action.type === actionList.ADD_VALIDATION_PROBLEM) {
     return Object.assign({}, state, {fieldError: action.problems})
