@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
-import {Translate} from '../../Translation'
 import {actionList} from './reducers'
 
 const QuantityTypeDropdown = React.createClass({
   propTypes: {
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
+    onChange: React.PropTypes.func,
     value: React.PropTypes.number,
     items: React.PropTypes.object
   },
@@ -22,6 +22,9 @@ const QuantityTypeDropdown = React.createClass({
   },
   handleChange(event, index, value) {
     this.setState({value: value})
+    if (this.props.onChange) {
+      this.props.onChange({target: {value}})
+    }
   },
   getValue() {
     return this.props.items.data[this.state.value - 1].id
@@ -44,7 +47,8 @@ export default connect(
   {
     fetch() {
       return {
-        type: actionList.FETCH, httpRequest: {
+        type: actionList.FETCH,
+        httpRequest: {
           method: 'GET',
           url: '/api/quantityTypes',
           json: true

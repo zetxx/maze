@@ -177,7 +177,7 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         product.find({
-          attributes: ['id', 'name', 'price', 'supplier', 'category', 'quantityTypeId'],
+          attributes: ['id', 'name', 'price', 'supplier', 'category', 'quantityTypeId', 'description', 'barcode'],
           where: {id: req.params.productId},
           include: [{
             attributes: ['id', 'name', 'contentType'],

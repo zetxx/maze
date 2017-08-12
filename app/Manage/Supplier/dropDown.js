@@ -7,6 +7,7 @@ const SupplierDropDown = React.createClass({
   propTypes: {
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
+    onChange: React.PropTypes.func,
     value: React.PropTypes.number,
     suppliers: React.PropTypes.object
   },
@@ -20,9 +21,12 @@ const SupplierDropDown = React.createClass({
   },
   handleChange(event, index, value) {
     this.setState({value: value})
+    if (this.props.onChange) {
+      this.props.onChange({target: {value}})
+    }
   },
   getValue() {
-    if(this.props.suppliers.data.length) {
+    if (this.props.suppliers.data.length) {
       return this.props.suppliers.data[this.state.value - 1].id
     }
   },
@@ -44,7 +48,8 @@ export default connect(
   {
     fetch() {
       return {
-        type: 'FETCH', httpRequest: {
+        type: 'FETCH',
+        httpRequest: {
           method: 'GET',
           url: '/api/productCategories',
           json: true

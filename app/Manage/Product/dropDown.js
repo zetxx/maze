@@ -8,6 +8,7 @@ const ProductCatDropDown = React.createClass({
     fixTop: React.PropTypes.bool,
     fetch: React.PropTypes.func,
     handleChange: React.PropTypes.func,
+    onChange: React.PropTypes.func,
     value: React.PropTypes.number,
     productCategories: React.PropTypes.object
   },
@@ -21,6 +22,9 @@ const ProductCatDropDown = React.createClass({
   },
   handleChange(event, index, value) {
     this.setState({value: value})
+    if (this.props.onChange) {
+      this.props.onChange({target: {value}})
+    }
   },
   getValue() {
     return this.props.productCategories.data[this.state.value - 1].id
@@ -43,7 +47,8 @@ export default connect(
   {
     fetch() {
       return {
-        type: 'FETCH', httpRequest: {
+        type: 'FETCH',
+        httpRequest: {
           method: 'GET',
           url: '/api/productCategories',
           json: true

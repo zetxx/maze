@@ -1,15 +1,14 @@
-import {Map, List, fromJS} from 'immutable'
-
 export const actionList = {
   TOGGLE_ADD: Symbol('TOGGLE_ADD'),
   TOGGLE_EDIT: Symbol('TOGGLE_EDIT'),
   ADD: Symbol('ADD'),
   EDIT: Symbol('EDIT'),
+  CHANGE_FIELDS_VALUE: Symbol('CHANGE_FIELDS_VALUE'),
   ADD_VALIDATION_PROBLEM: Symbol('ADD_VALIDATION_PROBLEM'),
   EDIT_VALIDATION_PROBLEM: Symbol('EDIT_VALIDATION_PROBLEM'),
   FETCH: Symbol('FETCH'),
   FETCH_PRODUCT: Symbol('FETCH_PRODUCT')
-};
+}
 
 export const productAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === actionList.TOGGLE_ADD) {
@@ -27,6 +26,8 @@ export const productAdd = (state = {open: false, canceled: false, fieldError: {}
 export const productEdit = (state = {open: false, canceled: false, fieldError: {}, item: {}}, action) => {
   if (action.type === actionList.TOGGLE_EDIT) {
     return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled, fieldError: {}, item: {}})
+  } else if (action.type === actionList.CHANGE_FIELDS_VALUE) {
+    return Object.assign({}, state, {item: Object.assign({}, state.item, {[action.field]: action.value})})
   } else if (action.type === actionList.FETCH_PRODUCT && action.status === 'received') {
     return Object.assign({}, state, {open: true, fieldError: {}, item: action.data})
   } else if (action.type === actionList.EDIT) {
