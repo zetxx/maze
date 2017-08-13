@@ -22,7 +22,9 @@ const ProductEdit = React.createClass({
     fetchProducts: React.PropTypes.func,
     changeFieldsValue: React.PropTypes.func,
     filesForUpload: React.PropTypes.array,
+    defaultFile: React.PropTypes.number,
     uploadedList: React.PropTypes.array,
+    deletedFiles: React.PropTypes.array,
     uploadRequestId: React.PropTypes.number,
     productEdit: React.PropTypes.object
   },
@@ -32,7 +34,7 @@ const ProductEdit = React.createClass({
     }
     if (next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire edit action after successfully upload
       var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
-      this.props.edit(Object.assign({}, vals.correct, {files: next.uploadedList}))
+      this.props.edit(Object.assign({}, vals.correct, {files: next.uploadedList, filesDeleted: this.props.deletedFiles, defaultFile: this.props.defaultFile}), this.props.productEdit.item.id)
     }
   },
   edit() {
@@ -41,7 +43,7 @@ const ProductEdit = React.createClass({
       if (this.props.filesForUpload.length) {
         this.props.upload(this.props.filesForUpload)
       } else {
-        this.props.edit(vals.correct)
+        this.props.edit(Object.assign({}, vals.correct, {filesDeleted: this.props.deletedFiles, defaultFile: this.props.defaultFile}), this.props.productEdit.item.id)
       }
     } else {
       return this.props.cantEdit(vals.incorrect)
@@ -117,7 +119,7 @@ const ProductEdit = React.createClass({
         <hr />
 
         <FileList />
-        <Upload />
+        <Upload edit />
       </Dialog>
     )
   }
@@ -127,17 +129,19 @@ export default connect(
   (state) => {
     return {
       productEdit: state.productEdit,
+      deletedFiles: state.configFileListSelection.deletedItems,
+      defaultFile: state.configFileListSelection.isDefault,
       filesForUpload: state.uploadFilesEdit.get('list').toJS(),
       uploadedList: state.uploadFilesEdit.get('uploadedList').toJS(),
       uploadRequestId: state.uploadFilesEdit.get('uploadRequestId')
     }
   },
   {
-    edit(body) {
+    edit(body, productId) {
       return {type: actionList.EDIT,
         httpRequest: {
-          method: 'PUT',
-          url: '/api/products',
+          method: 'POST',
+          url: `/api/products/${productId}`,
           json: true,
           body: body
         }
