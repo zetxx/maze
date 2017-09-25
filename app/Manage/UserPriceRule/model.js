@@ -1,24 +1,24 @@
 const Sequelize = require('sequelize')
-const db = require('../../../../config/db')
+const db = require('../../../config/db')
 
-const users = db.define('users', {
+const userPriceRule = db.define('userPriceRule', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  userName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  shopId: {
+  priceRuleId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'shops',
+      model: 'priceRules',
+      key: 'id'
+    },
+    allowNull: false
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'users',
       key: 'id'
     },
     allowNull: false
@@ -32,4 +32,4 @@ const users = db.define('users', {
   freezeTableName: true
 })
 
-module.exports = users
+module.exports = userPriceRule

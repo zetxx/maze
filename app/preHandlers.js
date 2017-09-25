@@ -1,32 +1,21 @@
-const user = require('./Manage/Users/User/model')
+const users = require('./Manage/Users/User/model')
 const priceRules = require('./Manage/PriceRules/model')
-user.belongsTo(priceRules)
-function cleanupDataObjects(data, o) {
-  Object.keys(data)
-      .filter((k) => (data[k] && data[k].dataValues))
-      .reduce((accum, cur) => {
-        o[cur] = cleanupDataObjects(data[cur], {})
-        return o
-      }, o)
-  if (data.dataValues) {
-    return Object.assign(data.dataValues, o)
-  }
-  return o
-}
+const userPriceRule = require('./Manage/UserPriceRule/model')
+users.belongsToMany(priceRules, {through: userPriceRule})
+priceRules.belongsToMany(users, {through: userPriceRule})
 
 module.exports = [{
   assign: 'user',
   method: function(request, next) {
-    user
+    users
       .find({
-        attributes: ['id', 'userName', 'email', 'priceRuleId', 'shopId'],
+        attributes: ['id', 'userName', 'email', 'shopId'],
         include: [{
           model: priceRules
         }]
       }, {where: {id: 1}})
       .then((r) => {
-        let d = cleanupDataObjects(r, {})
-        next(r.dataValues)
+        next(r.toJSON())
       })
   }
-}];
+}]

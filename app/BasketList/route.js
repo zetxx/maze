@@ -18,7 +18,7 @@ module.exports = function(registrar) {
     config: {
       pre: preHandlers,
       handler: function (req, resp) {
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
         transaction.findAll({
           attributes: ['id', 'quantity'],
           include: [{
@@ -42,17 +42,17 @@ module.exports = function(registrar) {
             as: 'basket'
           }]
         })
-        .then((v) => {
-          return v.map((item) => {
-            item.repository.product.price = pc(item.repository.product.price)
-            return item
+          .then((v) => {
+            return v.map((item) => {
+              item.repository.product.price = pc(item.repository.product.price)
+              return item
+            })
           })
-        })
-       .then(resp)
-       .catch((e) => {
-          console.error(e)
-          resp(e)
-        })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'List baskets',
       notes: 'List baskets',

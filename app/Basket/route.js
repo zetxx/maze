@@ -21,7 +21,7 @@ module.exports = (registrar) => {
       handler: (req, resp) => {
         var b, rq
         rq = Object.assign({}, req.payload)
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
 
         // prepare basket
         if (!req.payload.basketId) { // create basket or
@@ -109,7 +109,7 @@ module.exports = (registrar) => {
     config: {
       pre: preHandlers,
       handler: (req, resp) => {
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRule)
+        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
         transaction.findAll({
           attributes: ['id', 'quantity'],
           where: {basketId: req.params.basketId},
@@ -134,17 +134,17 @@ module.exports = (registrar) => {
             as: 'basket'
           }]
         })
-        .then((v) => {
-          return v.map((item) => {
-            item.repository.product.price = pc(item.repository.product.price)
-            return item
+          .then((v) => {
+            return v.map((item) => {
+              item.repository.product.price = pc(item.repository.product.price)
+              return item
+            })
           })
-        })
-        .then(resp)
-        .catch((e) => {
-          console.error(e)
-          resp(e)
-        })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Get basket',
       notes: 'Get basket',
@@ -168,26 +168,26 @@ module.exports = (registrar) => {
             attributes: ['quantity', 'repositoryId'],
             where: {basketId: req.payload.basketId}
           }, {transaction: t})
-          .then((r) => {
-            return r.reduce((a, cur) => {
-              if (!a) {
-                return repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t})
-              } else {
-                return a.then(() => repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t}))
-              }
-            }, false);
-          })
-        })
-        .then((tr) => {
-          return basket
-            .update({closed: 1}, {where: {id: req.payload.basketId}})
-            .then(() => ({id: req.payload.basketId}))
-        })
-          .then(resp)
-            .catch((e) => {
-              console.error(e)
-              resp(e)
+            .then((r) => {
+              return r.reduce((a, cur) => {
+                if (!a) {
+                  return repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t})
+                } else {
+                  return a.then(() => repository.update({quantity: sequelize.literal(`quantity - ${parseInt(cur.quantity)}`)}, {where: {id: cur.repositoryId}, transaction: t}))
+                }
+              }, false)
             })
+        })
+          .then((tr) => {
+            return basket
+              .update({closed: 1}, {where: {id: req.payload.basketId}})
+              .then(() => ({id: req.payload.basketId}))
+          })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'set basket as paid/closed',
       notes: 'set basket as paid/closed',
