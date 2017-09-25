@@ -160,7 +160,7 @@ module.exports = function(registrar) {
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
           supplier: Joi.number().min(1).required().description('Supplier'),
-          defaultFile: Joi.number().min(1).required().description('Default file'),
+          defaultFile: Joi.number().min(1).allow(0).required().description('Default file'),
           filesDeleted: Joi.array().items(Joi.number()),
           files: Joi.array().items(Joi.object({
             'content-type': Joi.string(),

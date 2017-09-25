@@ -92,7 +92,8 @@ export default connect(
   {
     fetch() {
       return {
-        type: actionList.FETCH, httpRequest: {
+        type: actionList.FETCH,
+        httpRequest: {
           method: 'GET',
           url: '/api/config/products',
           json: true
@@ -100,11 +101,16 @@ export default connect(
       }
     },
     add() {
-      return {type: actionList.TOGGLE_ADD}
+      return {
+        type: actionList.TOGGLE_ADD,
+        resetState: true
+      }
     },
     edit(productId) {
       return {
-        type: actionList.FETCH_PRODUCT, httpRequest: {
+        type: actionList.FETCH_PRODUCT,
+        resetState: true,
+        httpRequest: {
           method: 'GET',
           url: `/api/config/products/${productId}`,
           json: true

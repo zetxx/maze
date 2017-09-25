@@ -42,5 +42,8 @@ export const uploadFilesEdit = (state = defaultUploadFileState, action) => {
   if (action.type === actionList.EDIT_UPLOAD && action.status === 'received') {
     return upload(state, action)
   }
+  if (action.type === productActionList.FETCH_PRODUCT && action.status === 'sent') {
+    return defaultUploadFileState
+  }
   return state
 }
