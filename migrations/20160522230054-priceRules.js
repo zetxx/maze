@@ -9,11 +9,16 @@ module.exports = {
         autoIncrement: true
       },
       rule: {
-        type: Sequelize.ENUM('<', '>'),
+        type: Sequelize.ENUM('<', '>', 'between'),
         allowNull: false,
         defaultValue: '>'
       },
-      ruleValue: {
+      ruleValueFrom: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      ruleValueTo: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
