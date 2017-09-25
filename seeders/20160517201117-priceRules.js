@@ -3,7 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('priceRules', [
-        {id: 1, rule: '>', ruleValue: 0.00, percentage: 10.00, hardValue: 1.25, addedAt: '2016-04-30 19:35:15'}
+        {id: 1, rule: '>', ruleValueFrom: 0.00, ruleValueTo: 0.00, percentage: 10.00, hardValue: 1.25, addedAt: '2016-04-30 19:35:15'}
     ], {})
       .catch((e) => {
         console.log(e)
