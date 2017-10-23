@@ -95,6 +95,9 @@ module.exports = {
         net: 'empty',
         tls: 'empty'
       },
+      resolve: {
+        extensions: ['.js', '.jsx']
+      },
       module: {
         rules: [
           {
@@ -103,7 +106,7 @@ module.exports = {
             use: {
               loader: 'babel-loader',
               options: {
-                presets: ['env', 'react', 'react-hmre']
+                presets: ['env', 'react', 'stage-0']
               }
             }
           },
@@ -115,16 +118,9 @@ module.exports = {
         ]
       },
       plugins: [
-        new Webpack.optimize.DedupePlugin(),
-        new Webpack.optimize.OccurrenceOrderPlugin(),
         new Webpack.DefinePlugin({
           'process.env': {
             'NODE_ENV': JSON.stringify('production')
-          }
-        }),
-        new Webpack.optimize.UglifyJsPlugin({
-          compress: {
-            warnings: false
           }
         })
       ]

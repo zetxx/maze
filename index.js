@@ -30,20 +30,19 @@ server.register([
       }
     }
   }],
-  (err) => {
-    if (err) {
-      console.error(err)
-    } else {
-      server.start((err) => {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log('Server running at:', server.info.uri)
-        }
-      })
-    }
+(err) => {
+  if (err) {
+    console.error(err)
+  } else {
+    server.start((err) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('Server running at:', server.info.uri)
+      }
+    })
   }
-)
+})
 
 server.route([{
   method: 'GET',
