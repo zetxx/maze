@@ -3,6 +3,7 @@ sudo docker run -it -d \
 --name maze \
 --link maze-db \
 --restart=unless-stopped \
+-v /store/data/maze/uploads:/usr/src/app/uploads \
 -e NODE_ENV=test \
 -p 3000:3000 \
 maze
