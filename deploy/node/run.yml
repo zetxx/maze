@@ -4,4 +4,5 @@ sudo docker run -it -d \
 --link maze-db \
 --restart=unless-stopped \
 -e NODE_ENV=test \
+-p 3000:3000 \
 maze

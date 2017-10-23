@@ -1,1 +1,1 @@
-docker build --rm -t maze .
+sudo docker build --rm -t maze .
