@@ -24,26 +24,33 @@ function fileCreator(req) {
       r.itemId.toString(),
       [r.id.toString(), '_', req.params.width.toString(), 'x', req.params.height.toString()].join('')
     )
+    console.log('will create: ', fileName)
     return new Promise((resolve, reject) => {
       fs.stat(fileName, (err, stats) => {
         if (err) {
           if (err.errno !== -2) {
             return reject(err)
           }
+          console.log('will create because: ', err)
           jimp
             .read(originFileName)
             .then((img) => {
+              console.log('image resource created')
               img.resize(req.params.width, req.params.height)
                 .quality(90)
                 .getBuffer(img.getMIME(), (err, buffer) => {
+                  console.log('buffer received with size: ', buffer.length)
                   fs.open(fileName, 'w', (err, fd) => {
                     if (err) {
                       return reject(err)
                     }
+                    console.log('write to file')
                     fs.write(fd, buffer, (err) => {
                       if (err) {
                         return reject(err)
                       }
+                      console.log('file writen!')
+                      console.log({contentType: r.contentType, fileName})
                       resolve({contentType: r.contentType, fileName})
                     })
                   })
