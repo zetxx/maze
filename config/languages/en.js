@@ -69,6 +69,7 @@ export const en = {
   'Description': 'Description',
   'Dropped files': 'Dropped files',
   'Product edit': 'Product edit',
+  'Price Rules': 'Price Rules',
   'Try dropping some files here': 'Try dropping some files here',
   '_currency': '&#36;'
 }

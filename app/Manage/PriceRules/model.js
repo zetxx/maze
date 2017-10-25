@@ -1,11 +1,15 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const priceRules = db.define('priceRules', {
+const roles = db.define('priceRules', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
   },
   rule: {
     type: Sequelize.ENUM('<', '>', 'between'),
@@ -41,4 +45,4 @@ const priceRules = db.define('priceRules', {
   freezeTableName: true
 })
 
-module.exports = priceRules
+module.exports = roles

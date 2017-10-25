@@ -17,10 +17,12 @@ import {userEdit} from './Manage/Users/User/Edit/reducers'
 import {userRoles} from './Manage/Users/UserRoles/reducers'
 import {roleAdd} from './Manage/Users/Role/Add/reducers'
 import {roleEdit} from './Manage/Users/Role/Edit/reducers'
+import {priceRules} from './Manage/PriceRules/reducers'
 import {actions} from './Manage/Users/Actions/reducers'
 import {quantityTypes} from './Manage/QuantityType/reducers'
 
 export default {
+  priceRules,
   updatedConfig,
   productCatAdd,
   productCategories,

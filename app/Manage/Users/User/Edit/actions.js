@@ -12,6 +12,7 @@ export const save = (params, id) => ({
     url: `/api/user/${id}`,
     body: {
       roles: params.roles,
+      priceRules: params.priceRules,
       email: params.email
     },
     json: true

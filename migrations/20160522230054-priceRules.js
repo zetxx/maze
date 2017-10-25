@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       rule: {
         type: Sequelize.ENUM('<', '>', 'between'),
         allowNull: false,

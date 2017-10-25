@@ -23,8 +23,11 @@ export const userEdit = (state = defState, action) => {
         let data = Immutable.fromJS((action.data && action.data.shift()) || {})
 
         return state
-          .setIn(['data'], data.delete('roles'))
+          .setIn(['data'], data.delete('roles').delete('priceRules'))
           .setIn(['data', 'roles'], data.get('roles').reduce((prev, cur) => {
+            return prev.set(parseInt(cur.get('id')), true)
+          }, Immutable.Map()))
+          .setIn(['data', 'priceRules'], data.get('priceRules').reduce((prev, cur) => {
             return prev.set(parseInt(cur.get('id')), true)
           }, Immutable.Map()))
       }
@@ -40,7 +43,7 @@ export const userEdit = (state = defState, action) => {
             )
         }
         return state
-            .deleteIn(['data', action.params.field, action.params.id])
+          .deleteIn(['data', action.params.field, action.params.id])
       }
   }
   return state

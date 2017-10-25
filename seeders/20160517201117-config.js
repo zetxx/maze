@@ -3,7 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('config', [
-        {key: 'globalLanguage', value: 'en', addedAt: new Date()}
+      {key: 'globalLanguage', value: 'en', addedAt: new Date()}
     ], {})
   },
 

@@ -1,9 +1,13 @@
 const Joi = require('joi')
 const users = require('./model')
 const roles = require('../Roles/model')
+const priceRules = require('../../PriceRules/model')
+const userPriceRule = require('../../UserPriceRule/model')
 const userRoles = require('../UserRoles/model')
 users.belongsToMany(roles, {through: userRoles})
+users.belongsToMany(priceRules, {through: userPriceRule})
 roles.belongsToMany(users, {through: userRoles})
+priceRules.belongsToMany(users, {through: userPriceRule})
 
 module.exports = (registrar) => {
   registrar({
@@ -39,6 +43,9 @@ module.exports = (registrar) => {
           include: [{
             model: roles,
             as: 'roles'
+          }, {
+            model: priceRules,
+            as: 'priceRules'
           }]
         })
           .then(resp)

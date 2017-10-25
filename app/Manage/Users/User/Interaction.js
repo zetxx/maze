@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../Translation'
 import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
+import PriceRulesSelect from '../../PriceRules/Select'
 
 export const Interaction = React.createClass({
   propTypes: {
@@ -35,7 +36,9 @@ export const Interaction = React.createClass({
   handleSave() {
     var newDetails = this.props.userDetails
       .delete(['roles'])
+      .delete(['priceRules'])
       .set('roles', (this.props.userDetails.get('roles') || Immutable.Map()).keySeq())
+      .set('priceRules', (this.props.userDetails.get('priceRules') || Immutable.Map()).keySeq())
 
     this.props.save(newDetails.toJS(), this.props.userId)
   },
@@ -86,6 +89,18 @@ export const Interaction = React.createClass({
             />
           )
         })}
+        <br />
+        <h3><Translate id='Price Rules' /></h3>
+        {this.props.priceRules.get('data').map((v, k) => {
+          return (
+            <PriceRulesSelect
+              key={k}
+              props={v}
+              handleChange={this.handleChange}
+              defaultChecked={!!this.props.userDetails.getIn(['priceRules', parseInt(v.get('id'))])}
+            />
+          )
+        })}
       </Dialog>
     )
   }
@@ -93,7 +108,7 @@ export const Interaction = React.createClass({
 
 Interaction.defaultProps = {
   title: '',
-  availableRoles: Immutable.Map({}).set('data', []),
+  priceRules: Immutable.Map({}).set('data', []),
   userDetails: Immutable.fromJS({email: '', userName: ''}),
   opened: false
 }

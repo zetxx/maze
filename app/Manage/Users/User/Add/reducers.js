@@ -15,6 +15,7 @@ export const userAdd = (state = defState, action) => {
     case actionList.ADD:
       return state.set('opened', !state.get('opened')).set('data', defState.get('data'))
     case actionList.CHANGE:
+
       if (action.params.id === undefined) {
         return state.setIn(['data', action.params.field], action.params.state)
       } else if (action.params.id) {
@@ -25,7 +26,7 @@ export const userAdd = (state = defState, action) => {
             )
         }
         return state
-            .deleteIn(['data', action.params.field, action.params.id])
+          .deleteIn(['data', action.params.field, action.params.id])
       }
   }
   return state

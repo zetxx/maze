@@ -13,9 +13,11 @@ import Edit from './Edit'
 import {fetch} from './actions'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
+import {fetch as priceRuleFetch} from '../../PriceRules/actions'
 
 const Users = React.createClass({
   propTypes: {
+    priceRuleFetch: React.PropTypes.func,
     fetch: React.PropTypes.func,
     add: React.PropTypes.func,
     edit: React.PropTypes.func,
@@ -28,7 +30,7 @@ const Users = React.createClass({
   },
   shouldComponentUpdate(newProps) {
     if (this.props.addFetchTriggerId !== newProps.addFetchTriggerId || this.props.editFetchTriggerId !== newProps.editFetchTriggerId) {
-      newProps.fetch()
+      this.props.fetch()
       return false
     }
     return true
@@ -37,14 +39,18 @@ const Users = React.createClass({
     users: {data: []}
   },
   handleEdit(userId) {
-    return () => (this.props.edit(userId))
+    return () => (this.props.priceRuleFetch() & this.props.edit(userId))
+  },
+  handleAdd() {
+    this.props.priceRuleFetch()
+    this.props.add()
   },
   render() {
     return (
       <Card style={{float: 'left', marginRight: '1%', width: '59%'}}>
         <AppBar
           title={<Translate id='Users' />}
-          iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
+          iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.handleAdd} />}
         />
 
         <Table>
@@ -83,5 +89,5 @@ export default connect(
     addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
     editFetchTriggerId: state.userEdit.get('fetchTriggerId')
   }),
-  {fetch, add, edit}
+  {fetch, add, edit, priceRuleFetch}
 )(Users)
