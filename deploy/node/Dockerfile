@@ -4,4 +4,4 @@ WORKDIR "/usr/src/app"
 COPY app .
 RUN npm i
 
-CMD ["npm", "run", "server"]
+CMD ["npm", "run", "bundle_server"]
