@@ -6,6 +6,7 @@
   "scripts": {
     "bundle": "node ./config/webpack.pack.js",
     "server": "sequelize db:migrate && sequelize db:seed:all && node .",
+    "bundle_server": "node ./config/webpack.pack.js && sequelize db:migrate && sequelize db:seed:all && node .",
     "dbUp": "sequelize db:migrate && sequelize db:seed:all"
   },
   "author": "",
