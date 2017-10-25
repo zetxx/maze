@@ -45,7 +45,7 @@ function fileCreator(req) {
                       return reject(err)
                     }
                     console.log('write to file')
-                    fs.write(fd, buffer, (err) => {
+                    fs.write(fd, buffer, 0, buffer.length, 0, function(err) {
                       if (err) {
                         return reject(err)
                       }
