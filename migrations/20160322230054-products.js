@@ -50,6 +50,11 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: true
         },
+        enabled: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: true
+        },
         addedAt: {
           type: Sequelize.DATE,
           defaultValue: new Date()
@@ -59,6 +64,16 @@ module.exports = {
         charset: 'utf8'
       }
     )
+      .then(() => {
+        return queryInterface.addIndex(
+          'products',
+          ['category'],
+          {
+            indexName: 'products_category',
+            indicesType: 'UNIQUE'
+          }
+        )
+      })
   },
 
   down: function (queryInterface, Sequelize) {

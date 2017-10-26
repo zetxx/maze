@@ -24,6 +24,11 @@ const permissions = db.define('permissions', {
   permission: {
     type: Sequelize.INTEGER(1)
   },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()

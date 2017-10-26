@@ -15,6 +15,34 @@ const users = db.define('users', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  params: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  city: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  country: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   shopId: {
     type: Sequelize.INTEGER,
     references: {
@@ -22,6 +50,11 @@ const users = db.define('users', {
       key: 'id'
     },
     allowNull: false
+  },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
   },
   addedAt: {
     type: Sequelize.DATE,

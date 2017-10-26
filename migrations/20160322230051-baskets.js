@@ -25,10 +25,10 @@ module.exports = {
       engine: 'InnoDB',
       charset: 'utf8'
     })
-    .then(() => {
-      queryInterface.addIndex('baskets', ['closed'])
-      return 1;
-    })
+      .then(() => {
+        queryInterface.addIndex('baskets', ['closed'])
+        return 1
+      })
   },
 
   down: function (queryInterface, Sequelize) {

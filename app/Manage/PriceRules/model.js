@@ -36,6 +36,11 @@ const roles = db.define('priceRules', {
     allowNull: false,
     defaultValue: 0.00
   },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()

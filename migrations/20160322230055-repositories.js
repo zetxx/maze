@@ -35,16 +35,16 @@ module.exports = {
       engine: 'InnoDB',
       charset: 'utf8'
     })
-    .then(() => {
-      return queryInterface.addIndex(
-        'repositories',
-        ['productId', 'shopId'],
-        {
-          indexName: 'productId_shopId',
-          indicesType: 'UNIQUE'
-        }
-      )
-    })
+      .then(() => {
+        return queryInterface.addIndex(
+          'repositories',
+          ['productId', 'shopId'],
+          {
+            indexName: 'repositories_productId_shopId',
+            indicesType: 'UNIQUE'
+          }
+        )
+      })
   },
 
   down: function (queryInterface, Sequelize) {

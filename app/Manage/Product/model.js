@@ -46,6 +46,11 @@ const products = db.define('products', {
     type: Sequelize.STRING,
     allowNull: true
   },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()

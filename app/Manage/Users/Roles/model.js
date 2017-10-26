@@ -11,6 +11,11 @@ const roles = db.define('roles', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  },
   addedAt: {
     type: Sequelize.DATE,
     defaultValue: new Date()
