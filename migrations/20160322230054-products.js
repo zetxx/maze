@@ -69,8 +69,7 @@ module.exports = {
           'products',
           ['category'],
           {
-            indexName: 'products_category',
-            indicesType: 'UNIQUE'
+            indexName: 'products_category'
           }
         )
       })
