@@ -39,6 +39,9 @@ function fileCreator(req) {
               img.resize(req.params.width, req.params.height)
                 .quality(90)
                 .getBuffer(img.getMIME(), (err, buffer) => {
+                  if (err) {
+                    return reject(err)
+                  }
                   console.log('buffer received with size: ', buffer.length)
                   fs.open(fileName, 'w', (err, fd) => {
                     if (err) {
@@ -73,15 +76,15 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         files.find({where: {id: req.params.fileId}})
-        .then(fileCreator(req))
-        .then((f) => {
-          resp(fs.createReadStream(f.fileName))
-          .type(f.contentType)
-        })
-        .catch((e) => {
-          console.error(e)
-          resp(e)
-        })
+          .then(fileCreator(req))
+          .then((f) => {
+            resp(fs.createReadStream(f.fileName))
+              .type(f.contentType)
+          })
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Get image',
       notes: 'Get image',
@@ -98,23 +101,23 @@ module.exports = function(registrar) {
 
   registrar({
     method: 'GET',
-    path: '/api/files/image/{fileId}',
+    path: '/api/files/{fileId}',
     config: {
       pre: preHandlers,
       handler: function (req, resp) {
         files.find({where: {id: req.params.fileId}})
-        .then((r) => {
-          if(!r) {
-            throw Boom.notFound('missing resource');
-          }
-          var fileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
-          resp(fs.createReadStream(fileName))
-          .type(r.contentType)
-        })
-        .catch((e) => {
-          console.error(e)
-          resp(e)
-        })
+          .then((r) => {
+            if (!r) {
+              throw Boom.notFound('missing resource')
+            }
+            var fileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
+            resp(fs.createReadStream(fileName))
+              .type(r.contentType)
+          })
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
       },
       description: 'Get file',
       notes: 'Get file',

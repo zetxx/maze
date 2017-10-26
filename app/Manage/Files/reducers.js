@@ -15,7 +15,7 @@ export const configFileListSelection = (state = defaultState, action) => {
       {
         items: action.data.files.map((f) => (Object.assign({}, f))),
         deletedItems: [],
-        isDefault: action.data.files.filter((f) => f.isDefault).map((f) => f.id).pop() || 0
+        isDefault: action.data.files.filter((f) => f.isDefault).map((f) => f.id).pop() || action.data.files.filter((f) => f.contentType.indexOf('image') >= 0).map((f) => f.id).pop() || 0
       }
     )
   } else if (action.type === productsActionList.TOGGLE_ADD) {
