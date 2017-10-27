@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import Renew from 'material-ui/svg-icons/action/autorenew'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import Add from './Add'
 import Edit from './Edit'
@@ -14,10 +15,12 @@ import PasswordReset from './PasswordReset'
 import {fetch} from './actions'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
+import {toggle as passwordResetToggle} from './PasswordReset/actions'
 import {fetch as priceRuleFetch} from '../../PriceRules/actions'
 
 const Users = React.createClass({
   propTypes: {
+    passwordResetToggle: React.PropTypes.func,
     priceRuleFetch: React.PropTypes.func,
     fetch: React.PropTypes.func,
     add: React.PropTypes.func,
@@ -42,6 +45,9 @@ const Users = React.createClass({
   handleEdit(userId) {
     return () => (this.props.priceRuleFetch() & this.props.edit(userId))
   },
+  handlePasswordReset(userId) {
+    return () => (this.props.passwordResetToggle(userId))
+  },
   handleAdd() {
     this.props.priceRuleFetch()
     this.props.add()
@@ -60,7 +66,7 @@ const Users = React.createClass({
               <TableHeaderColumn><Translate id='User Name' /></TableHeaderColumn>
               <TableHeaderColumn><Translate id='E-mail' /></TableHeaderColumn>
               <TableHeaderColumn><Translate id='Roles' /></TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><Translate id='Operations' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '110px'}}><Translate id='Operations' /></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
@@ -69,9 +75,10 @@ const Users = React.createClass({
                 <TableRowColumn>{el.get('userName')}</TableRowColumn>
                 <TableRowColumn>{el.get('email')}</TableRowColumn>
                 <TableRowColumn>{el.get('roles')}</TableRowColumn>
-                <TableRowColumn style={{width: '100px'}}>
+                <TableRowColumn style={{width: '110px'}}>
                   <IconButton><DeleteIcon /></IconButton>
                   <IconButton onTouchTap={this.handleEdit(el.get('id'))}><EditIcon /></IconButton>
+                  <IconButton onTouchTap={this.handlePasswordReset(el.get('id'))}><Renew /></IconButton>
                 </TableRowColumn>
               </TableRow>
             ))}
@@ -91,5 +98,5 @@ export default connect(
     addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
     editFetchTriggerId: state.userEdit.get('fetchTriggerId')
   }),
-  {fetch, add, edit, priceRuleFetch}
+  {fetch, add, edit, priceRuleFetch, passwordResetToggle}
 )(Users)

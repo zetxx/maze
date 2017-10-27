@@ -27,14 +27,14 @@ class Shop extends React.Component {
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
                 <TableHeaderColumn><Translate id='Name' /></TableHeaderColumn>
-                <TableHeaderColumn style={{width: '100px'}}><Translate id='Operations' /></TableHeaderColumn>
+                <TableHeaderColumn style={{width: '110px'}}><Translate id='Operations' /></TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {this.props.shops.data && this.props.shops.data.map((el) => (
                 <TableRow key={el.id}>
                   <TableRowColumn>{el.name}</TableRowColumn>
-                  <TableRowColumn style={{width: '100px'}}>
+                  <TableRowColumn style={{width: '110px'}}>
                     <IconButton><DeleteIcon /></IconButton>
                     <IconButton><EditIcon /></IconButton>
                   </TableRowColumn>

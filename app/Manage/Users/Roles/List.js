@@ -54,14 +54,14 @@ const Roles = React.createClass({
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn><Translate id='Name' /></TableHeaderColumn>
-              <TableHeaderColumn style={{width: '100px'}}><Translate id='Operations' /></TableHeaderColumn>
+              <TableHeaderColumn style={{width: '80px'}}><Translate id='Operations' /></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {(this.props.roles.get('data') || []).map((el) => (
               <TableRow key={el.get('id')}>
                 <TableRowColumn>{el.get('name')}</TableRowColumn>
-                <TableRowColumn style={{width: '120px'}}>
+                <TableRowColumn style={{width: '80px'}}>
                   <IconButton><DeleteIcon /></IconButton>
                   <IconButton onTouchTap={this.handleEdit(el.get('id'))}><EditIcon /></IconButton>
                 </TableRowColumn>

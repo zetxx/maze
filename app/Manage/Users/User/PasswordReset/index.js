@@ -1,11 +1,10 @@
 import React, {PropTypes} from 'react'
-import Immutable from 'immutable'
+// import Immutable from 'immutable'
+import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import {Translate} from '../../../Translation'
+import {Translate} from '../../../../Translation'
 import TextField from 'material-ui/TextField'
-import RoleSelect from '../Role/Select'
-import PriceRulesSelect from '../../PriceRules/Select'
 import {reset, toggle, handleInputChange} from './actions'
 
 export const PasswordReset = React.createClass({
@@ -15,10 +14,10 @@ export const PasswordReset = React.createClass({
     handleInputChange: PropTypes.func
   },
   handleReset() {
-    this.props.reset()
+    this.props.reset({id: this.props.passwordReset.get('id'), password: this.props.passwordReset.getIn(['values', 'password'])})
   },
-  handleInputChange() {
-    this.props.handleInputChange()
+  handleInputChange(e) {
+    this.props.handleInputChange({name: e.target.name, value: e.target.value})
   },
   render() {
     return (
@@ -32,6 +31,7 @@ export const PasswordReset = React.createClass({
           />,
           <FlatButton
             label={<Translate id='Reset' />}
+            disabled={!this.props.same}
             primary
             keyboardFocused
             onTouchTap={this.handleReset}
@@ -64,8 +64,12 @@ PasswordReset.defaultProps = {
 }
 
 export default connect(
-  (state) => ({
-    passwordReset: state.passwordReset
-  }),
-  {reset, toggle}
-)(Interaction)
+  (state) => {
+    return {
+      passwordReset: state.passwordReset,
+      opened: state.passwordReset.get('opened'),
+      same: state.passwordReset.get('same')
+    }
+  },
+  {reset, toggle, handleInputChange}
+)(PasswordReset)

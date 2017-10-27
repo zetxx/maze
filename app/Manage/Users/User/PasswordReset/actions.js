@@ -7,7 +7,7 @@ export const actionList = {
 export const toggle = (id) => ({type: actionList.TOGGLE, id})
 export const handleInputChange = (data) => ({type: actionList.CHANGE, data})
 export const reset = ({id, password}) => ({
-  type: actionList.GET,
+  type: actionList.RESET,
   httpRequest: {
     method: 'POST',
     url: `/api/user/passwordReset/${id}`,

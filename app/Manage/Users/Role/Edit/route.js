@@ -33,9 +33,9 @@ module.exports = (registrar) => {
               }
             })
         })
-        .then((res) => {
-          resp(res)
-        })
+          .then((res) => {
+            resp(res)
+          })
       },
       description: 'Role update',
       notes: 'Role update',
