@@ -1,10 +1,11 @@
 export const actionList = {
   'TOGGLE': Symbol('TOGGLE'),
-  'RESET': Symbol('RESET')
+  'RESET': Symbol('RESET'),
+  'CHANGE': Symbol('CHANGE')
 }
 
 export const toggle = (id) => ({type: actionList.TOGGLE, id})
-export const handleInputChange = (data) => ({type: actionList.TOGGLE, data})
+export const handleInputChange = (data) => ({type: actionList.CHANGE, data})
 export const reset = ({id, password}) => ({
   type: actionList.GET,
   httpRequest: {
