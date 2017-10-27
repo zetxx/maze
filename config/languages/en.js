@@ -70,6 +70,7 @@ export const en = {
   'Dropped files': 'Dropped files',
   'Product edit': 'Product edit',
   'Price Rules': 'Price Rules',
+  'Reset Password': 'Reset Password',
   'Try dropping some files here': 'Try dropping some files here',
   '_currency': '&#36;'
 }
