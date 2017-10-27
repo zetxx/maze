@@ -13,6 +13,7 @@ import {shops, shopAdd} from './Manage/Config/Shop/reducers'
 import {role, roles} from './Manage/Users/Roles/reducers'
 import {user, users} from './Manage/Users/User/reducers'
 import {userAdd} from './Manage/Users/User/Add/reducers'
+import {passwordReset} from './Manage/Users/User/PasswordReset/reducers'
 import {userEdit} from './Manage/Users/User/Edit/reducers'
 import {userRoles} from './Manage/Users/UserRoles/reducers'
 import {roleAdd} from './Manage/Users/Role/Add/reducers'
@@ -22,6 +23,7 @@ import {actions} from './Manage/Users/Actions/reducers'
 import {quantityTypes} from './Manage/QuantityType/reducers'
 
 export default {
+  passwordReset,
   priceRules,
   updatedConfig,
   productCatAdd,
