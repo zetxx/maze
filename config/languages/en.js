@@ -72,5 +72,8 @@ export const en = {
   'Price Rules': 'Price Rules',
   'Reset Password': 'Reset Password',
   'Try dropping some files here': 'Try dropping some files here',
+  'Reset': 'Reset',
+  'Password': 'Password',
+  'Repeat password': 'Repeat password',
   '_currency': '&#36;'
 }
