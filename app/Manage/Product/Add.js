@@ -10,19 +10,20 @@ import SupplierDropDown from '../Supplier/dropDown'
 import {getFieldValues} from '../../Helpers.js'
 import Upload from '../../Upload'
 import {actionList as actionListUpload} from '../../Upload/reducers'
+import PropTypes from 'prop-types'
 
 import {actionList} from './reducers'
 
 const ProductAdd = React.createClass({
   propTypes: {
-    add: React.PropTypes.func,
-    cantAdd: React.PropTypes.func,
-    cancelToggle: React.PropTypes.func,
-    fetchProducts: React.PropTypes.func,
-    filesForUpload: React.PropTypes.array,
-    uploadedList: React.PropTypes.array,
-    uploadRequestId: React.PropTypes.number,
-    productAdd: React.PropTypes.object
+    add: PropTypes.func,
+    cantAdd: PropTypes.func,
+    cancelToggle: PropTypes.func,
+    fetchProducts: PropTypes.func,
+    filesForUpload: PropTypes.array,
+    uploadedList: PropTypes.array,
+    uploadRequestId: PropTypes.number,
+    productAdd: PropTypes.object
   },
   componentWillReceiveProps(next) {
     if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {

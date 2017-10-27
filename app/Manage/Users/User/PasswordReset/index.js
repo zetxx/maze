@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 // import Immutable from 'immutable'
 import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog'
@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../../Translation'
 import TextField from 'material-ui/TextField'
 import {reset, toggle, handleInputChange} from './actions'
+import PropTypes from 'prop-types'
 
 export const PasswordReset = React.createClass({
   propTypes: {

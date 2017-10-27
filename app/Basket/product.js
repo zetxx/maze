@@ -4,6 +4,7 @@ import TableRowColumn from 'material-ui/Table/TableRowColumn'
 import TableRow from 'material-ui/Table/TableRow'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import PropTypes from 'prop-types'
 
 export default class Product extends React.Component {
   render() {
@@ -22,5 +23,5 @@ export default class Product extends React.Component {
 }
 
 Product.propTypes = {
-  value: React.PropTypes.object
+  value: PropTypes.object
 }

@@ -13,16 +13,17 @@ import Add from '../Role/Add'
 import Edit from '../Role/Edit'
 import {add} from '../Role/Add/actions'
 import {edit} from '../Role/Edit/actions'
+import PropTypes from 'prop-types'
 
 const Roles = React.createClass({
   propTypes: {
-    fetch: React.PropTypes.func,
-    get: React.PropTypes.func,
-    add: React.PropTypes.func,
-    edit: React.PropTypes.func,
-    roles: React.PropTypes.object,
-    addFetchTriggerId: React.PropTypes.number,
-    editFetchTriggerId: React.PropTypes.number
+    fetch: PropTypes.func,
+    get: PropTypes.func,
+    add: PropTypes.func,
+    edit: PropTypes.func,
+    roles: PropTypes.object,
+    addFetchTriggerId: PropTypes.number,
+    editFetchTriggerId: PropTypes.number
   },
   componentDidMount() {
     this.props.fetch()

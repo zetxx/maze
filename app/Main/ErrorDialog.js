@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Dialog from 'material-ui/Dialog/Dialog'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {errorParser} from '../Helpers.js'
+import PropTypes from 'prop-types'
 
 class ErrorDialog extends React.Component {
   render() {
@@ -25,8 +26,8 @@ class ErrorDialog extends React.Component {
 }
 
 ErrorDialog.propTypes = {
-  cleanup: React.PropTypes.func,
-  errorDialog: React.PropTypes.object
+  cleanup: PropTypes.func,
+  errorDialog: PropTypes.object
 }
 
 export default connect(

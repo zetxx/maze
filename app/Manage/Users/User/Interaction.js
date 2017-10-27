@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 import Immutable from 'immutable'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -6,6 +6,7 @@ import {Translate} from '../../../Translation'
 import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
 import PriceRulesSelect from '../../PriceRules/Select'
+import PropTypes from 'prop-types'
 
 export const Interaction = React.createClass({
   propTypes: {

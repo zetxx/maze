@@ -6,14 +6,15 @@ import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../Helpers.js'
 import {Translate} from '../../Translation'
 import {actionList} from './reducers.js'
+import PropTypes from 'prop-types'
 
 const ProductCatAdd = React.createClass({
   propTypes: {
-    add: React.PropTypes.func,
-    cantAdd: React.PropTypes.func,
-    cancelToggle: React.PropTypes.func,
-    fetch: React.PropTypes.func,
-    productCatAdd: React.PropTypes.object
+    add: PropTypes.func,
+    cantAdd: PropTypes.func,
+    cancelToggle: PropTypes.func,
+    fetch: PropTypes.func,
+    productCatAdd: PropTypes.object
   },
   add() {
     var vals = getFieldValues(this.refs, ['name'])

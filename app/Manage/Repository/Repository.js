@@ -7,15 +7,16 @@ import {getFieldValues} from '../../Helpers.js'
 import {Translate} from '../../Translation'
 import ShopsDropdown from '../../Manage/Config/Shop/Dropdown'
 import {actionList as productActionList} from '../Product/reducers'
+import PropTypes from 'prop-types'
 
 const Repository = React.createClass({
   propTypes: {
-    add: React.PropTypes.func,
-    cantAdd: React.PropTypes.func,
-    cancelToggle: React.PropTypes.func,
-    fetch: React.PropTypes.func,
-    fetchShops: React.PropTypes.func,
-    repository: React.PropTypes.object
+    add: PropTypes.func,
+    cantAdd: PropTypes.func,
+    cancelToggle: PropTypes.func,
+    fetch: PropTypes.func,
+    fetchShops: PropTypes.func,
+    repository: PropTypes.object
   },
   getInitialState() {
     return {value: 'piece'}

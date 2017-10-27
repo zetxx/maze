@@ -2,15 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
+import PropTypes from 'prop-types'
 
 const ProductCatDropDown = React.createClass({
   propTypes: {
-    fixTop: React.PropTypes.bool,
-    fetch: React.PropTypes.func,
-    handleChange: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.number,
-    productCategories: React.PropTypes.object
+    fixTop: PropTypes.bool,
+    fetch: PropTypes.func,
+    handleChange: PropTypes.func,
+    onChange: PropTypes.func,
+    value: PropTypes.number,
+    productCategories: PropTypes.object
   },
   getInitialState() {
     return {value: this.props.value}

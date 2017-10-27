@@ -5,17 +5,18 @@ import Menu from 'material-ui/Menu/Menu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 import Popover from 'material-ui/Popover'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 const SearchResults = React.createClass({
   propTypes: {
-    data: React.PropTypes.array,
-    clearSearch: React.PropTypes.func,
-    getPosition: React.PropTypes.func,
-    getTargetElement: React.PropTypes.func,
-    quantitySelectToggle: React.PropTypes.func,
-    focus: React.PropTypes.func,
-    focusSearch: React.PropTypes.func,
-    open: React.PropTypes.bool
+    data: PropTypes.array,
+    clearSearch: PropTypes.func,
+    getPosition: PropTypes.func,
+    getTargetElement: PropTypes.func,
+    quantitySelectToggle: PropTypes.func,
+    focus: PropTypes.func,
+    focusSearch: PropTypes.func,
+    open: PropTypes.bool
   },
   handleSelect(a, b, idx) {
     this.props.quantitySelectToggle(this.props.data[idx])

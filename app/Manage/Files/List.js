@@ -8,14 +8,15 @@ import Attachment from 'material-ui/svg-icons/file/attachment'
 import FileFolder from 'material-ui/svg-icons/file/folder'
 // import {Translate} from '../../Translation'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 const FileList = React.createClass({
   propTypes: {
-    items: React.PropTypes.array,
-    deletedItems: React.PropTypes.array,
-    toggleDefault: React.PropTypes.func,
-    defaultFile: React.PropTypes.number,
-    edit: React.PropTypes.func
+    items: PropTypes.array,
+    deletedItems: PropTypes.array,
+    toggleDefault: PropTypes.func,
+    defaultFile: PropTypes.number,
+    edit: PropTypes.func
   },
   toggle(itemId) {
     return () => {

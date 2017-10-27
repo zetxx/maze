@@ -5,12 +5,13 @@ import SearchResults from './SearchResults'
 import QuantitySelection from './quantitySelection'
 import {Translate} from '../Translation'
 import {actionList} from './reducers.js'
+import PropTypes from 'prop-types'
 
 var a = []
 
 const StoreProductSearch = React.createClass({
   propTypes: {
-    search: React.PropTypes.func
+    search: PropTypes.func
   },
   handleChange(e, value) {
     this.targetElement = e.currentTarget;

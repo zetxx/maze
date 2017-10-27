@@ -1,6 +1,7 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 import Immutable from 'immutable'
 import Checkbox from 'material-ui/Checkbox'
+import PropTypes from 'prop-types'
 
 const Role = React.createClass({
   propTypes: {

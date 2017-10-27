@@ -5,6 +5,7 @@ import PrefetchDialog from './PrefetchDialog.js'
 import ErrorDialog from './ErrorDialog.js'
 import heading from '../Heading'
 import {fetchSiteConfig} from '../Manage/Config/actions'
+import PropTypes from 'prop-types'
 
 const Heading = connect(
   (state) => (state.heading)
@@ -12,16 +13,16 @@ const Heading = connect(
 
 const Gate = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object
+    router: PropTypes.object
   },
   childContextTypes: {
-    muiTheme: React.PropTypes.object.isRequired
+    muiTheme: PropTypes.object.isRequired
   },
   propTypes: {
-    fetchSiteConfig: React.PropTypes.func,
-    children: React.PropTypes.object,
-    siteConfig: React.PropTypes.object,
-    location: React.PropTypes.object
+    fetchSiteConfig: PropTypes.func,
+    children: PropTypes.object,
+    siteConfig: PropTypes.object,
+    location: PropTypes.object
   },
   componentWillMount() {
     this.props.fetchSiteConfig()

@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 const QuantityTypeDropdown = React.createClass({
   propTypes: {
-    fetch: React.PropTypes.func,
-    handleChange: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.number,
-    items: React.PropTypes.object
+    fetch: PropTypes.func,
+    handleChange: PropTypes.func,
+    onChange: PropTypes.func,
+    value: PropTypes.number,
+    items: PropTypes.object
   },
   getInitialState() {
     return {value: this.props.value}

@@ -9,14 +9,15 @@ import {setTitle} from '../../Heading/actions'
 import {updateConfig, fetchSiteConfig} from '../Config/actions'
 import {Translate} from '../../Translation'
 import Shop from './Shop'
+import PropTypes from 'prop-types'
 
 const Config = React.createClass({
   propTypes: {
-    siteConfig: React.PropTypes.object,
-    updatedConfig: React.PropTypes.object,
-    fetchSiteConfig: React.PropTypes.func,
-    setTitle: React.PropTypes.func,
-    updateConfig: React.PropTypes.func
+    siteConfig: PropTypes.object,
+    updatedConfig: PropTypes.object,
+    fetchSiteConfig: PropTypes.func,
+    setTitle: PropTypes.func,
+    updateConfig: PropTypes.func
   },
   getInitialState() {
     return {globalLanguage: this.props.siteConfig.globalLanguage}

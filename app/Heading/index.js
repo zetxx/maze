@@ -6,13 +6,14 @@ import Avatar from 'material-ui/Avatar'
 import {Translate} from '../Translation'
 import FileFolder from 'material-ui/svg-icons/action/settings'
 import {white500, blueGrey500} from 'material-ui/styles/colors'
+import PropTypes from 'prop-types'
 
 const Heading = React.createClass({
   contextTypes: {
-    router: React.PropTypes.object
+    router: PropTypes.object
   },
   propTypes: {
-    title: React.PropTypes.string
+    title: PropTypes.string
   },
   navTo(path) {
     if (!path.bubbles) {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Languages from '../../config/languages'
+import PropTypes from 'prop-types'
 
 class translate extends React.Component {
   constructor(props) {
@@ -38,18 +39,18 @@ class translateHTML extends translate {
 }
 
 translate.propTypes = {
-  children: React.PropTypes.object,
-  id: React.PropTypes.string,
-  language: React.PropTypes.string,
-  messages: React.PropTypes.object
+  children: PropTypes.object,
+  id: PropTypes.string,
+  language: PropTypes.string,
+  messages: PropTypes.object
 }
 
 // const translate = React.createClass({
 //   propTypes: {
-//     children: React.PropTypes.object,
-//     id: React.PropTypes.string,
-//     language: React.PropTypes.string,
-//     messages: React.PropTypes.object
+//     children: PropTypes.object,
+//     id: PropTypes.string,
+//     language: PropTypes.string,
+//     messages: PropTypes.object
 //   },
 //   render() {
 //     var text = ''

@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 import Avatar from 'material-ui/Avatar'
 import IconAllowed from 'material-ui/svg-icons/action/thumb-up'
 import {green300 as colorAllowed, red300 as colorNotAllowed} from 'material-ui/styles/colors'
@@ -8,6 +8,8 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../Translation'
 import Chip from 'material-ui/Chip'
+import PropTypes from 'prop-types'
+
 const actionBoxStyle = {float: 'left', margin: '0 2px 5px 2px'}
 const actionBoxIconStyle = {cursor: 'pointer'}
 const permissionStyles = {

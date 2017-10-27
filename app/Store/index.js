@@ -11,14 +11,15 @@ import Search from '../StoreProductSearch'
 import Basket from '../Basket'
 import {Translate} from '../Translation'
 import {actionList} from '../Basket/reducers'
+import PropTypes from 'prop-types'
 
 const Sell = React.createClass({
   propTypes: {
-    params: React.PropTypes.object,
-    setTitle: React.PropTypes.func,
-    activeBasket: React.PropTypes.object,
-    newBasket: React.PropTypes.func,
-    toggleNavigation: React.PropTypes.func
+    params: PropTypes.object,
+    setTitle: PropTypes.func,
+    activeBasket: PropTypes.object,
+    newBasket: PropTypes.func,
+    toggleNavigation: PropTypes.func
   },
   componentDidMount() {
     this.props.setTitle('Store')

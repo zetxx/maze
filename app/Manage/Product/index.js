@@ -5,10 +5,11 @@ import {connect} from 'react-redux'
 import {setTitle} from '../../Heading/actions'
 import ProductCat from '../ProductCat'
 import Suppliers from '../Supplier'
+import PropTypes from 'prop-types'
 
 const Management = React.createClass({
   propTypes: {
-    setTitle: React.PropTypes.func
+    setTitle: PropTypes.func
   },
   componentDidMount() {
     this.props.setTitle('Product Management')

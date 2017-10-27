@@ -10,6 +10,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {Translate} from '../../Translation'
 import {actionList} from './reducers.js'
+import PropTypes from 'prop-types'
 
 class Suppliers extends React.Component {
   componentDidMount() {
@@ -51,9 +52,9 @@ class Suppliers extends React.Component {
 }
 
 Suppliers.propTypes = {
-  fetch: React.PropTypes.func,
-  add: React.PropTypes.func,
-  suppliers: React.PropTypes.object
+  fetch: PropTypes.func,
+  add: PropTypes.func,
+  suppliers: PropTypes.object
 }
 
 export default connect(

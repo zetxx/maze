@@ -17,17 +17,18 @@ import {add} from './Add/actions'
 import {edit} from './Edit/actions'
 import {toggle as passwordResetToggle} from './PasswordReset/actions'
 import {fetch as priceRuleFetch} from '../../PriceRules/actions'
+import PropTypes from 'prop-types'
 
 const Users = React.createClass({
   propTypes: {
-    passwordResetToggle: React.PropTypes.func,
-    priceRuleFetch: React.PropTypes.func,
-    fetch: React.PropTypes.func,
-    add: React.PropTypes.func,
-    edit: React.PropTypes.func,
-    users: React.PropTypes.object,
-    addFetchTriggerId: React.PropTypes.number,
-    editFetchTriggerId: React.PropTypes.number
+    passwordResetToggle: PropTypes.func,
+    priceRuleFetch: PropTypes.func,
+    fetch: PropTypes.func,
+    add: PropTypes.func,
+    edit: PropTypes.func,
+    users: PropTypes.object,
+    addFetchTriggerId: PropTypes.number,
+    editFetchTriggerId: PropTypes.number
   },
   componentDidMount() {
     this.props.fetch()

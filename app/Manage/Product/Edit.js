@@ -11,22 +11,23 @@ import {getFieldValues} from '../../Helpers.js'
 import Upload from '../../Upload'
 import {actionList as actionListUpload} from '../../Upload/reducers'
 import FileList from '../Files/List'
+import PropTypes from 'prop-types'
 
 import {actionList} from './reducers'
 
 const ProductEdit = React.createClass({
   propTypes: {
-    edit: React.PropTypes.func,
-    cantEdit: React.PropTypes.func,
-    cancelToggle: React.PropTypes.func,
-    fetchProducts: React.PropTypes.func,
-    changeFieldsValue: React.PropTypes.func,
-    filesForUpload: React.PropTypes.array,
-    defaultFile: React.PropTypes.number,
-    uploadedList: React.PropTypes.array,
-    deletedFiles: React.PropTypes.array,
-    uploadRequestId: React.PropTypes.number,
-    productEdit: React.PropTypes.object
+    edit: PropTypes.func,
+    cantEdit: PropTypes.func,
+    cancelToggle: PropTypes.func,
+    fetchProducts: PropTypes.func,
+    changeFieldsValue: PropTypes.func,
+    filesForUpload: PropTypes.array,
+    defaultFile: PropTypes.number,
+    uploadedList: PropTypes.array,
+    deletedFiles: PropTypes.array,
+    uploadRequestId: PropTypes.number,
+    productEdit: PropTypes.object
   },
   componentWillReceiveProps(next) {
     if (this.props.productEdit.open && !next.productEdit.open && !next.productEdit.canceled) {

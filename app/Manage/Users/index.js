@@ -3,10 +3,11 @@ import {connect} from 'react-redux'
 import {setTitle} from '../../Heading/actions'
 import Roles from './Roles'
 import User from './User'
+import PropTypes from 'prop-types'
 
 const UserConfig = React.createClass({
   propTypes: {
-    setTitle: React.PropTypes.func
+    setTitle: PropTypes.func
   },
   componentDidMount() {
     this.props.setTitle('Users')

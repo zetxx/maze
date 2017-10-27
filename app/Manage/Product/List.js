@@ -13,6 +13,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import CachedIcon from 'material-ui/svg-icons/action/cached'
 import Edit from './Edit'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 class Product extends React.Component {
   componentDidMount() {
@@ -76,12 +77,12 @@ class Product extends React.Component {
 }
 
 Product.propTypes = {
-  fetch: React.PropTypes.func,
-  add: React.PropTypes.func,
-  edit: React.PropTypes.func,
-  load: React.PropTypes.func,
-  products: React.PropTypes.object,
-  productCategories: React.PropTypes.object
+  fetch: PropTypes.func,
+  add: PropTypes.func,
+  edit: PropTypes.func,
+  load: PropTypes.func,
+  products: PropTypes.object,
+  productCategories: PropTypes.object
 }
 
 export default connect(

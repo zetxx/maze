@@ -10,17 +10,18 @@ import TableBody from 'material-ui/Table/TableBody'
 import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 const Basket = React.createClass({
   propTypes: {
-    products: React.PropTypes.array,
-    fetch: React.PropTypes.func,
-    newBasket: React.PropTypes.func,
-    id: React.PropTypes.number,
-    basketId: React.PropTypes.any
+    products: PropTypes.array,
+    fetch: PropTypes.func,
+    newBasket: PropTypes.func,
+    id: PropTypes.number,
+    basketId: PropTypes.any
   },
   contextTypes: {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   },
   getDefaultProps() {
     return {

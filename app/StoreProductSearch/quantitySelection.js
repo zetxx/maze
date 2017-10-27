@@ -5,14 +5,15 @@ import TextField from 'material-ui/TextField'
 import {Translate} from '../Translation'
 import {actionList} from './reducers'
 import {actionList as actionListBasket} from '../Basket/reducers'
+import PropTypes from 'prop-types'
 
 const QuantitySelection = React.createClass({
   propTypes: {
-    quantitySelectToggle: React.PropTypes.func,
-    basketCreateAndFill: React.PropTypes.func,
-    focusSearch: React.PropTypes.func,
-    quantitySelection: React.PropTypes.object,
-    activeBasket: React.PropTypes.object
+    quantitySelectToggle: PropTypes.func,
+    basketCreateAndFill: PropTypes.func,
+    focusSearch: PropTypes.func,
+    quantitySelection: PropTypes.object,
+    activeBasket: PropTypes.object
   },
   componentWillReceiveProps() {
     setTimeout(() => {

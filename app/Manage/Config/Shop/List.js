@@ -9,6 +9,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {Translate} from '../../../Translation'
 import Add from './Add'
+import PropTypes from 'prop-types'
 
 class Shop extends React.Component {
   componentDidMount() {
@@ -50,9 +51,9 @@ class Shop extends React.Component {
 }
 
 Shop.propTypes = {
-  fetch: React.PropTypes.func,
-  add: React.PropTypes.func,
-  shops: React.PropTypes.object
+  fetch: PropTypes.func,
+  add: PropTypes.func,
+  shops: PropTypes.object
 }
 
 export default connect(

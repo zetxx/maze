@@ -2,14 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
+import PropTypes from 'prop-types'
 
 const SupplierDropDown = React.createClass({
   propTypes: {
-    fetch: React.PropTypes.func,
-    handleChange: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.number,
-    suppliers: React.PropTypes.object
+    fetch: PropTypes.func,
+    handleChange: PropTypes.func,
+    onChange: PropTypes.func,
+    value: PropTypes.number,
+    suppliers: PropTypes.object
   },
   getInitialState() {
     return {value: this.props.value}

@@ -9,19 +9,20 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import {actionList} from './reducers'
 import {actionList as actionListBasket} from '../Basket/reducers'
+import PropTypes from 'prop-types'
 
 var rootStyle = {float: 'left', minWidth: '200px', margin: '5px'}
 var selectedStyle = Object.assign({}, rootStyle, {boxShadow: '#2CAC10 0px 1px 6px, #2CAC10 0px 1px 4px'})
 const BasketList = React.createClass({
   propTypes: {
-    basketList: React.PropTypes.object,
-    basket: React.PropTypes.object,
-    fetch: React.PropTypes.func,
-    close: React.PropTypes.func,
-    reassign: React.PropTypes.func
+    basketList: PropTypes.object,
+    basket: PropTypes.object,
+    fetch: PropTypes.func,
+    close: PropTypes.func,
+    reassign: PropTypes.func
   },
   contextTypes: {
-    router: React.PropTypes.object.isRequired
+    router: PropTypes.object.isRequired
   },
   componentWillMount() {
     this.props.fetch()

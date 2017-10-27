@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Translate} from '../Translation'
 import Dialog from 'material-ui/Dialog/Dialog'
+import PropTypes from 'prop-types'
 
 class PrefetchDialog extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class PrefetchDialog extends React.Component {
 }
 
 PrefetchDialog.propTypes = {
-  prefetchDialog: React.PropTypes.object
+  prefetchDialog: PropTypes.object
 }
 
 export default connect(

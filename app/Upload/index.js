@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Translate} from '../Translation'
 import Dropzone from 'react-dropzone'
 import {actionList} from './reducers'
+import PropTypes from 'prop-types'
 
 class Upload extends React.Component {
   constructor(props) {
@@ -39,9 +40,9 @@ class Upload extends React.Component {
 }
 
 Upload.propTypes = {
-  add: React.PropTypes.func,
-  edit: React.PropTypes.bool,
-  uploadFilesList: React.PropTypes.array
+  add: PropTypes.func,
+  edit: PropTypes.bool,
+  uploadFilesList: PropTypes.array
 }
 
 export default connect(
