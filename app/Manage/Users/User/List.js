@@ -10,6 +10,7 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import Add from './Add'
 import Edit from './Edit'
+import PasswordReset from './PasswordReset'
 import {fetch} from './actions'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
@@ -78,6 +79,7 @@ const Users = React.createClass({
         </Table>
         <Add ref='add' />
         <Edit ref='edit' />
+        <PasswordReset />
       </Card>
     )
   }
