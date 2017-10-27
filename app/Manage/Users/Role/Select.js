@@ -2,8 +2,9 @@ import React from 'react'
 import Immutable from 'immutable'
 import Checkbox from 'material-ui/Checkbox'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Role = React.createClass({
+const Role = createClass({
   propTypes: {
     props: PropTypes.object,
     defaultChecked: PropTypes.bool,

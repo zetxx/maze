@@ -10,8 +10,9 @@ import {updateConfig, fetchSiteConfig} from '../Config/actions'
 import {Translate} from '../../Translation'
 import Shop from './Shop'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Config = React.createClass({
+const Config = createClass({
   propTypes: {
     siteConfig: PropTypes.object,
     updatedConfig: PropTypes.object,

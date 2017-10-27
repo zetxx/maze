@@ -10,10 +10,11 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card'
 import {actionList} from './reducers'
 import {actionList as actionListBasket} from '../Basket/reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
 var rootStyle = {float: 'left', minWidth: '200px', margin: '5px'}
 var selectedStyle = Object.assign({}, rootStyle, {boxShadow: '#2CAC10 0px 1px 6px, #2CAC10 0px 1px 4px'})
-const BasketList = React.createClass({
+const BasketList = createClass({
   propTypes: {
     basketList: PropTypes.object,
     basket: PropTypes.object,

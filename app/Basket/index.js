@@ -11,8 +11,9 @@ import Card from 'material-ui/Card/Card'
 import CardTitle from 'material-ui/Card/CardTitle'
 import {actionList} from './reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Basket = React.createClass({
+const Basket = createClass({
   propTypes: {
     products: PropTypes.array,
     fetch: PropTypes.func,

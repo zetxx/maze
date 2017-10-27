@@ -4,8 +4,9 @@ import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem/MenuItem'
 import {actionList} from './reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const QuantityTypeDropdown = React.createClass({
+const QuantityTypeDropdown = createClass({
   propTypes: {
     fetch: PropTypes.func,
     handleChange: PropTypes.func,

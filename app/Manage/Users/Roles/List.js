@@ -14,8 +14,9 @@ import Edit from '../Role/Edit'
 import {add} from '../Role/Add/actions'
 import {edit} from '../Role/Edit/actions'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Roles = React.createClass({
+const Roles = createClass({
   propTypes: {
     fetch: PropTypes.func,
     get: PropTypes.func,

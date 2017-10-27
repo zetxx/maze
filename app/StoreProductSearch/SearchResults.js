@@ -6,8 +6,9 @@ import MenuItem from 'material-ui/MenuItem/MenuItem'
 import Popover from 'material-ui/Popover'
 import {actionList} from './reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const SearchResults = React.createClass({
+const SearchResults = createClass({
   propTypes: {
     data: PropTypes.array,
     clearSearch: PropTypes.func,

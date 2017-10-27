@@ -9,8 +9,9 @@ import FileFolder from 'material-ui/svg-icons/file/folder'
 // import {Translate} from '../../Translation'
 import {actionList} from './reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const FileList = React.createClass({
+const FileList = createClass({
   propTypes: {
     items: PropTypes.array,
     deletedItems: PropTypes.array,

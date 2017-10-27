@@ -6,12 +6,13 @@ import ErrorDialog from './ErrorDialog.js'
 import heading from '../Heading'
 import {fetchSiteConfig} from '../Manage/Config/actions'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
 const Heading = connect(
   (state) => (state.heading)
 )(heading)
 
-const Gate = React.createClass({
+const Gate = createClass({
   contextTypes: {
     router: PropTypes.object
   },

@@ -6,8 +6,9 @@ import {setTitle} from '../../Heading/actions'
 import ProductCat from '../ProductCat'
 import Suppliers from '../Supplier'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Management = React.createClass({
+const Management = createClass({
   propTypes: {
     setTitle: PropTypes.func
   },

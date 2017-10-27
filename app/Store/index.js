@@ -12,8 +12,9 @@ import Basket from '../Basket'
 import {Translate} from '../Translation'
 import {actionList} from '../Basket/reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Sell = React.createClass({
+const Sell = createClass({
   propTypes: {
     params: PropTypes.object,
     setTitle: PropTypes.func,

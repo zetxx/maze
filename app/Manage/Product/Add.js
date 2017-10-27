@@ -11,10 +11,10 @@ import {getFieldValues} from '../../Helpers.js'
 import Upload from '../../Upload'
 import {actionList as actionListUpload} from '../../Upload/reducers'
 import PropTypes from 'prop-types'
-
+import createClass from 'create-react-class'
 import {actionList} from './reducers'
 
-const ProductAdd = React.createClass({
+const ProductAdd = createClass({
   propTypes: {
     add: PropTypes.func,
     cantAdd: PropTypes.func,
@@ -29,7 +29,7 @@ const ProductAdd = React.createClass({
     if (this.props.productAdd.open && !next.productAdd.open && !next.productAdd.canceled) {
       next.fetchProducts()
     }
-    if(next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire add action after successfully upload
+    if (next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire add action after successfully upload
       var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
       this.props.add(Object.assign({}, vals.correct, {files: next.uploadedList}))
     }
@@ -37,7 +37,7 @@ const ProductAdd = React.createClass({
   add() {
     var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
     if (Object.keys(vals.incorrect).length === 0) {
-      if(this.props.filesForUpload.length) {
+      if (this.props.filesForUpload.length) {
         this.props.upload(this.props.filesForUpload)
       } else {
         this.props.add(vals.correct)
@@ -88,7 +88,7 @@ const ProductAdd = React.createClass({
         />
         <ProductCatDropDown ref='category' value={1} />
         <SupplierDropDown ref='supplier' value={1} />
-        <QuantityType ref='quantityTypeId' value={1} /><br/>
+        <QuantityType ref='quantityTypeId' value={1} /><br />
         <hr />
         <Upload />
       </Dialog>
@@ -105,12 +105,13 @@ export default connect(
   }),
   {
     add(body) {
-      return {type: actionList.ADD, httpRequest: {
-        method: 'POST',
-        url: '/api/products',
-        json: true,
-        body: body
-      }}
+      return {type: actionList.ADD,
+        httpRequest: {
+          method: 'POST',
+          url: '/api/products',
+          json: true,
+          body: body
+        }}
     },
     cantAdd(problems) {
       return {type: actionList.ADD_VALIDATION_PROBLEM, problems}
@@ -119,11 +120,12 @@ export default connect(
       return {type: actionList.TOGGLE_ADD, canceled: true}
     },
     upload(filesData) {
-      return {type: actionListUpload.UPLOAD, httpRequest: {
-        method: 'UPLOAD',
-        url: '/api/upload',
-        filesData
-      }}
+      return {type: actionListUpload.UPLOAD,
+        httpRequest: {
+          method: 'UPLOAD',
+          url: '/api/upload',
+          filesData
+        }}
     },
     fetchProducts() {
       return {

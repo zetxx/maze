@@ -7,8 +7,9 @@ import {Translate} from '../../../../Translation'
 import TextField from 'material-ui/TextField'
 import {reset, toggle, handleInputChange} from './actions'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-export const PasswordReset = React.createClass({
+export const PasswordReset = createClass({
   propTypes: {
     reset: PropTypes.func,
     toggle: PropTypes.func,

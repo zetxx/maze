@@ -18,8 +18,9 @@ import {edit} from './Edit/actions'
 import {toggle as passwordResetToggle} from './PasswordReset/actions'
 import {fetch as priceRuleFetch} from '../../PriceRules/actions'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Users = React.createClass({
+const Users = createClass({
   propTypes: {
     passwordResetToggle: PropTypes.func,
     priceRuleFetch: PropTypes.func,

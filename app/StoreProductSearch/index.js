@@ -6,10 +6,11 @@ import QuantitySelection from './quantitySelection'
 import {Translate} from '../Translation'
 import {actionList} from './reducers.js'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
 var a = []
 
-const StoreProductSearch = React.createClass({
+const StoreProductSearch = createClass({
   propTypes: {
     search: PropTypes.func
   },

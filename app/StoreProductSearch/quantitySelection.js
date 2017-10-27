@@ -6,8 +6,9 @@ import {Translate} from '../Translation'
 import {actionList} from './reducers'
 import {actionList as actionListBasket} from '../Basket/reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const QuantitySelection = React.createClass({
+const QuantitySelection = createClass({
   propTypes: {
     quantitySelectToggle: PropTypes.func,
     basketCreateAndFill: PropTypes.func,

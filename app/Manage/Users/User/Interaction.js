@@ -7,8 +7,9 @@ import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
 import PriceRulesSelect from '../../PriceRules/Select'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-export const Interaction = React.createClass({
+export const Interaction = createClass({
   propTypes: {
     opened: PropTypes.bool,
     userId: PropTypes.number,

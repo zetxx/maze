@@ -7,8 +7,9 @@ import {getFieldValues} from '../../Helpers.js'
 import {Translate} from '../../Translation'
 import {actionList} from './reducers.js'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const ProductCatAdd = React.createClass({
+const ProductCatAdd = createClass({
   propTypes: {
     add: PropTypes.func,
     cantAdd: PropTypes.func,
@@ -60,12 +61,13 @@ export default connect(
   (state) => ({productCatAdd: state.productCatAdd}),
   {
     add(body) {
-      return {type: actionList.ADD, httpRequest: {
-        method: 'POST',
-        url: '/api/productCategories',
-        json: true,
-        body: body
-      }}
+      return {type: actionList.ADD,
+        httpRequest: {
+          method: 'POST',
+          url: '/api/productCategories',
+          json: true,
+          body: body
+        }}
     },
     cantAdd(problems) {
       return {type: actionList.ADD_VALIDATION_PROBLEM, problems}
@@ -75,7 +77,8 @@ export default connect(
     },
     fetch(httpRequest) {
       return {
-        type: actionList.FETCH, httpRequest: {
+        type: actionList.FETCH,
+        httpRequest: {
           method: 'GET',
           url: '/api/productCategories',
           json: true

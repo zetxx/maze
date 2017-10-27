@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Languages from '../../config/languages'
 import PropTypes from 'prop-types'
+// import createClass from 'create-react-class'
 
 class translate extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ translate.propTypes = {
   messages: PropTypes.object
 }
 
-// const translate = React.createClass({
+// const translate = createClass({
 //   propTypes: {
 //     children: PropTypes.object,
 //     id: PropTypes.string,

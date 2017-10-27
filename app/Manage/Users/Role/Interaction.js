@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../Translation'
 import Chip from 'material-ui/Chip'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
 const actionBoxStyle = {float: 'left', margin: '0 2px 5px 2px'}
 const actionBoxIconStyle = {cursor: 'pointer'}
@@ -18,7 +19,7 @@ const permissionStyles = {
   permNotSet: {chipBg: '#ccc', iconHover: colorAllowed, avatarColor: '#ccc', avatarBg: '#e0e0e0'}
 }
 
-export const Permission = React.createClass({
+export const Permission = createClass({
   propTypes: {
     handleChange: PropTypes.func,
     description: PropTypes.string.isRequired,
@@ -62,7 +63,7 @@ Permission.defaultProps = {
   title: ''
 }
 
-export const Interaction = React.createClass({
+export const Interaction = createClass({
   propTypes: {
     opened: PropTypes.bool,
     roleId: PropTypes.number,

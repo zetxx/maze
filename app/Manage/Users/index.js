@@ -4,8 +4,9 @@ import {setTitle} from '../../Heading/actions'
 import Roles from './Roles'
 import User from './User'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const UserConfig = React.createClass({
+const UserConfig = createClass({
   propTypes: {
     setTitle: PropTypes.func
   },

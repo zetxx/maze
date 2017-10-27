@@ -12,10 +12,10 @@ import Upload from '../../Upload'
 import {actionList as actionListUpload} from '../../Upload/reducers'
 import FileList from '../Files/List'
 import PropTypes from 'prop-types'
-
+import createClass from 'create-react-class'
 import {actionList} from './reducers'
 
-const ProductEdit = React.createClass({
+const ProductEdit = createClass({
   propTypes: {
     edit: PropTypes.func,
     cantEdit: PropTypes.func,

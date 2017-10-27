@@ -8,8 +8,9 @@ import {Translate} from '../../Translation'
 import ShopsDropdown from '../../Manage/Config/Shop/Dropdown'
 import {actionList as productActionList} from '../Product/reducers'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Repository = React.createClass({
+const Repository = createClass({
   propTypes: {
     add: PropTypes.func,
     cantAdd: PropTypes.func,
@@ -70,12 +71,13 @@ export default connect(
   (state) => ({repository: state.repository}),
   {
     add(body) {
-      return {type: 'REPOSITORY_ADD', httpRequest: {
-        method: 'POST',
-        url: '/api/repositories',
-        json: true,
-        body: body
-      }}
+      return {type: 'REPOSITORY_ADD',
+        httpRequest: {
+          method: 'POST',
+          url: '/api/repositories',
+          json: true,
+          body: body
+        }}
     },
     cantAdd(problems) {
       return {type: 'REPOSITORY_ADD_VALIDATION_PROBLEM', problems}
@@ -85,7 +87,8 @@ export default connect(
     },
     fetch() {
       return {
-        type: productActionList.FETCH, httpRequest: {
+        type: productActionList.FETCH,
+        httpRequest: {
           method: 'GET',
           url: '/api/config/products',
           json: true

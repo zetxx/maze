@@ -6,8 +6,9 @@ import TextField from 'material-ui/TextField/TextField'
 import {getFieldValues} from '../../../Helpers.js'
 import {Translate} from '../../../Translation'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const ShopAdd = React.createClass({
+const ShopAdd = createClass({
   propTypes: {
     add: PropTypes.func,
     cantAdd: PropTypes.func,
@@ -72,12 +73,13 @@ export default connect(
   (state) => ({shopAdd: state.shopAdd}),
   {
     add(body) {
-      return {type: 'SHOP_ADD', httpRequest: {
-        method: 'POST',
-        url: '/api/shops',
-        json: true,
-        body: body
-      }}
+      return {type: 'SHOP_ADD',
+        httpRequest: {
+          method: 'POST',
+          url: '/api/shops',
+          json: true,
+          body: body
+        }}
     },
     cantAdd(problems) {
       return {type: 'SHOP_ADD_VALIDATION_PROBLEM', problems}
@@ -87,7 +89,8 @@ export default connect(
     },
     fetch(httpRequest) {
       return {
-        type: 'FETCH_SHOPS', httpRequest: {
+        type: 'FETCH_SHOPS',
+        httpRequest: {
           method: 'GET',
           url: '/api/shops',
           json: true

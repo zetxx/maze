@@ -7,8 +7,9 @@ import {Translate} from '../Translation'
 import FileFolder from 'material-ui/svg-icons/action/settings'
 import {white500, blueGrey500} from 'material-ui/styles/colors'
 import PropTypes from 'prop-types'
+import createClass from 'create-react-class'
 
-const Heading = React.createClass({
+const Heading = createClass({
   contextTypes: {
     router: PropTypes.object
   },
