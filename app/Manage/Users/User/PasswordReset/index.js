@@ -6,13 +6,19 @@ import {Translate} from '../../../Translation'
 import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
 import PriceRulesSelect from '../../PriceRules/Select'
-import {reset, toggle} from './actions'
+import {reset, toggle, handleInputChange} from './actions'
 
 export const PasswordReset = React.createClass({
   propTypes: {
+    reset: PropTypes.func,
+    toggle: PropTypes.func,
+    handleInputChange: PropTypes.func
   },
   handleReset() {
     this.props.reset()
+  },
+  handleInputChange() {
+    this.props.handleInputChange()
   },
   render() {
     return (
@@ -37,7 +43,7 @@ export const PasswordReset = React.createClass({
       >
         <TextField
           floatingLabelText={<Translate id='Password' />}
-          value={this.props.passwordReset.get('password')}
+          value={this.props.passwordReset.getIn(['values', 'password'])}
           onChange={this.handleInputChange}
           name='password'
         />
@@ -45,7 +51,7 @@ export const PasswordReset = React.createClass({
         <TextField
           floatingLabelText={<Translate id='Repeat password' />}
           onChange={this.handleInputChange}
-          value={this.props.passwordReset.get('repeatedPassword')}
+          value={this.props.passwordReset.getIn(['values', 'repeatedPassword'])}
           name='repeatedPassword'
         />
       </Dialog>
