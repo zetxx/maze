@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {setTitle} from '../../Heading/actions'
 import Roles from './Roles'
 import User from './User'
+import PriceRules from '../PriceRules/List'
 import PropTypes from 'prop-types'
 import createClass from 'create-react-class'
 
@@ -18,6 +19,8 @@ const UserConfig = createClass({
       <div>
         <User />
         <Roles />
+        <div style={{display: 'block', overflow: 'hidden', clear: 'both', height: '12px'}} />
+        <PriceRules />
       </div>
     )
   }

@@ -2,17 +2,17 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Card} from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar/AppBar'
-import {Translate} from '../../../Translation'
+import {Translate} from '../../Translation'
 import FlatButton from 'material-ui/FlatButton/FlatButton'
 import {Table, TableHeaderColumn, TableRow, TableHeader, TableBody, TableRowColumn} from 'material-ui/Table'
 import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {fetch, get} from './actions'
-import Add from '../Role/Add'
-import Edit from '../Role/Edit'
-import {add} from '../Role/Add/actions'
-import {edit} from '../Role/Edit/actions'
+// import Add from '../PriceRule/Add'
+// import Edit from '../PriceRule/Edit'
+import {add} from '../PriceRule/Add/actions'
+import {edit} from '../PriceRule/Edit/actions'
 import PropTypes from 'prop-types'
 
 class Roles extends React.Component {
@@ -35,7 +35,7 @@ class Roles extends React.Component {
   }
   render() {
     return (
-      <Card style={{float: 'left', width: '40%'}}>
+      <Card style={{float: 'left', width: '59%'}}>
         <AppBar
           title={<Translate id='Roles' />}
           iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
@@ -49,7 +49,7 @@ class Roles extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {(this.props.roles.get('data') || []).map((el) => (
+            {(this.props.priceRules.get('data') || []).map((el) => (
               <TableRow key={el.get('id')}>
                 <TableRowColumn>{el.get('name')}</TableRowColumn>
                 <TableRowColumn style={{width: '80px'}}>
@@ -60,8 +60,8 @@ class Roles extends React.Component {
             ))}
           </TableBody>
         </Table>
-        <Add ref='add' />
-        <Edit ref='edit' />
+        {/* <Add ref='add' />
+        <Edit ref='edit' /> */}
       </Card>
     )
   }
@@ -72,14 +72,14 @@ Roles.propTypes = {
   get: PropTypes.func,
   add: PropTypes.func,
   edit: PropTypes.func,
-  roles: PropTypes.object,
+  priceRules: PropTypes.object,
   addFetchTriggerId: PropTypes.number,
   editFetchTriggerId: PropTypes.number
 }
 
 export default connect(
   (state) => ({
-    roles: state.roles,
+    priceRules: state.priceRules,
     addFetchTriggerId: state.roleAdd.get('fetchTriggerId'),
     editFetchTriggerId: state.roleEdit.get('fetchTriggerId')
   }),
