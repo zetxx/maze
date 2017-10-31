@@ -3,7 +3,6 @@ const path = require('path')
 const fs = require('fs')
 const preHandlers = require('../../preHandlers')
 const files = require('./model.js')
-const sequelize = require('../../../config/db')
 const config = require('../../../config/server')
 const Boom = require('boom')
 const jimp = require('jimp')
@@ -15,8 +14,8 @@ const filesDirectory = {
 
 function fileCreator(req) {
   return (r) => {
-    if(!r) {
-      throw Boom.notFound('missing resource');
+    if (!r) {
+      throw Boom.notFound('missing resource')
     }
     var originFileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
     var fileName = path.join(
@@ -111,8 +110,13 @@ module.exports = function(registrar) {
               throw Boom.notFound('missing resource')
             }
             var fileName = path.join(filesDirectory.storeDir, r.itemId.toString(), r.id.toString())
-            resp(fs.createReadStream(fileName))
+            if (r.contentType.indexOf('image') >= 0) {
+              return resp(fs.createReadStream(fileName))
+                .type(r.contentType)
+            }
+            return resp(fs.createReadStream(fileName))
               .type(r.contentType)
+              .header('Content-Disposition', `attachment; filename=${r.name}`)
           })
           .catch((e) => {
             console.error(e)
