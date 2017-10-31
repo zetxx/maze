@@ -19,7 +19,8 @@ module.exports = (registrar) => {
           include: [{
             model: roles,
             as: 'roles'
-          }]
+          }],
+          where: {enabled: true}
         })
           .then(resp)
           .catch((err) => {

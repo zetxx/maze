@@ -61,15 +61,11 @@ export const PasswordReset = createClass({
   }
 })
 
-PasswordReset.defaultProps = {
-  opened: false
-}
-
 export default connect(
   (state) => {
     return {
       passwordReset: state.passwordReset,
-      opened: state.passwordReset.get('opened'),
+      opened: !!state.passwordReset.get('opened'),
       same: state.passwordReset.get('same')
     }
   },

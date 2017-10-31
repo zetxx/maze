@@ -1,4 +1,5 @@
 import React from 'react'
+import {fromJS} from 'immutable'
 import {connect} from 'react-redux'
 import {Card} from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar/AppBar'
@@ -40,9 +41,6 @@ const Users = createClass({
       return false
     }
     return true
-  },
-  defaultProps: {
-    users: {data: []}
   },
   handleEdit(userId) {
     return () => (this.props.priceRuleFetch() & this.props.edit(userId))

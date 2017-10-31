@@ -15,7 +15,7 @@ const Role = createClass({
   },
   render() {
     return (
-      <Checkbox onCheck={this.onCheck} defaultChecked={this.props.defaultChecked} label={this.props.props.get('name')} />
+      <Checkbox onCheck={this.onCheck} checked={!!this.props.defaultChecked} label={this.props.props.get('name')} />
     )
   }
 })

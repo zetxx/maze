@@ -12,7 +12,7 @@ module.exports = (registrar) => {
     path: '/api/roles',
     config: {
       handler: (req, resp) => {
-        roles.findAll({})
+        roles.findAll({where: {enabled: true}})
           .then(resp)
           .catch((err) => {
             console.error(err)
