@@ -37,7 +37,7 @@ class Roles extends React.Component {
     return (
       <Card style={{float: 'left', width: '59%'}}>
         <AppBar
-          title={<Translate id='Roles' />}
+          title={<Translate id='Price Rules' />}
           iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
         />
 
