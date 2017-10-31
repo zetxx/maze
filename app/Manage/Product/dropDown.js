@@ -29,14 +29,14 @@ const ProductCatDropDown = createClass({
     }
   },
   getValue() {
-    return this.props.productCategories.data[this.state.value - 1].id
+    return this.state.value
   },
   render() {
     return (
       <DropDownMenu ref='dropdown' value={this.state.value} onChange={this.handleChange}>
         {this.props.productCategories.data && this.props.productCategories.data.map((el, idx) => {
           return (
-            <MenuItem value={idx + 1} key={idx} primaryText={el.name} />
+            <MenuItem value={el.id} key={idx} primaryText={el.name} />
           )
         })}
       </DropDownMenu>

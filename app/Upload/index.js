@@ -14,26 +14,32 @@ class Upload extends React.Component {
   onDrop(files) {
     this.props.add(files, this.props.edit)
   }
-  droppedFiles(uploadFilesList) {
+  droppedFiles() {
+    var uploadFilesList = this.props.edit
+      ? this.props.uploadFilesEdit
+      : this.props.uploadFilesList
+
     if (uploadFilesList.length) {
-      return (<aside>
-        <h2><Translate id='Dropped files' /></h2>
-        <ul>
-          {this.props.uploadFilesList.map((f, idx) => <li key={idx}>{f.name} - {f.size} <Translate id='bytes' /></li>)}
-        </ul>
-      </aside>)
+      return (
+        <aside style={{float: 'left', width: '400px'}}>
+          <h2 style={{margin: '0 0 4px 0', padding: 0}}><Translate id='Dropped files' /></h2>
+          <ul style={{display: 'block', margin: 0, padding: 0}}>
+            {uploadFilesList.map((f, idx) => <li style={{display: 'block', margin: 0, padding: 0}} key={idx}>{f.name} - {f.size} <Translate id='bytes' /></li>)}
+          </ul>
+        </aside>
+      )
     }
     return null
   }
   render() {
     return (
       <section>
-        <div>
-          <Dropzone onDrop={this.onDrop}>
+        <div style={{float: 'left', width: '260px'}}>
+          <Dropzone onDrop={this.onDrop} style={{width: '240px', height: '50px', border: '1px solid #ccc', padding: '5px', textAlign: 'center'}}>
             <p><Translate id='Try dropping some files here' /></p>
           </Dropzone>
         </div>
-        {this.droppedFiles(this.props.uploadFilesList)}
+        {this.droppedFiles()}
       </section>
     )
   }
@@ -42,12 +48,16 @@ class Upload extends React.Component {
 Upload.propTypes = {
   add: PropTypes.func,
   edit: PropTypes.bool,
-  uploadFilesList: PropTypes.array
+  uploadFilesList: PropTypes.array,
+  uploadFilesEdit: PropTypes.array
 }
 
 export default connect(
   (state) => {
-    return {uploadFilesList: state.uploadFiles.get('list').toJS()}
+    return {
+      uploadFilesList: state.uploadFiles.get('list').toJS(),
+      uploadFilesEdit: state.uploadFilesEdit.get('list').toJS()
+    }
   },
   {
     add(filesData, edit) {
