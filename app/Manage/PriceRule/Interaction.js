@@ -1,105 +1,34 @@
 import React from 'react'
-import Avatar from 'material-ui/Avatar'
-import IconAllowed from 'material-ui/svg-icons/action/thumb-up'
-import {green300 as colorAllowed, red300 as colorNotAllowed} from 'material-ui/styles/colors'
 // import Immutable from 'immutable'
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem/MenuItem'
 import {Translate} from '../../Translation'
-import Chip from 'material-ui/Chip'
 import PropTypes from 'prop-types'
-
-const actionBoxStyle = {float: 'left', margin: '0 2px 5px 2px'}
-const actionBoxIconStyle = {cursor: 'pointer'}
-const permissionStyles = {
-  permAllowed: {chipBg: colorAllowed, iconHover: colorNotAllowed, avatarColor: colorAllowed, avatarBg: '#e0e0e0'},
-  permNotAllowed: {chipBg: colorNotAllowed, iconHover: '#ccc', avatarColor: colorNotAllowed, avatarBg: '#e0e0e0'},
-  permNotSet: {chipBg: '#ccc', iconHover: colorAllowed, avatarColor: '#ccc', avatarBg: '#e0e0e0'}
-}
-
-export class Permission extends React.Component {
-  constructor(props) {
-    super(props)
-    this.getColorStyles = this.getColorStyles.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  }
-  getColorStyles() {
-    if (this.props.value === 1) {
-      return permissionStyles['permAllowed']
-    } else if (this.props.value === 2) {
-      return permissionStyles['permNotAllowed']
-    }
-    return permissionStyles['permNotSet']
-  }
-  handleChange() {
-    var value
-    switch (this.props.value) {
-      case 1:
-        value = 2
-        break
-      case 2:
-        break
-      default:
-        value = 1
-        break
-    }
-    this.props.handleChange(this.props.id, value)
-  }
-  render() {
-    let colorStyles = this.getColorStyles()
-    return (
-      <Chip style={actionBoxStyle} backgroundColor={colorStyles.chipBg}>
-        <Avatar icon={<IconAllowed hoverColor={colorStyles.iconHover} style={actionBoxIconStyle} onTouchTap={this.handleChange} />} color={colorStyles.avatarColor} backgroundColor={colorStyles.avatarBg} />
-        {this.props.description}
-      </Chip>
-    )
-  }
-}
-
-Permission.propTypes = {
-  handleChange: PropTypes.func,
-  description: PropTypes.string.isRequired,
-  value: PropTypes.oneOf([1, 2]),
-  id: PropTypes.number.isRequired
-}
 
 export class Interaction extends React.Component {
   constructor(props) {
     super(props)
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handlePermissionChange = this.handlePermissionChange.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.opened && !this.props.opened) {
-      newProps.fetch()
-      if (newProps.get && newProps.roleId !== this.props.roleId) {
-        newProps.get(newProps.roleId)
-      }
+  handleInputChange(e, idx, value) {
+    if (value) {
+      return value !== '-' && this.props.change({field: 'rule', value})
     }
-  }
-  handleChange(field, id, state) {
-    this.props.change({field, id, state})
-  }
-  handleInputChange(e) {
-    this.handleChange(e.target.name, undefined, e.target.value)
-  }
-  handlePermissionChange(id, state) {
-    this.handleChange('permission', id, state)
+    this.props.change({field: e.target.name, value: e.target.value})
   }
   handleSave() {
-    this.props.save({
-      permissions: Object.keys(this.props.permissions || {}).map((actionId) => ({actionId, permission: (this.props.permissions || {})[actionId]})),
-      name: this.props.name
-    }, this.props.roleId)
+    this.props.save(this.props.fieldValues.toJS(), this.props.priceRuleId)
   }
   handleCancel() {
     (this.props.edit || this.props.add)()
   }
   render() {
+    // debugger
     return (
       <Dialog
         title={<h3><Translate id={this.props.title || ''} /></h3>}
@@ -120,20 +49,43 @@ export class Interaction extends React.Component {
         open={!!this.props.opened}
         onRequestClose={this.props.edit || this.props.add}
       >
-        <h3><Translate id='Role' /></h3>
         <TextField
           floatingLabelText={<Translate id='Name' />}
           onChange={this.handleInputChange}
-          value={this.props.name || ''}
+          value={(this.props.fieldValues && this.props.fieldValues.get('name')) || ''}
           name='name'
         />
-        <br />
-        <h3><Translate id='Actions' /></h3>
-        {this.props.actions.map((data, k) => {
-          return (
-            <Permission value={(this.props.permissions && this.props.permissions[data.id])} description={data.description} id={data.id} key={k} handleChange={this.handlePermissionChange} />
-          )
-        })}
+
+        <TextField
+          floatingLabelText={<Translate id='From Value' />}
+          onChange={this.handleInputChange}
+          value={(this.props.fieldValues && this.props.fieldValues.get('ruleValueFrom')) || ''}
+          name='ruleValueFrom'
+        />
+        <TextField
+          floatingLabelText={<Translate id='To Value' />}
+          onChange={this.handleInputChange}
+          value={(this.props.fieldValues && this.props.fieldValues.get('ruleValueTo')) || ''}
+          name='ruleValueTo'
+        />
+        <TextField
+          floatingLabelText={<Translate id='Percentage' />}
+          onChange={this.handleInputChange}
+          value={(this.props.fieldValues && this.props.fieldValues.get('percentage')) || ''}
+          name='percentage'
+        />
+        <TextField
+          floatingLabelText={<Translate id='Hard Value' />}
+          onChange={this.handleInputChange}
+          value={(this.props.fieldValues && this.props.fieldValues.get('hardValue')) || ''}
+          name='hardValue'
+        /><br />
+        <DropDownMenu value={(this.props.fieldValues && this.props.fieldValues.get('rule')) || '-'} name='rule' onChange={this.handleInputChange}>
+          <MenuItem value='-' key={0} primaryText='Select' />
+          <MenuItem value='<' key={1} primaryText='Lower Than' />
+          <MenuItem value='>' key={2} primaryText='Greater Than' />
+          <MenuItem value='between' key={3} primaryText='Between' />
+        </DropDownMenu>
       </Dialog>
     )
   }
@@ -141,16 +93,11 @@ export class Interaction extends React.Component {
 
 Interaction.propTypes = {
   opened: PropTypes.bool,
-  roleId: PropTypes.number,
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    description: PropTypes.string
-  })),
+  priceRuleId: PropTypes.number,
   add: PropTypes.func,
   edit: PropTypes.func,
   change: PropTypes.func,
   save: PropTypes.func,
   title: PropTypes.string,
-  name: PropTypes.string,
-  permissions: PropTypes.object
+  fieldValues: PropTypes.object
 }

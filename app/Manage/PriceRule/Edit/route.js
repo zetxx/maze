@@ -1,55 +1,54 @@
 const Joi = require('joi')
-const sequelize = require('../../../../../config/db')
-const role = require('../../Roles/model')
-const permissions = require('../../Permissions/model')
+const PriceRules = require('../../PriceRules/model')
 
 module.exports = (registrar) => {
   registrar({
     method: 'PUT',
-    path: '/api/role/{id}',
+    path: '/api/priceRules/{id}',
     config: {
       handler: (req, resp) => {
-        sequelize.transaction((t) => {
-          return role
-            .update({
-              name: req.payload.name
-            }, {
-              where: {id: req.params.id}
-            }, {
-              transaction: t
-            })
-            .then((updatedRole) => {
-              return permissions.destroy({
-                where: {roleId: req.params.id}
-              })
-            })
-            .then(() => {
-              if (req.payload.permissions && req.payload.permissions.length) {
-                return permissions.bulkCreate(req.payload.permissions.map((el) => ({
-                  roleId: req.params.id,
-                  actionId: el.actionId,
-                  permission: el.permission
-                })))
-              }
-            })
-        })
+        PriceRules
+          .update(req.payload, {where: {id: req.params.id}})
           .then((res) => {
             resp(res)
           })
       },
-      description: 'Role update',
-      notes: 'Role update',
-      tags: ['api', 'update', 'role'],
+      description: 'Price Rule update',
+      notes: 'Price Rule update',
+      tags: ['api', 'price', 'rule', 'update'],
       validate: {
         payload: {
-          name: Joi.string().min(3).required().description('Role name'),
-          permissions: Joi.array().items(Joi.object({
-            actionId: Joi.number().min(1).description('Action assigned'),
-            permission: Joi.any().valid([1, 2]).description('Permission given against action and role')
-          }).description('Role')).description('Role permissions')
+          name: Joi.string().min(1).required().description('Name'),
+          rule: Joi.any().valid(['>', '<', 'between']).required().description('Rule'),
+          hardValue: Joi.number().required().description('Hard value'),
+          percentage: Joi.number().required().description('Percentage'),
+          ruleValueFrom: Joi.number().required().description('Value from'),
+          ruleValueTo: Joi.number().description('Value to')
         },
         params: {
-          id: Joi.number().min(1).required().description('User Id')
+          id: Joi.number().min(1).required().description('Price Rule Id')
+        }
+      }
+    }
+  })
+
+  registrar({
+    method: 'GET',
+    path: '/api/priceRules/{id}',
+    config: {
+      handler: (req, resp) => {
+        PriceRules
+          .find({where: {id: req.params.id}})
+          .then((res) => {
+            resp(res || {})
+          })
+      },
+      description: 'Price Rule get',
+      notes: 'Price Rule get',
+      tags: ['api', 'price', 'rule', 'get'],
+      validate: {
+        params: {
+          id: Joi.number().min(1).required().description('Price Rule Id')
         }
       }
     }

@@ -1,11 +1,10 @@
 import {actionList} from './actions'
-import Immutable from 'immutable'
-const defState = Immutable.Map()
-  .set('name', '')
+import {Map} from 'immutable'
+const defState = Map()
   .set('fetchTriggerId', 0)
-  .set('permissions', Immutable.Map())
+  .set('fieldValues', Map())
 
-export const roleAdd = (state = defState, action) => {
+export const priceRuleAdd = (state = defState, action) => {
   switch (action.type) {
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {
@@ -18,19 +17,8 @@ export const roleAdd = (state = defState, action) => {
       return defState
         .set('opened', !state.get('opened'))
     case actionList.CHANGE:
-      if (!action.params.id) { // field
-        return state
-          .set(action.params.field, action.params.state)
-      } else { // permissions
-        let newState = state
-          .setIn(['permissions', action.params.id], action.params.state)
-        if (!action.params.state) {
-          return newState
-            .deleteIn(['permissions', action.params.id])
-        } else {
-          return newState
-        }
-      }
+      return state
+        .setIn(['fieldValues', action.params.field], action.params.value)
   }
   return state
 }

@@ -1,6 +1,13 @@
 export const en = {
   '-': '-',
   'Quantity': 'Quantity',
+  'Rule': 'Rule',
+  'Edit Price Rule': 'Edit Price Rule',
+  'To Value': 'To Value',
+  'From Value': 'From Value',
+  'Percentage': 'Percentage',
+  'Hard Value': 'Hard Value',
+  'Add Price Rule': 'Add Price Rule',
   'Total': 'Total',
   'pwfwfd': 'Please wait for a while, fetching data',
   'Submit': 'Submit',

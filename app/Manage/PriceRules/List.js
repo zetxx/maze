@@ -9,8 +9,8 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {fetch, get} from './actions'
-// import Add from '../PriceRule/Add'
-// import Edit from '../PriceRule/Edit'
+import Add from '../PriceRule/Add'
+import Edit from '../PriceRule/Edit'
 import {add} from '../PriceRule/Add/actions'
 import {edit} from '../PriceRule/Edit/actions'
 import PropTypes from 'prop-types'
@@ -30,8 +30,8 @@ class Roles extends React.Component {
     }
     return true
   }
-  handleEdit(roleId) {
-    return () => (this.props.edit(roleId))
+  handleEdit(priceRuleId) {
+    return () => (this.props.edit(priceRuleId))
   }
   render() {
     return (
@@ -60,8 +60,8 @@ class Roles extends React.Component {
             ))}
           </TableBody>
         </Table>
-        {/* <Add ref='add' />
-        <Edit ref='edit' /> */}
+        <Add ref='add' />
+        <Edit ref='edit' />
       </Card>
     )
   }
@@ -80,8 +80,8 @@ Roles.propTypes = {
 export default connect(
   (state) => ({
     priceRules: state.priceRules,
-    addFetchTriggerId: state.roleAdd.get('fetchTriggerId'),
-    editFetchTriggerId: state.roleEdit.get('fetchTriggerId')
+    addFetchTriggerId: state.priceRuleAdd.get('fetchTriggerId'),
+    editFetchTriggerId: state.priceRuleEdit.get('fetchTriggerId')
   }),
   {get, fetch, add, edit}
 )(Roles)
