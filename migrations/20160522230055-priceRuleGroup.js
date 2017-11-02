@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('priceRuleGroups', {
+    return queryInterface.createTable('priceRuleGroup', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -33,6 +33,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('priceRuleGroups')
+    return queryInterface.dropTable('priceRuleGroup')
   }
 }
