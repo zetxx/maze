@@ -2,16 +2,16 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('userPriceRule', {
+    return queryInterface.createTable('userPriceRuleGroup', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      priceRuleId: {
+      priceRuleGroupId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'priceRules',
+          model: 'priceRuleGroup',
           key: 'id'
         },
         allowNull: false
@@ -35,6 +35,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('userPriceRule')
+    return queryInterface.dropTable('userPriceRuleGroup')
   }
 }
