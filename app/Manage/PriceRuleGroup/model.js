@@ -1,27 +1,25 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const userPriceRuleGroup = db.define('userPriceRuleGroup', {
-   id: {
+const userPriceRuleGroup = db.define('priceRuleGroup', {
+  id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  priceRuleGroupId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'priceRuleGroup',
-      key: 'id'
-    },
+  name: {
+    type: Sequelize.STRING,
     allowNull: false
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'users',
-      key: 'id'
-    },
-    allowNull: false
+  simpleSum: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  enabled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
   },
   addedAt: {
     type: Sequelize.DATE,

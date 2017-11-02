@@ -3,7 +3,7 @@ const sequelize = require('../../../../../config/db.js')
 const users = require('../model')
 const roles = require('../../Roles/model')
 const userRoles = require('../../UserRoles/model')
-const userPriceRule = require('../../../UserPriceRule/model')
+const UserPriceRuleGroup = require('../../../UserPriceRuleGroup/model')
 users.belongsToMany(roles, {through: userRoles})
 roles.belongsToMany(users, {through: userRoles})
 
@@ -36,12 +36,12 @@ module.exports = (registrar) => {
                 })
             })
             .then((prevDest) => {
-              return userPriceRule.destroy({
+              return UserPriceRuleGroup.destroy({
                 where: {userId: req.params.id}
               })
                 .then((destroyed) => {
                   if (req.payload.priceRules) {
-                    return userPriceRule.bulkCreate(req.payload.priceRules.map((priceRuleId) => {
+                    return UserPriceRuleGroup.bulkCreate(req.payload.priceRules.map((priceRuleId) => {
                       return {priceRuleId, userId: req.params.id}
                     }))
                   }

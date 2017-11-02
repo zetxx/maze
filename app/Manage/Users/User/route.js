@@ -1,15 +1,58 @@
 const Joi = require('joi')
 const users = require('./model')
 const roles = require('../Roles/model')
-const priceRules = require('../../PriceRules/model')
-const userPriceRule = require('../../UserPriceRule/model')
 const userRoles = require('../UserRoles/model')
+const PriceRules = require('../../PriceRules/model')
+const PriceRuleGroupBinding = require('../../PriceRuleGroupBinding/model')
+const UserPriceRuleGroup = require('../../UserPriceRuleGroup/model')
+const PriceRuleGroup = require('../../PriceRuleGroup/model')
 users.belongsToMany(roles, {through: userRoles})
-users.belongsToMany(priceRules, {through: userPriceRule})
 roles.belongsToMany(users, {through: userRoles})
-priceRules.belongsToMany(users, {through: userPriceRule})
+
+users.belongsToMany(PriceRuleGroup, {through: UserPriceRuleGroup})
+PriceRuleGroup.belongsToMany(users, {through: UserPriceRuleGroup})
+
+PriceRules.belongsToMany(PriceRuleGroup, {through: PriceRuleGroupBinding})
+PriceRuleGroup.belongsToMany(PriceRules, {through: PriceRuleGroupBinding})
 
 module.exports = (registrar) => {
+  registrar({
+    method: 'GET',
+    path: '/api/user/{id}',
+    config: {
+      handler: (req, resp) => {
+        users.findAll({
+          attributes: ['id', 'userName', 'email', 'shopId'],
+          where: {id: req.params.id},
+          include: [{
+            model: roles,
+            as: 'roles'
+          }, {
+            attributes: ['id', 'simpleSum'],
+            model: PriceRuleGroup,
+            include: [{
+              attributes: ['id', 'name', 'rule', 'ruleValueFrom', 'ruleValueTo', 'percentage', 'hardValue'],
+              model: PriceRules
+            }]
+          }]
+        })
+          .then(resp)
+          .catch((err) => {
+            console.error(err)
+            resp(err)
+          })
+      },
+      description: 'Get user',
+      notes: 'Get user by id',
+      tags: ['api', 'get', 'user'],
+      validate: {
+        params: {
+          id: Joi.number().min(1).required().description('User Id')
+        }
+      }
+    }
+  })
+
   registrar({
     method: 'GET',
     path: '/api/users',
@@ -31,38 +74,6 @@ module.exports = (registrar) => {
       description: 'Get users',
       notes: 'Get users',
       tags: ['api', 'get', 'users']
-    }
-  })
-
-  registrar({
-    method: 'GET',
-    path: '/api/user/{id}',
-    config: {
-      handler: (req, resp) => {
-        users.findAll({
-          where: {id: req.params.id},
-          include: [{
-            model: roles,
-            as: 'roles'
-          }, {
-            model: priceRules,
-            as: 'priceRules'
-          }]
-        })
-          .then(resp)
-          .catch((err) => {
-            console.error(err)
-            resp(err)
-          })
-      },
-      description: 'Get user',
-      notes: 'Get user by id',
-      tags: ['api', 'get', 'user'],
-      validate: {
-        params: {
-          id: Joi.number().min(1).required().description('User Id')
-        }
-      }
     }
   })
 }

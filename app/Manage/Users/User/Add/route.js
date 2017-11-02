@@ -3,7 +3,7 @@ const sequelize = require('../../../../../config/db.js')
 const users = require('../model')
 const roles = require('../../Roles/model')
 const userRoles = require('../../UserRoles/model')
-const userPriceRule = require('../../../UserPriceRule/model')
+const UserPriceRuleGroup = require('../../../UserPriceRuleGroup/model')
 users.belongsToMany(roles, {through: userRoles})
 roles.belongsToMany(users, {through: userRoles})
 
@@ -30,7 +30,7 @@ module.exports = (registrar) => {
             })
             .then((user) => {
               if (req.payload.priceRules && req.payload.priceRules.length) {
-                return userPriceRule
+                return UserPriceRuleGroup
                   .bulkCreate(req.payload.priceRules.map((priceRuleId) => ({priceRuleId, userId: user.id})), {transaction: t})
                   .then(() => user)
               }

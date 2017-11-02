@@ -1,8 +1,14 @@
 const users = require('./Manage/Users/User/model')
-const priceRules = require('./Manage/PriceRules/model')
-const userPriceRule = require('./Manage/UserPriceRule/model')
-users.belongsToMany(priceRules, {through: userPriceRule})
-priceRules.belongsToMany(users, {through: userPriceRule})
+const PriceRules = require('./Manage/PriceRules/model')
+const UserPriceRuleGroup = require('./Manage/UserPriceRuleGroup/model')
+const PriceRuleGroupBinding = require('./Manage/PriceRuleGroupBinding/model')
+const PriceRuleGroup = require('./Manage/PriceRuleGroup/model')
+
+users.belongsToMany(PriceRuleGroup, {through: UserPriceRuleGroup})
+PriceRuleGroup.belongsToMany(users, {through: UserPriceRuleGroup})
+
+PriceRules.belongsToMany(PriceRuleGroup, {through: PriceRuleGroupBinding})
+PriceRuleGroup.belongsToMany(PriceRules, {through: PriceRuleGroupBinding})
 
 module.exports = [{
   assign: 'user',
@@ -11,7 +17,12 @@ module.exports = [{
       .find({
         attributes: ['id', 'userName', 'email', 'shopId'],
         include: [{
-          model: priceRules
+          attributes: ['id', 'simpleSum'],
+          model: PriceRuleGroup,
+          include: [{
+            attributes: ['id', 'name', 'rule', 'ruleValueFrom', 'ruleValueTo', 'percentage', 'hardValue'],
+            model: PriceRules
+          }]
         }]
       }, {where: {id: 1}})
       .then((r) => {
