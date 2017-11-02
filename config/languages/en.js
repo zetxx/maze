@@ -2,6 +2,7 @@ export const en = {
   '-': '-',
   'Quantity': 'Quantity',
   'Rule': 'Rule',
+  'Price Rules Groups': 'Price Rules Groups',
   'Edit Price Rule': 'Edit Price Rule',
   'To Value': 'To Value',
   'From Value': 'From Value',

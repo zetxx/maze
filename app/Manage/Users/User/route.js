@@ -5,7 +5,7 @@ const userRoles = require('../UserRoles/model')
 const PriceRules = require('../../PriceRules/model')
 const PriceRuleGroupBinding = require('../../PriceRuleGroupBinding/model')
 const UserPriceRuleGroup = require('../../UserPriceRuleGroup/model')
-const PriceRuleGroup = require('../../PriceRuleGroup/model')
+const PriceRuleGroup = require('../../PriceRuleGroups/model')
 users.belongsToMany(roles, {through: userRoles})
 roles.belongsToMany(users, {through: userRoles})
 

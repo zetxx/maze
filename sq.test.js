@@ -3,7 +3,7 @@ const PriceRules = require('./app/Manage/PriceRules/model')
 const PriceRuleGroupBinding = require('./app/Manage/PriceRuleGroupBinding/model')
 
 const UserPriceRuleGroup = require('./app/Manage/UserPriceRuleGroup/model')
-const PriceRuleGroup = require('./app/Manage/PriceRuleGroup/model')
+const PriceRuleGroup = require('./app/Manage/PriceRuleGroups/model')
 const roles = require('./app/Manage/Users/Roles/model')
 const userRoles = require('./app/Manage/Users/UserRoles/model')
 

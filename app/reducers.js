@@ -25,7 +25,10 @@ import {quantityTypes} from './Manage/QuantityType/reducers'
 import {priceRuleAdd} from './Manage/PriceRule/Add/reducers'
 import {priceRuleEdit} from './Manage/PriceRule/Edit/reducers'
 
+import {priceRuleGroups} from './Manage/PriceRuleGroups/reducers'
+
 export default {
+  priceRuleGroups,
   priceRuleAdd,
   priceRuleEdit,
   passwordReset,

@@ -9,10 +9,10 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {fetch, get} from './actions'
-import Add from '../PriceRule/Add'
-import Edit from '../PriceRule/Edit'
-import {add} from '../PriceRule/Add/actions'
-import {edit} from '../PriceRule/Edit/actions'
+// import Add from '../PriceRule/Add'
+// import Edit from '../PriceRule/Edit'
+import {add} from './Add/actions'
+import {edit} from './Edit/actions'
 import PropTypes from 'prop-types'
 
 class Roles extends React.Component {
@@ -35,9 +35,9 @@ class Roles extends React.Component {
   }
   render() {
     return (
-      <Card style={{float: 'left', width: '59%', marginRight: '1%'}}>
+      <Card style={{float: 'left', width: '40%'}}>
         <AppBar
-          title={<Translate id='Price Rules' />}
+          title={<Translate id='Price Rules Groups' />}
           iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
         />
 
@@ -49,7 +49,7 @@ class Roles extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {(this.props.priceRules.get('data') || []).map((el) => (
+            {((this.props.priceRuleGroups && this.props.priceRuleGroups.get('data')) || []).map((el) => (
               <TableRow key={el.get('id')}>
                 <TableRowColumn>{el.get('name')}</TableRowColumn>
                 <TableRowColumn style={{width: '80px'}}>
@@ -60,8 +60,8 @@ class Roles extends React.Component {
             ))}
           </TableBody>
         </Table>
-        <Add ref='add' />
-        <Edit ref='edit' />
+        {/* <Add ref='add' />
+        <Edit ref='edit' /> */}
       </Card>
     )
   }
@@ -72,16 +72,16 @@ Roles.propTypes = {
   get: PropTypes.func,
   add: PropTypes.func,
   edit: PropTypes.func,
-  priceRules: PropTypes.object,
+  priceRuleGroups: PropTypes.object,
   addFetchTriggerId: PropTypes.number,
   editFetchTriggerId: PropTypes.number
 }
 
 export default connect(
   (state) => ({
-    priceRules: state.priceRules,
-    addFetchTriggerId: state.priceRuleAdd.get('fetchTriggerId'),
-    editFetchTriggerId: state.priceRuleEdit.get('fetchTriggerId')
+    priceRuleGroups: state.priceRuleGroups,
+    addFetchTriggerId: state.priceRuleGroupsAdd && state.priceRuleGroupsAdd.get('fetchTriggerId'),
+    editFetchTriggerId: state.priceRuleGroupsEdit && state.priceRuleGroupsEdit.get('fetchTriggerId')
   }),
   {get, fetch, add, edit}
 )(Roles)
