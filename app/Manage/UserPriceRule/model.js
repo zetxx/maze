@@ -1,16 +1,16 @@
 const Sequelize = require('sequelize')
 const db = require('../../../config/db')
 
-const userPriceRule = db.define('userPriceRule', {
-  id: {
+const userPriceRuleGroup = db.define('userPriceRuleGroup', {
+   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  priceRuleId: {
+  priceRuleGroupId: {
     type: Sequelize.INTEGER,
     references: {
-      model: 'priceRules',
+      model: 'priceRuleGroup',
       key: 'id'
     },
     allowNull: false
@@ -32,4 +32,4 @@ const userPriceRule = db.define('userPriceRule', {
   freezeTableName: true
 })
 
-module.exports = userPriceRule
+module.exports = userPriceRuleGroup
