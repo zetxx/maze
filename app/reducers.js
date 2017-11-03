@@ -26,8 +26,10 @@ import {priceRuleAdd} from './Manage/PriceRule/Add/reducers'
 import {priceRuleEdit} from './Manage/PriceRule/Edit/reducers'
 
 import {priceRuleGroups} from './Manage/PriceRuleGroups/reducers'
+import {priceRuleGroupsAdd} from './Manage/PriceRuleGroups/Add/reducers'
 
 export default {
+  priceRuleGroupsAdd,
   priceRuleGroups,
   priceRuleAdd,
   priceRuleEdit,

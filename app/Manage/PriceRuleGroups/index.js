@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import {fetch, get} from './actions'
-// import Add from '../PriceRule/Add'
+import Add from './Add'
 // import Edit from '../PriceRule/Edit'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
@@ -60,8 +60,8 @@ class Roles extends React.Component {
             ))}
           </TableBody>
         </Table>
-        {/* <Add ref='add' />
-        <Edit ref='edit' /> */}
+        <Add ref='add' />
+        {/* <Edit ref='edit' /> */}
       </Card>
     )
   }

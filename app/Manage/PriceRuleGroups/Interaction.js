@@ -3,8 +3,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
-import MenuItem from 'material-ui/MenuItem/MenuItem'
+import Checkbox from 'material-ui/Checkbox'
 import {Translate} from '../../Translation'
 import PropTypes from 'prop-types'
 
@@ -15,14 +14,21 @@ export class Interaction extends React.Component {
     this.handleSave = this.handleSave.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
-  handleInputChange(e, idx, value) {
-    if (value) {
-      return value !== '-' && this.props.change({field: 'rule', value})
+  handleInputChange(e, checked) {
+    var value = e.target.value
+    var multi = false
+    if (e.target.name !== 'name') {
+      value = (checked && 1) || 0
+      multi = e.target.name !== 'simpleSum'
     }
-    this.props.change({field: e.target.name, value: e.target.value})
+    this.props.change({field: e.target.name, value}, multi)
   }
   handleSave() {
-    this.props.save(this.props.fieldValues.toJS(), this.props.priceRuleId)
+    this.props.save(Object.assign(
+      {},
+      this.props.fieldValues.toJS(),
+      {priceRulesSelected: this.props.priceRulesSelected.map((v) => (parseInt(v)))}
+    ), this.props.priceRuleId)
   }
   handleCancel() {
     (this.props.edit || this.props.add)()
@@ -55,37 +61,22 @@ export class Interaction extends React.Component {
           value={(this.props.fieldValues && this.props.fieldValues.get('name')) || ''}
           name='name'
         />
-
-        <TextField
-          floatingLabelText={<Translate id='From Value' />}
-          onChange={this.handleInputChange}
-          value={(this.props.fieldValues && this.props.fieldValues.get('ruleValueFrom')) || ''}
-          name='ruleValueFrom'
+        <Checkbox
+          label={<Translate id='Simple sum' />}
+          name='simpleSum'
+          checked={!!this.props.fieldValues.get('simpleSum')}
+          onCheck={this.handleInputChange}
         />
-        <TextField
-          floatingLabelText={<Translate id='To Value' />}
-          onChange={this.handleInputChange}
-          value={(this.props.fieldValues && this.props.fieldValues.get('ruleValueTo')) || ''}
-          name='ruleValueTo'
-        />
-        <TextField
-          floatingLabelText={<Translate id='Percentage' />}
-          onChange={this.handleInputChange}
-          value={(this.props.fieldValues && this.props.fieldValues.get('percentage')) || ''}
-          name='percentage'
-        />
-        <TextField
-          floatingLabelText={<Translate id='Hard Value' />}
-          onChange={this.handleInputChange}
-          value={(this.props.fieldValues && this.props.fieldValues.get('hardValue')) || ''}
-          name='hardValue'
-        /><br />
-        <DropDownMenu value={(this.props.fieldValues && this.props.fieldValues.get('rule')) || '-'} name='rule' onChange={this.handleInputChange}>
-          <MenuItem value='-' key={0} primaryText='Select' />
-          <MenuItem value='<' key={1} primaryText='Lower Than' />
-          <MenuItem value='>' key={2} primaryText='Greater Than' />
-          <MenuItem value='between' key={3} primaryText='Between' />
-        </DropDownMenu>
+        <hr />
+        {(this.props.priceRules || []).map((el, idx) => {
+          return (<Checkbox
+            key={idx}
+            label={el.get('name')}
+            name={el.get('id').toString()}
+            checked={this.props.priceRulesSelected.indexOf(el.get('id').toString()) >= 0}
+            onCheck={this.handleInputChange}
+          />)
+        })}
       </Dialog>
     )
   }
@@ -99,5 +90,7 @@ Interaction.propTypes = {
   change: PropTypes.func,
   save: PropTypes.func,
   title: PropTypes.string,
-  fieldValues: PropTypes.object
+  fieldValues: PropTypes.object,
+  priceRulesSelected: PropTypes.array,
+  priceRules: PropTypes.object
 }

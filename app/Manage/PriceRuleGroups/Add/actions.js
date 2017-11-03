@@ -8,17 +8,23 @@ export const save = (params) => ({
   type: actionList.SAVE,
   httpRequest: {
     method: 'POST',
-    url: '/api/priceRules',
+    url: '/api/priceRuleGroups',
     body: params,
     json: true
   }
 })
 
 export const add = () => ({
-  type: actionList.ADD
+  type: actionList.ADD,
+  httpRequest: {
+    method: 'GET',
+    url: '/api/priceRules',
+    json: true
+  }
 })
 
-export const change = (params) => ({
+export const change = (params, multi) => ({
   type: actionList.CHANGE,
-  params
+  params,
+  multi
 })

@@ -15,14 +15,14 @@ export const save = (params, id) => ({
   }
 })
 
-export const edit = (priceRuleId) => ({
+export const edit = (priceRuleGroupId) => ({
   type: actionList.EDIT,
-  httpRequest: priceRuleId ? {
+  httpRequest: priceRuleGroupId ? {
     method: 'GET',
-    url: `/api/priceRules/${priceRuleId}`,
+    url: `/api/priceRuleGroups/${priceRuleGroupId}`,
     json: true
   } : undefined,
-  priceRuleId
+  priceRuleGroupId
 })
 
 export const change = (params) => ({
