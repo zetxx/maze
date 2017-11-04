@@ -11,7 +11,7 @@ const Role = createClass({
     handleChange: PropTypes.func
   },
   onCheck(e, state) {
-    this.props.handleChange('roles', this.props.props.get('id'), state)
+    this.props.handleChange('priceRuleGroups', this.props.props.get('id'), state)
   },
   render() {
     return (

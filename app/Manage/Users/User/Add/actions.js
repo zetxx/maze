@@ -15,7 +15,12 @@ export const save = (params) => ({
 })
 
 export const add = () => ({
-  type: actionList.ADD
+  type: actionList.ADD,
+  httpRequest: {
+    method: 'GET',
+    url: '/api/priceRuleGroups',
+    json: true
+  }
 })
 
 export const change = (params) => ({

@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Translate} from '../../../Translation'
 import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
-import PriceRulesSelect from '../../PriceRules/Select'
+import PriceRuleGroupsSelect from '../../PriceRuleGroups/Select'
 import PropTypes from 'prop-types'
 import createClass from 'create-react-class'
 
@@ -37,11 +37,10 @@ export const Interaction = createClass({
   },
   handleSave() {
     var newDetails = this.props.userDetails
-      .delete(['roles'])
-      .delete(['priceRules'])
+      .delete('roles')
+      .delete('priceRuleGroups')
       .set('roles', (this.props.userDetails.get('roles') || Immutable.Map()).keySeq())
-      .set('priceRules', (this.props.userDetails.get('priceRules') || Immutable.Map()).keySeq())
-
+      .set('priceRuleGroups', (this.props.userDetails.get('priceRuleGroups') || Immutable.Map()).keySeq())
     this.props.save(newDetails.toJS(), this.props.userId)
   },
   render() {
@@ -62,7 +61,7 @@ export const Interaction = createClass({
           />
         ]}
         modal={false}
-        open={this.props.opened}
+        open={!!this.props.opened}
         onRequestClose={this.props.edit || this.props.add}
       >
         <h3><Translate id='Details' /></h3>
@@ -92,14 +91,14 @@ export const Interaction = createClass({
           )
         })}
         <br />
-        <h3><Translate id='Price Rules' /></h3>
-        {this.props.priceRules.get('data').map((v, k) => {
+        <h3><Translate id='Price Rule Groups' /></h3>
+        {(this.props.priceRuleGroups || []).map((v, k) => {
           return (
-            <PriceRulesSelect
+            <PriceRuleGroupsSelect
               key={k}
               props={v}
               handleChange={this.handleChange}
-              defaultChecked={!!this.props.userDetails.getIn(['priceRules', parseInt(v.get('id'))])}
+              defaultChecked={!!this.props.userDetails.getIn(['priceRuleGroups', parseInt(v.get('id'))])}
             />
           )
         })}
@@ -107,10 +106,3 @@ export const Interaction = createClass({
     )
   }
 })
-
-Interaction.defaultProps = {
-  title: '',
-  priceRules: Immutable.Map({}).set('data', []),
-  userDetails: Immutable.fromJS({email: '', userName: ''}),
-  opened: false
-}

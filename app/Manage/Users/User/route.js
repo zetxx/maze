@@ -2,8 +2,8 @@ const Joi = require('joi')
 const users = require('./model')
 const roles = require('../Roles/model')
 const userRoles = require('../UserRoles/model')
-const PriceRules = require('../../PriceRules/model')
-const PriceRuleGroupBinding = require('../../PriceRuleGroupBinding/model')
+// const PriceRules = require('../../PriceRules/model')
+// const PriceRuleGroupBinding = require('../../PriceRuleGroupBinding/model')
 const UserPriceRuleGroup = require('../../UserPriceRuleGroup/model')
 const PriceRuleGroup = require('../../PriceRuleGroups/model')
 users.belongsToMany(roles, {through: userRoles})
@@ -12,8 +12,8 @@ roles.belongsToMany(users, {through: userRoles})
 users.belongsToMany(PriceRuleGroup, {through: UserPriceRuleGroup})
 PriceRuleGroup.belongsToMany(users, {through: UserPriceRuleGroup})
 
-PriceRules.belongsToMany(PriceRuleGroup, {through: PriceRuleGroupBinding})
-PriceRuleGroup.belongsToMany(PriceRules, {through: PriceRuleGroupBinding})
+// PriceRules.belongsToMany(PriceRuleGroup, {through: PriceRuleGroupBinding})
+// PriceRuleGroup.belongsToMany(PriceRules, {through: PriceRuleGroupBinding})
 
 module.exports = (registrar) => {
   registrar({
@@ -21,21 +21,25 @@ module.exports = (registrar) => {
     path: '/api/user/{id}',
     config: {
       handler: (req, resp) => {
-        users.findAll({
+        users.find({
           attributes: ['id', 'userName', 'email', 'shopId'],
           where: {id: req.params.id},
           include: [{
             model: roles,
             as: 'roles'
           }, {
-            attributes: ['id', 'simpleSum'],
-            model: PriceRuleGroup,
-            include: [{
-              attributes: ['id', 'name', 'rule', 'ruleValueFrom', 'ruleValueTo', 'percentage', 'hardValue'],
-              model: PriceRules
-            }]
+            attributes: ['id'],
+            model: PriceRuleGroup
           }]
         })
+          .then((user) => {
+            return PriceRuleGroup
+              .findAll({
+                attributes: ['id', 'name'],
+                where: {enabled: 1}
+              })
+              .then((prg) => ({user: user || {}, PriceRuleGroups: prg}))
+          })
           .then(resp)
           .catch((err) => {
             console.error(err)

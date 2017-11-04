@@ -1,5 +1,4 @@
 import React from 'react'
-import {fromJS} from 'immutable'
 import {connect} from 'react-redux'
 import {Card} from 'material-ui/Card'
 import AppBar from 'material-ui/AppBar/AppBar'
@@ -17,14 +16,12 @@ import {fetch} from './actions'
 import {add} from './Add/actions'
 import {edit} from './Edit/actions'
 import {toggle as passwordResetToggle} from './PasswordReset/actions'
-import {fetch as priceRuleFetch} from '../../PriceRules/actions'
 import PropTypes from 'prop-types'
 import createClass from 'create-react-class'
 
 const Users = createClass({
   propTypes: {
     passwordResetToggle: PropTypes.func,
-    priceRuleFetch: PropTypes.func,
     fetch: PropTypes.func,
     add: PropTypes.func,
     edit: PropTypes.func,
@@ -43,13 +40,12 @@ const Users = createClass({
     return true
   },
   handleEdit(userId) {
-    return () => (this.props.priceRuleFetch() & this.props.edit(userId))
+    return () => (this.props.edit(userId))
   },
   handlePasswordReset(userId) {
     return () => (this.props.passwordResetToggle(userId))
   },
   handleAdd() {
-    this.props.priceRuleFetch()
     this.props.add()
   },
   render() {
@@ -98,5 +94,5 @@ export default connect(
     addFetchTriggerId: state.userAdd.get('fetchTriggerId'),
     editFetchTriggerId: state.userEdit.get('fetchTriggerId')
   }),
-  {fetch, add, edit, priceRuleFetch, passwordResetToggle}
+  {fetch, add, edit, passwordResetToggle}
 )(Users)

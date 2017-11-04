@@ -1,6 +1,9 @@
 import {actionList} from './actions'
-import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.Map({email: '', userName: ''})).set('fetchTriggerId', 0)
+import {Map, fromJS, List} from 'immutable'
+const defState = Map()
+  .set('data', Map({email: '', userName: ''}))
+  .set('fetchTriggerId', 0)
+  .set('priceRuleGroups', List())
 
 export const userAdd = (state = defState, action) => {
   switch (action.type) {
@@ -13,7 +16,12 @@ export const userAdd = (state = defState, action) => {
       }
       break
     case actionList.ADD:
-      return state.set('opened', !state.get('opened')).set('data', defState.get('data'))
+      if (action.status === 'received') {
+        return defState
+          .set('opened', !state.get('opened'))
+          .set('priceRuleGroups', fromJS(action.data))
+      }
+      return state
     case actionList.CHANGE:
 
       if (action.params.id === undefined) {

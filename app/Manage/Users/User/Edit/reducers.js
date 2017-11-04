@@ -1,14 +1,12 @@
 import {actionList} from './actions'
-import Immutable from 'immutable'
-const defState = Immutable.Map().set('data', Immutable.Map({email: '', userName: ''})).set('fetchTriggerId', 0)
+import {Map, fromJS, List} from 'immutable'
+const defState = Map()
+  .set('data', Map({email: '', userName: ''}))
+  .set('fetchTriggerId', 0)
+  .set('priceRuleGroups', List())
 
 export const userEdit = (state = defState, action) => {
   switch (action.type) {
-    case actionList.EDIT:
-      return state
-        .set('opened', !state.get('opened'))
-        .set('data', defState.get('data'))
-        .set('userId', (!state.get('opened')) ? action.userId : 0)
     case actionList.SAVE:
       if (action.status === 'received' && !action.err) {
         return state
@@ -18,18 +16,20 @@ export const userEdit = (state = defState, action) => {
           .delete('userId')
       }
       break
-    case actionList.GET:
+    case actionList.EDIT:
       if (action.status === 'received') {
-        let data = Immutable.fromJS((action.data && action.data.shift()) || {})
+        let data = fromJS((action.data && action.data.shift()) || {})
 
         return state
-          .setIn(['data'], data.delete('roles').delete('priceRules'))
+          .set('userId', (!state.get('opened')) ? action.userId : 0)
+          .set('opened', !state.get('opened'))
+          .setIn(['data'], data.delete('roles').delete('priceRuleGroups'))
           .setIn(['data', 'roles'], data.get('roles').reduce((prev, cur) => {
             return prev.set(parseInt(cur.get('id')), true)
-          }, Immutable.Map()))
-          .setIn(['data', 'priceRules'], data.get('priceRules').reduce((prev, cur) => {
+          }, Map()))
+          .setIn(['data', 'priceRuleGroups'], data.get('priceRuleGroups').reduce((prev, cur) => {
             return prev.set(parseInt(cur.get('id')), true)
-          }, Immutable.Map()))
+          }, Map()))
       }
       break
     case actionList.CHANGE:

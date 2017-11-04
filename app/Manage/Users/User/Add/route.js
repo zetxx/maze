@@ -29,15 +29,16 @@ module.exports = (registrar) => {
               return user
             })
             .then((user) => {
-              if (req.payload.priceRules && req.payload.priceRules.length) {
+              if (req.payload.priceRuleGroups && req.payload.priceRuleGroups.length) {
                 return UserPriceRuleGroup
-                  .bulkCreate(req.payload.priceRules.map((priceRuleId) => ({priceRuleId, userId: user.id})), {transaction: t})
+                  .bulkCreate(req.payload.priceRuleGroups.map((priceRuleGroupId) => ({priceRuleGroupId, userId: user.id})), {transaction: t})
                   .then(() => user)
               }
+              return user
             })
         })
           .then((res) => {
-            resp(res)
+            resp(res || {})
           })
       },
       description: 'User create',
@@ -48,7 +49,7 @@ module.exports = (registrar) => {
           userName: Joi.string().min(5).required().description('User name'),
           email: Joi.string().min(5).required().description('User email'),
           roles: Joi.array().items(Joi.number().description('Role')).description('User roles'),
-          priceRules: Joi.array().items(Joi.number().description('Price Rules')).description('User Price Rules')
+          priceRuleGroups: Joi.array().items(Joi.number().description('Price Rule Groups')).description('User Price Rule Groups')
         }
       }
     }
