@@ -35,13 +35,13 @@ module.exports = (registrar) => {
             include: [{
               attributes: ['id', 'name'],
               model: PriceRules
-            }]
-          },
-          {where: {enabled: 1, id: req.params.id}}
+            }],
+            where: {enabled: 1, id: req.params.id}
+          }
         )
           .then((r) => (
             PriceRules
-              .findAll({where: {enabled: 1, id: req.params.id}})
+              .findAll({where: {enabled: 1}})
               .then((rr) => ({PriceRuleGroup: (r || {}), PriceRules: rr || []}))
           ))
           .then(resp)

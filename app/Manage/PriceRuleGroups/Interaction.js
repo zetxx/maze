@@ -24,11 +24,13 @@ export class Interaction extends React.Component {
     this.props.change({field: e.target.name, value}, multi)
   }
   handleSave() {
+    var fieldValues = this.props.fieldValues.toJS()
+    fieldValues.simpleSum = (fieldValues.simpleSum && 1) || 0
     this.props.save(Object.assign(
       {},
-      this.props.fieldValues.toJS(),
+      fieldValues,
       {priceRulesSelected: this.props.priceRulesSelected.map((v) => (parseInt(v)))}
-    ), this.props.priceRuleId)
+    ), this.props.priceRuleGroupId)
   }
   handleCancel() {
     (this.props.edit || this.props.add)()
@@ -84,7 +86,7 @@ export class Interaction extends React.Component {
 
 Interaction.propTypes = {
   opened: PropTypes.bool,
-  priceRuleId: PropTypes.number,
+  priceRuleGroupId: PropTypes.number,
   add: PropTypes.func,
   edit: PropTypes.func,
   change: PropTypes.func,

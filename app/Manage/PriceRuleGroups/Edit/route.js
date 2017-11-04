@@ -1,54 +1,46 @@
 const Joi = require('joi')
-const PriceRules = require('../../PriceRules/model')
+const PriceRuleGroups = require('../../PriceRuleGroups/model')
+const PriceRuleGroupBinding = require('../../PriceRuleGroupBinding/model')
+const sequelize = require('../../../../config/db')
 
 module.exports = (registrar) => {
   registrar({
     method: 'PUT',
-    path: '/api/priceRules/{id}',
+    path: '/api/priceRuleGroups/{id}',
     config: {
       handler: (req, resp) => {
-        PriceRules
-          .update(req.payload, {where: {id: req.params.id}})
-          .then((res) => {
-            resp(res)
+        var priceRuleSelected = req.payload.priceRulesSelected || []
+        delete (req.payload.priceRulesSelected)
+        sequelize.transaction((t) => {
+          return PriceRuleGroups
+            .update(req.payload, {transaction: t, where: {id: req.params.id}})
+            .then(() => {
+              return PriceRuleGroupBinding
+                .destroy({transaction: t, where: {priceRuleGroupId: req.params.id}})
+            })
+            .then(() => {
+              priceRuleSelected = priceRuleSelected.map((priceRuleId) => ({
+                priceRuleId,
+                priceRuleGroupId: req.params.id
+              }))
+              return PriceRuleGroupBinding
+                .bulkCreate(priceRuleSelected, {transaction: t})
+            })
+        })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
           })
       },
-      description: 'Price Rule update',
-      notes: 'Price Rule update',
-      tags: ['api', 'price', 'rule', 'update'],
+      description: 'Add price rule group',
+      notes: 'Add price rule group',
+      tags: ['api', 'add', 'price', 'rule', 'group'],
       validate: {
         payload: {
           name: Joi.string().min(1).required().description('Name'),
-          rule: Joi.any().valid(['>', '<', 'between']).required().description('Rule'),
-          hardValue: Joi.number().required().description('Hard value'),
-          percentage: Joi.number().required().description('Percentage'),
-          ruleValueFrom: Joi.number().required().description('Value from'),
-          ruleValueTo: Joi.number().description('Value to')
-        },
-        params: {
-          id: Joi.number().min(1).required().description('Price Rule Id')
-        }
-      }
-    }
-  })
-
-  registrar({
-    method: 'GET',
-    path: '/api/priceRules/{id}',
-    config: {
-      handler: (req, resp) => {
-        PriceRules
-          .find({where: {id: req.params.id}})
-          .then((res) => {
-            resp(res || {})
-          })
-      },
-      description: 'Price Rule get',
-      notes: 'Price Rule get',
-      tags: ['api', 'price', 'rule', 'get'],
-      validate: {
-        params: {
-          id: Joi.number().min(1).required().description('Price Rule Id')
+          simpleSum: Joi.number().required().description('Simple Sum'),
+          priceRulesSelected: Joi.array().items(Joi.number().required().description('Price Rule id')).required().description('Selected price rules')
         }
       }
     }

@@ -5,10 +5,12 @@ import {save, edit, change} from './actions'
 export default connect(
   (state) => {
     return {
-      title: 'Edit Price Rule',
-      opened: state.priceRuleEdit.get('opened'),
-      priceRuleId: state.priceRuleEdit && state.priceRuleEdit.get('priceRuleId'),
-      fieldValues: state.priceRuleEdit && state.priceRuleEdit.get('fieldValues')
+      title: 'Edit Price Rule Group',
+      opened: state.priceRuleGroupsEdit.get('opened'),
+      priceRules: state.priceRuleGroupsEdit.get('priceRules'),
+      priceRuleGroupId: state.priceRuleGroupsEdit.get('priceRuleGroupId'),
+      priceRulesSelected: (state.priceRuleGroupsEdit.get && state.priceRuleGroupsEdit.get('priceRulesSelected').toJS()) || [],
+      fieldValues: state.priceRuleGroupsEdit.get('fieldValues')
     }
   },
   {save, edit, change}

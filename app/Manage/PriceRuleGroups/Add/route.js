@@ -41,25 +41,4 @@ module.exports = (registrar) => {
       }
     }
   })
-
-  // registrar({
-  //   method: 'GET',
-  //   path: '/api/priceRules',
-  //   config: {
-  //     handler: (req, resp) => {
-  //       PriceRules
-  //         .findAll({where: {enabled: 1}})
-  //         .then((res) => {
-  //           resp(res)
-  //         })
-  //         .catch((e) => {
-  //           console.error(e)
-  //           resp(e)
-  //         })
-  //     },
-  //     description: 'List price rule group',
-  //     notes: 'List price rule group',
-  //     tags: ['api', 'list', 'price', 'rule']
-  //   }
-  // })
 }
