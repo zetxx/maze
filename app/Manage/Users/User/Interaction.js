@@ -41,7 +41,11 @@ export const Interaction = createClass({
       .delete('priceRuleGroups')
       .set('roles', (this.props.userDetails.get('roles') || Immutable.Map()).keySeq())
       .set('priceRuleGroups', (this.props.userDetails.get('priceRuleGroups') || Immutable.Map()).keySeq())
+
     this.props.save(newDetails.toJS(), this.props.userId)
+  },
+  onAddEdit() {
+    (this.props.edit || this.props.add)('nofetch')
   },
   render() {
     return (
@@ -51,7 +55,7 @@ export const Interaction = createClass({
           <FlatButton
             label={<Translate id='Cancel' />}
             primary
-            onTouchTap={this.props.edit || this.props.add}
+            onTouchTap={this.onAddEdit}
           />,
           <FlatButton
             label={<Translate id='Save' />}
@@ -62,7 +66,7 @@ export const Interaction = createClass({
         ]}
         modal={false}
         open={!!this.props.opened}
-        onRequestClose={this.props.edit || this.props.add}
+        onRequestClose={this.onAddEdit}
       >
         <h3><Translate id='Details' /></h3>
         <TextField

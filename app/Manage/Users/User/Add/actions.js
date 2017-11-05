@@ -14,9 +14,9 @@ export const save = (params) => ({
   }
 })
 
-export const add = () => ({
+export const add = (a) => ({
   type: actionList.ADD,
-  httpRequest: {
+  httpRequest: a !== 'nofetch' && {
     method: 'GET',
     url: '/api/priceRuleGroups',
     json: true

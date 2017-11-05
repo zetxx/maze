@@ -23,7 +23,7 @@ export const userAdd = (state = defState, action) => {
       }
       return state
     case actionList.CHANGE:
-
+debugger
       if (action.params.id === undefined) {
         return state.setIn(['data', action.params.field], action.params.state)
       } else if (action.params.id) {

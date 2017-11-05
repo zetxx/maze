@@ -18,18 +18,25 @@ export const userEdit = (state = defState, action) => {
       break
     case actionList.EDIT:
       if (action.status === 'received') {
-        let data = fromJS((action.data && action.data.shift()) || {})
+        let result = fromJS(action.data)
 
         return state
           .set('userId', (!state.get('opened')) ? action.userId : 0)
           .set('opened', !state.get('opened'))
-          .setIn(['data'], data.delete('roles').delete('priceRuleGroups'))
-          .setIn(['data', 'roles'], data.get('roles').reduce((prev, cur) => {
+          .set('data', result.get('user').delete('roles').delete('priceRuleGroups'))
+          .setIn(['data', 'roles'], result.getIn(['user', 'roles']).reduce((prev, cur) => {
             return prev.set(parseInt(cur.get('id')), true)
           }, Map()))
-          .setIn(['data', 'priceRuleGroups'], data.get('priceRuleGroups').reduce((prev, cur) => {
-            return prev.set(parseInt(cur.get('id')), true)
-          }, Map()))
+          .setIn(
+            ['data', 'priceRuleGroups'],
+            result.getIn(['user', 'priceRuleGroups'])
+              .reduce((prev, cur) => {
+                return prev.set(parseInt(cur.get('id')), true)
+              }, Map())
+          )
+          .set('priceRuleGroups', result.get('PriceRuleGroups'))
+      } else if (!action.status) {
+        return defState
       }
       break
     case actionList.CHANGE:

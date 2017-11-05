@@ -5,7 +5,7 @@ import {save, edit, change, get} from './actions'
 export default connect(
   (state) => ({
     availableRoles: state.roles,
-    priceRuleGroups: state.userAdd.get('priceRuleGroups'),
+    priceRuleGroups: state.userEdit.get('priceRuleGroups'),
     userDetails: state.userEdit.get('data'),
     opened: state.userEdit.get('opened'),
     userId: state.userEdit.get('userId'),

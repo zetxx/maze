@@ -11,6 +11,7 @@ export const save = (params, id) => ({
     url: `/api/user/${id}`,
     body: {
       roles: params.roles,
+      priceRuleGroups: params.priceRuleGroups,
       priceRules: params.priceRules,
       email: params.email
     },
@@ -21,7 +22,7 @@ export const save = (params, id) => ({
 export const edit = (userId) => ({
   type: actionList.EDIT,
   userId: userId,
-  httpRequest: {
+  httpRequest: userId !== 'nofetch' && {
     method: 'GET',
     url: `/api/user/${userId}`,
     json: true

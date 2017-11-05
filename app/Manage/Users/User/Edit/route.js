@@ -19,18 +19,16 @@ module.exports = (registrar) => {
               email: req.payload.email
             }, {
               where: {id: req.params.id}
-            }, {
-              transaction: t
-            })
+            }, {transaction: t})
             .then((user) => {
               return userRoles.destroy({
                 where: {userId: req.params.id}
-              })
+              }, {transaction: t})
                 .then((destroyed) => {
                   if (req.payload.roles) {
                     return userRoles.bulkCreate(req.payload.roles.map((roleId) => {
                       return {roleId, userId: req.params.id}
-                    }))
+                    }), {transaction: t})
                   }
                   return [destroyed]
                 })
@@ -38,12 +36,12 @@ module.exports = (registrar) => {
             .then((prevDest) => {
               return UserPriceRuleGroup.destroy({
                 where: {userId: req.params.id}
-              })
+              }, {transaction: t})
                 .then((destroyed) => {
-                  if (req.payload.priceRules) {
-                    return UserPriceRuleGroup.bulkCreate(req.payload.priceRules.map((priceRuleId) => {
-                      return {priceRuleId, userId: req.params.id}
-                    }))
+                  if (req.payload.priceRuleGroups) {
+                    return UserPriceRuleGroup.bulkCreate(req.payload.priceRuleGroups.map((priceRuleGroupId) => {
+                      return {priceRuleGroupId, userId: req.params.id}
+                    }), {transaction: t})
                   }
                   return prevDest.concat(destroyed)
                 })
@@ -60,7 +58,7 @@ module.exports = (registrar) => {
         payload: {
           email: Joi.string().min(5).required().description('User email'),
           roles: Joi.array().items(Joi.number().required().description('Role')).required().description('User roles'),
-          priceRules: Joi.array().items(Joi.number().required().description('Price Rules')).required().description('User Price Rules')
+          priceRuleGroups: Joi.array().items(Joi.number().description('Price Rule Groups')).description('User Price Rule Groups')
         },
         params: {
           id: Joi.number().min(1).required().description('User Id')

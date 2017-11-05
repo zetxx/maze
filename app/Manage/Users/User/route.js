@@ -40,6 +40,14 @@ module.exports = (registrar) => {
               })
               .then((prg) => ({user: user || {}, PriceRuleGroups: prg}))
           })
+          .then((r) => {
+            return roles
+              .findAll({
+                attributes: ['id', 'name'],
+                where: {enabled: 1}
+              })
+              .then((roles) => (Object.assign(r, {roles})))
+          })
           .then(resp)
           .catch((err) => {
             console.error(err)
