@@ -18,7 +18,7 @@ const SupplierAdd = createClass({
     SupplierAdd: PropTypes.object
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'lon', 'lat', 'description'])
+    var vals = getFieldValues(this.refs, ['name', 'lon', 'lat', 'description', 'address', 'phone', 'email'])
     if (Object.keys(vals.incorrect).length === 0) {
       this.props.add(vals.correct)
     } else {
@@ -66,6 +66,25 @@ const SupplierAdd = createClass({
           errorText={this.props.supplierAdd.fieldError.lat}
         />
         <br />
+        <TextField
+          ref='address'
+          hintText={<Translate id='Address' />}
+          floatingLabelText={<Translate id='Address' />}
+          errorText={this.props.supplierAdd.fieldError.address}
+        />
+        <TextField
+          ref='phone'
+          hintText={<Translate id='Phone' />}
+          floatingLabelText={<Translate id='Phone' />}
+          errorText={this.props.supplierAdd.fieldError.phone}
+        />
+        <br />
+        <TextField
+          ref='email'
+          hintText={<Translate id='Email' />}
+          floatingLabelText={<Translate id='Email' />}
+          errorText={this.props.supplierAdd.fieldError.email}
+        />
         <TextField
           ref='description'
           hintText={<Translate id='Description' />}
