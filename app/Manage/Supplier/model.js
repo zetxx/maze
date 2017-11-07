@@ -15,9 +15,21 @@ const suppliers = db.define('suppliers', {
     type: Sequelize.GEOMETRY('POINT'),
     allowNull: true
   },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   description: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   enabled: {
     type: Sequelize.BOOLEAN,

@@ -25,9 +25,12 @@ module.exports = function(registrar) {
       validate: {
         payload: {
           name: Joi.string().required().description('Name'),
+          address: Joi.string().description('Address'),
+          phone: Joi.string().description('phone'),
+          email: Joi.string().description('email'),
           description: Joi.string().required().description('description'),
-          lon: Joi.number().min(1).required().description('Longitude'),
-          lat: Joi.number().min(1).required().description('Latitude')
+          lon: Joi.number().min(1).description('Longitude'),
+          lat: Joi.number().min(1).description('Latitude')
         }
       }
     }
