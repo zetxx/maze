@@ -215,7 +215,7 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         product.findAll({
-          attributes: ['id', 'name', 'price'],
+          attributes: ['id', 'name', 'price', 'enabled'],
           include: [{
             attributes: ['quantity'],
             model: repository
@@ -267,6 +267,33 @@ module.exports = function(registrar) {
       description: 'List product',
       notes: 'List product',
       tags: ['api', 'get', 'product'],
+      validate: {
+        params: {
+          productId: Joi.number().min(1).required().description('Product Id')
+        }
+      }
+    }
+  })
+
+  registrar({
+    method: 'DELETE',
+    path: '/api/config/products/{productId}',
+    config: {
+      pre: preHandlers,
+      handler: function (req, resp) {
+        product
+          .update({enabled: sequelize.literal('!enabled')}, {
+            where: {id: req.params.productId}
+          })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
+      },
+      description: 'Disable product',
+      notes: 'Disable product',
+      tags: ['api', 'disable', 'product'],
       validate: {
         params: {
           productId: Joi.number().min(1).required().description('Product Id')

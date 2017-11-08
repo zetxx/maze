@@ -1,6 +1,5 @@
 import React from 'react'
 import Products from './List'
-
 import {connect} from 'react-redux'
 import {setTitle} from '../../Heading/actions'
 import ProductCat from '../ProductCat'

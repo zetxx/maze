@@ -7,8 +7,19 @@ export const actionList = {
   ADD_VALIDATION_PROBLEM: Symbol('ADD_VALIDATION_PROBLEM'),
   EDIT_VALIDATION_PROBLEM: Symbol('EDIT_VALIDATION_PROBLEM'),
   FETCH: Symbol('FETCH'),
-  FETCH_PRODUCT: Symbol('FETCH_PRODUCT')
+  FETCH_PRODUCT: Symbol('FETCH_PRODUCT'),
+  DISABLE_PRODUCT: Symbol('DISABLE_PRODUCT')
 }
+
+export const disableProduct = ({url, method, item}) => ({
+  type: actionList.DISABLE_PRODUCT,
+  item,
+  httpRequest: {
+    method,
+    url,
+    json: true
+  }
+})
 
 export const productAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === actionList.TOGGLE_ADD) {
@@ -40,12 +51,18 @@ export const productEdit = (state = {open: false, canceled: false, fieldError: {
   return state
 }
 
-export const products = (state = {}, action) => {
+export const products = (state = {nextFetchId: 0}, action) => {
   if (action.type === actionList.FETCH && action.status === 'received') {
     return Object.assign(
       {},
       state,
       {status: action.status, data: action.data}
+    )
+  } else if (action.type === actionList.DISABLE_PRODUCT && action.status === 'received') {
+    return Object.assign(
+      {},
+      state,
+      {nextFetchId: (state.nextFetchId || 0) + 1}
     )
   }
   return state

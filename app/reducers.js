@@ -21,6 +21,7 @@ import {roleEdit} from './Manage/Users/Role/Edit/reducers'
 import {priceRules} from './Manage/PriceRules/reducers'
 import {actions} from './Manage/Users/Actions/reducers'
 import {quantityTypes} from './Manage/QuantityType/reducers'
+import {disableItem} from './Components/DisableItem/reducers'
 
 import {priceRuleAdd} from './Manage/PriceRule/Add/reducers'
 import {priceRuleEdit} from './Manage/PriceRule/Edit/reducers'
@@ -30,6 +31,7 @@ import {priceRuleGroupsAdd} from './Manage/PriceRuleGroups/Add/reducers'
 import {priceRuleGroupsEdit} from './Manage/PriceRuleGroups/Edit/reducers'
 
 export default {
+  disableItem,
   priceRuleGroupsEdit,
   priceRuleGroupsAdd,
   priceRuleGroups,
