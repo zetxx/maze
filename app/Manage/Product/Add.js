@@ -30,12 +30,12 @@ const ProductAdd = createClass({
       next.fetchProducts()
     }
     if (next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire add action after successfully upload
-      var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
+      var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId', 'articleNum'])
       this.props.add(Object.assign({}, vals.correct, {files: next.uploadedList}))
     }
   },
   add() {
-    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
+    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId', 'articleNum'])
     if (Object.keys(vals.incorrect).length === 0) {
       if (this.props.filesForUpload.length) {
         this.props.upload(this.props.filesForUpload)
@@ -85,6 +85,12 @@ const ProductAdd = createClass({
           hintText={<Translate id='Product Bar code' />}
           floatingLabelText={<Translate id='Product Bar code' />}
           errorText={this.props.productAdd.fieldError.barcode}
+        /><br />
+        <TextField
+          ref='articleNum'
+          hintText={<Translate id='Product Article Number' />}
+          floatingLabelText={<Translate id='Product Article Number' />}
+          errorText={(this.props.productAdd.fieldError && this.props.productAdd.fieldError.articleNum) || ''}
         />
         <ProductCatDropDown ref='category' value={1} />
         <SupplierDropDown ref='supplier' value={1} />

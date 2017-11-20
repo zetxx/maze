@@ -90,6 +90,7 @@ module.exports = function(registrar) {
       validate: {
         payload: {
           name: Joi.string().required().description('Product name'),
+          articleNum: Joi.string().required().description('Product article number'),
           barcode: Joi.number().min(3).description('Product Bar code'),
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
@@ -156,6 +157,7 @@ module.exports = function(registrar) {
         },
         payload: {
           name: Joi.string().required().description('Product name'),
+          articleNum: Joi.string().required().description('Product article number'),
           barcode: Joi.number().min(3).description('Product Bar code'),
           description: Joi.string().required().description('Product description'),
           category: Joi.number().min(1).required().description('Product category'),
@@ -181,7 +183,7 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         product.findAll({
-          attributes: ['id', 'name', 'price'],
+          attributes: ['id', 'name', 'price', 'enabled'],
           include: [{
             attributes: ['quantity'],
             model: repository
@@ -194,7 +196,8 @@ module.exports = function(registrar) {
             required: false,
             where: {itemType: 'product'}
           }],
-          group: 'products.id'
+          group: 'products.id',
+          order: [['name', 'ASC']]
         })
           .then(resp)
           .catch((e) => {
@@ -228,7 +231,8 @@ module.exports = function(registrar) {
             required: false,
             where: {itemType: 'product'}
           }],
-          group: 'products.id'
+          group: 'products.id',
+          order: [['name', 'ASC']]
         })
           .then(resp)
           .catch((e) => {
@@ -249,7 +253,7 @@ module.exports = function(registrar) {
       pre: preHandlers,
       handler: function (req, resp) {
         product.find({
-          attributes: ['id', 'name', 'price', 'supplier', 'category', 'quantityTypeId', 'description', 'barcode'],
+          attributes: ['id', 'name', 'price', 'supplier', 'category', 'quantityTypeId', 'description', 'barcode', 'articleNum'],
           where: {id: req.params.productId},
           include: [{
             attributes: ['id', 'name', 'contentType', 'isDefault'],

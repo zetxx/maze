@@ -34,12 +34,12 @@ const ProductEdit = createClass({
       next.fetchProducts()
     }
     if (next.uploadedList.length && next.uploadRequestId !== this.props.uploadRequestId) { // fire edit action after successfully upload
-      var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
+      var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId', 'articleNum'])
       this.props.edit(Object.assign({}, vals.correct, {files: next.uploadedList, filesDeleted: this.props.deletedFiles, defaultFile: this.props.defaultFile}), this.props.productEdit.item.id)
     }
   },
   edit() {
-    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId'])
+    var vals = getFieldValues(this.refs, ['name', 'category', 'supplier', 'description', 'barcode', 'price', 'quantityTypeId', 'articleNum'])
     if (Object.keys(vals.incorrect).length === 0) {
       if (this.props.filesForUpload.length) {
         this.props.upload(this.props.filesForUpload)
@@ -102,6 +102,14 @@ const ProductEdit = createClass({
           onChange={this.handleInputChange('barcode')}
           errorText={this.props.productEdit.fieldError.barcode}
         /><br />
+        <TextField
+          ref='articleNum'
+          value={this.props.productEdit.item.articleNum || ''}
+          hintText={<Translate id='Product Article Number' />}
+          onChange={this.handleInputChange('articleNum')}
+          floatingLabelText={<Translate id='Product Article Number' />}
+          errorText={(this.props.productEdit.fieldError && this.props.productEdit.fieldError.articleNum) || ''}
+        />
         <ProductCatDropDown
           ref='category'
           onChange={this.handleInputChange('category')}

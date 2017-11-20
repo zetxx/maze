@@ -66,6 +66,7 @@ export const en = {
   'Close/Paid': 'Close/Paid',
   'Assign to': 'Assign to',
   'Product Bar code': 'Product Bar code',
+  'Product Article Number': 'Product Article Number',
   'Action ordered!': 'Action ordered!',
   'User Name': 'User Name',
   'E-mail': 'E-mail',

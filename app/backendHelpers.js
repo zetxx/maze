@@ -13,6 +13,12 @@ module.exports.round = round
 
 var simpleAdd = false
 
+module.exports.priceRuleExtract = (priceRuleGroups) => {
+  return (priceRuleGroups || []).reduce((a, c) => {
+    return a.concat(c.priceRules)
+  }, [])
+}
+
 module.exports.priceCalc = (priceRules) => {
   return (p) => {
     var simpleAddSum = 0

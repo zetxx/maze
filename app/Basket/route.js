@@ -19,9 +19,9 @@ module.exports = (registrar) => {
     config: {
       pre: preHandlers,
       handler: (req, resp) => {
+        var pc = backendHelpers.priceCalc(backendHelpers.priceRuleExtract(req.pre.user.priceRuleGroups))
         var b, rq
         rq = Object.assign({}, req.payload)
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
 
         // prepare basket
         if (!req.payload.basketId) { // create basket or
@@ -109,7 +109,7 @@ module.exports = (registrar) => {
     config: {
       pre: preHandlers,
       handler: (req, resp) => {
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
+        var pc = backendHelpers.priceCalc(backendHelpers.priceRuleExtract(req.pre.user.priceRuleGroups))
         transaction.findAll({
           attributes: ['id', 'quantity'],
           where: {basketId: req.params.basketId},

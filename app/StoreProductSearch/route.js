@@ -19,11 +19,12 @@ module.exports = function(registrar) {
     config: {
       pre: preHandlers,
       handler: function (req, resp) {
+        var pc = backendHelpers.priceCalc(backendHelpers.priceRuleExtract(req.pre.user.priceRuleGroups))
         var prod = req.payload.product
-        var where = {name: {$like: `%${prod}%`}}
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
+        var where = {name: {$like: `%${prod.trim()}%`}, enabled: 1}
         if (!isNaN(parseInt(prod))) {
-          where.barcode = {$like: `%${prod}%`}
+          where.barcode = {$like: `%${prod.trim()}%`}
+          where.enabled = 1
           where = {$or: [{name: where.name}, {barcode: where.barcode}]}
         }
 
@@ -43,7 +44,9 @@ module.exports = function(registrar) {
           where
         })
           .then((res) => {
-            return res.map((item) => (Object.assign(item, {price: pc(item.price)})))
+            return res.map((item) => {
+              return Object.assign(item, {price: pc(item.price)})
+            })
           })
           .then(resp)
           .catch((e) => {

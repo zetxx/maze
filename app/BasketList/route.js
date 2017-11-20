@@ -18,7 +18,7 @@ module.exports = function(registrar) {
     config: {
       pre: preHandlers,
       handler: function (req, resp) {
-        var pc = backendHelpers.priceCalc(req.pre.user.priceRules)
+        var pc = backendHelpers.priceCalc(backendHelpers.priceRuleExtract(req.pre.user.priceRuleGroups))
         transaction.findAll({
           attributes: ['id', 'quantity'],
           include: [{
