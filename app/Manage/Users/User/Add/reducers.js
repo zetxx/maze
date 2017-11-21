@@ -16,14 +16,13 @@ export const userAdd = (state = defState, action) => {
       }
       break
     case actionList.ADD:
-      if (action.status === 'received') {
+      if (action.status === 'received' || !action.httpRequest) {
         return defState
           .set('opened', !state.get('opened'))
           .set('priceRuleGroups', fromJS(action.data))
       }
       return state
     case actionList.CHANGE:
-debugger
       if (action.params.id === undefined) {
         return state.setIn(['data', action.params.field], action.params.state)
       } else if (action.params.id) {
