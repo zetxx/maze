@@ -56,6 +56,7 @@ module.exports = (registrar) => {
       tags: ['api', 'update', 'user'],
       validate: {
         payload: {
+          currency: Joi.any().valid(['USD', 'EUR', 'JPY', 'GBP', 'RUB']).required().description('User currency'),
           email: Joi.string().min(5).required().description('User email'),
           roles: Joi.array().items(Joi.number().required().description('Role')).required().description('User roles'),
           priceRuleGroups: Joi.array().items(Joi.number().description('Price Rule Groups')).description('User Price Rule Groups')
