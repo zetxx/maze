@@ -1,3 +1,5 @@
+const request = require('superagent')
+const binaryParser = require('superagent-binary-parser')
 const round = (number, precision) => {
   var factor = Math.pow(10, precision)
   var tempNumber = number * factor
@@ -41,4 +43,29 @@ module.exports.priceCalc = (priceRules) => {
       return price
     }, p) + simpleAddSum
   }
+}
+
+const currencyRates = require('./CurrencyRates/model')
+module.exports.currencyConversion = () => {
+  setTimeout(module.exports.currencyConversion, 60000 * 60 * 24)
+  request
+    .get('http://www.bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/index.htm')
+    .query({download: 'csv'})
+    .parse(binaryParser)
+    .buffer()
+    .then((result) => {
+      let data = result
+        .body
+        .toString('utf8')
+        .match(/(USD|EUR|JPY|GBP|RUB),([\d]+),([\d]*\.*[\d]*),([\d]*\.*[\d]*)/ig)
+        .map((v) => (v.split(',')))
+        .map((v) => ({currency: v[0], rate: v[3] / v[1]}))
+
+      currencyRates
+        .destroy({truncate: true})
+        .then(() => {
+          currencyRates
+            .bulkCreate(data)
+        })
+    })
 }

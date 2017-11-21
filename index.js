@@ -60,6 +60,9 @@ server.route([{
   handler: { file: './assets/favicon.ico' }
 }])
 webpackFrontendWatch(server)
+// time services
+require('./app/backendHelpers').currencyConversion()
+
 // register dynamic routes
 require('./app/Manage/ProductCat/route.js')(server.route.bind(server))
 require('./app/Manage/Supplier/route.js')(server.route.bind(server))
