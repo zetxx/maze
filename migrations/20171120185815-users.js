@@ -5,7 +5,8 @@ module.exports = {
     return queryInterface.changeColumn('users', 'currency',
       {
         type: Sequelize.ENUM('USD', 'EUR', 'JPY', 'GBP', 'RUB', 'BGN'),
-        allowNull: true
+        allowNull: true,
+        defaultValue: 'BGN'
       }
     )
   },
