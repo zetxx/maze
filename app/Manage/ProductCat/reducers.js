@@ -2,8 +2,9 @@ export const actionList = {
   TOGGLE_ADD: Symbol('TOGGLE_ADD'),
   ADD: Symbol('ADD'),
   ADD_VALIDATION_PROBLEM: Symbol('ADD_VALIDATION_PROBLEM'),
-  FETCH: Symbol('FETCH')
-};
+  FETCH: Symbol('FETCH'),
+  DISABLE_CAT: Symbol('DISABLE_CAT')
+}
 
 export const productCatAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === actionList.TOGGLE_ADD) {
@@ -18,9 +19,15 @@ export const productCatAdd = (state = {open: false, canceled: false, fieldError:
   return state
 }
 
-export const productCategories = (state = {}, action) => {
+export const productCategories = (state = {nextFetchId: 0}, action) => {
   if (action.type === actionList.FETCH) {
     return Object.assign({}, state, {status: action.status, data: action.data})
+  } else if (action.type === actionList.DISABLE_CAT && action.status === 'received') {
+    return Object.assign(
+      {},
+      state,
+      {nextFetchId: (state.nextFetchId || 0) + 1}
+    )
   }
   return state
 }

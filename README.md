@@ -6,8 +6,8 @@ shop/bar/storage manager
 * clone
 * npm install
 * db config is located @ `./config/server`
-* run `./node_modules/sequelize-cli/bin/sequelize db:migrate`
-* run `./node_modules/sequelize-cli/bin/sequelize db:seed:all`
+* run `./node_modules/.bin/sequelize db:migrate`
+* run `./node_modules/.bin/sequelize db:seed:all`
 
 ### ToDo
 - config

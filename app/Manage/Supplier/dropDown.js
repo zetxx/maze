@@ -35,7 +35,7 @@ const SupplierDropDown = createClass({
   render() {
     return (
       <DropDownMenu ref='dropdown' value={this.state.value} onChange={this.handleChange}>
-        {this.props.suppliers.data && this.props.suppliers.data.map((el, idx) => {
+        {this.props.suppliers.data && this.props.suppliers.data.filter((el) => el.enabled).map((el, idx) => {
           return (
             <MenuItem value={idx + 1} key={idx} primaryText={el.name} />
           )

@@ -1,6 +1,7 @@
 const Joi = require('joi')
 const supplier = require('./model.js')
 const preHandlers = require('../../preHandlers')
+const sequelize = require('../../../config/db')
 
 module.exports = function(registrar) {
   registrar({
@@ -53,6 +54,33 @@ module.exports = function(registrar) {
       description: 'List suppliers',
       notes: 'List suppliers',
       tags: ['api', 'get', 'supplier']
+    }
+  })
+
+  registrar({
+    method: 'DELETE',
+    path: '/api/suppliers/{supplierId}',
+    config: {
+      pre: preHandlers,
+      handler: function (req, resp) {
+        supplier
+          .update({enabled: sequelize.literal('!enabled')}, {
+            where: {id: req.params.supplierId}
+          })
+          .then(resp)
+          .catch((e) => {
+            console.error(e)
+            resp(e)
+          })
+      },
+      description: 'Disable supplier',
+      notes: 'Disable supplier',
+      tags: ['api', 'disable', 'supplier'],
+      validate: {
+        params: {
+          supplierId: Joi.number().min(1).required().description('Supplier Id')
+        }
+      }
     }
   })
 }

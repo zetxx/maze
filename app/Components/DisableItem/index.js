@@ -13,7 +13,7 @@ export class DisableItem extends React.Component {
         url: this.props.url,
         method: this.props.method,
         id: this.props.id,
-        item: 'product'
+        item: this.props.item
       })
     }
   }

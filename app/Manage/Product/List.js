@@ -12,9 +12,9 @@ import EjectIcon from 'material-ui/svg-icons/action/eject'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import CachedIcon from 'material-ui/svg-icons/action/cached'
 import DisableItem from '../../Components/DisableItem'
-import {open as openDisableDialog} from '../../Components/DisableItem/reducers'
+import {open as openDisableDialog, disableItemAction as disableItem} from '../../Components/DisableItem/reducers'
 import Edit from './Edit'
-import {actionList, disableProduct} from './reducers'
+import {actionList} from './reducers'
 import PropTypes from 'prop-types'
 
 class Product extends React.Component {
@@ -90,7 +90,7 @@ class Product extends React.Component {
         <Add />
         <Repository />
         <Edit />
-        <DisableItem item='product' disable={this.props.disableProduct} />
+        <DisableItem item='product' disable={this.props.disableItem} />
       </div>
     )
   }
@@ -100,7 +100,7 @@ Product.propTypes = {
   fetch: PropTypes.func,
   add: PropTypes.func,
   edit: PropTypes.func,
-  disableProduct: PropTypes.func,
+  disableItem: PropTypes.func,
   openDisableDialog: PropTypes.func,
   load: PropTypes.func,
   products: PropTypes.object,
@@ -144,6 +144,6 @@ export default connect(
       return {type: 'TOGGLE_REPOSITORY_ADD', productId: productId}
     },
     openDisableDialog,
-    disableProduct
+    disableItem: disableItem(actionList.DISABLE_PRODUCT)
   }
 )(Product)

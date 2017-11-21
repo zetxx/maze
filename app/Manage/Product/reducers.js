@@ -11,16 +11,6 @@ export const actionList = {
   DISABLE_PRODUCT: Symbol('DISABLE_PRODUCT')
 }
 
-export const disableProduct = ({url, method, item}) => ({
-  type: actionList.DISABLE_PRODUCT,
-  item,
-  httpRequest: {
-    method,
-    url,
-    json: true
-  }
-})
-
 export const productAdd = (state = {open: false, canceled: false, fieldError: {}}, action) => {
   if (action.type === actionList.TOGGLE_ADD) {
     return Object.assign({}, state, {open: !state.open, canceled: !!action.canceled, fieldError: {}})

@@ -6,6 +6,16 @@ export const actionList = {
 
 export const open = ({item, url, method, title, body, disableAction}) => ({type: actionList.OPEN, item, url, method, title, body, disableAction})
 export const close = (item) => ({type: actionList.CLOSE, item})
+export const disableItemAction = type =>
+  ({url, method, item}) => ({
+    type,
+    item,
+    httpRequest: {
+      method,
+      url,
+      json: true
+    }
+  })
 
 const defState = Map()
 

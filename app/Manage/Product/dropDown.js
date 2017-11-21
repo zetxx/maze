@@ -34,7 +34,7 @@ const ProductCatDropDown = createClass({
   render() {
     return (
       <DropDownMenu ref='dropdown' value={this.state.value} onChange={this.handleChange}>
-        {this.props.productCategories.data && this.props.productCategories.data.map((el, idx) => {
+        {this.props.productCategories.data && this.props.productCategories.data.filter((el) => el.enabled).map((el, idx) => {
           return (
             <MenuItem value={el.id} key={idx} primaryText={el.name} />
           )
