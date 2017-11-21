@@ -22,7 +22,7 @@ module.exports = (registrar) => {
     config: {
       handler: (req, resp) => {
         users.find({
-          attributes: ['id', 'userName', 'email', 'shopId'],
+          attributes: ['id', 'userName', 'email', 'shopId', 'currency'],
           where: {id: req.params.id},
           include: [{
             model: roles,
