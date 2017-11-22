@@ -1,5 +1,4 @@
 const request = require('superagent')
-const binaryParser = require('superagent-binary-parser')
 const round = (number, precision) => {
   var factor = Math.pow(10, precision)
   var tempNumber = number * factor
@@ -49,17 +48,12 @@ const currencyRates = require('./CurrencyRates/model')
 module.exports.currencyConversion = () => {
   setTimeout(module.exports.currencyConversion, 60000 * 60 * 24)
   request
-    .get('http://www.bnb.bg/Statistics/StExternalSector/StExchangeRates/StERForeignCurrencies/index.htm')
-    .query({download: 'csv'})
-    .parse(binaryParser)
-    .buffer()
+    .get('https://api.fixer.io/latest')
+    .query({base: 'BGN'})
     .then((result) => {
-      let data = result
-        .body
-        .toString('utf8')
-        .match(/(USD|EUR|JPY|GBP|RUB),([\d]+),([\d]*\.*[\d]*),([\d]*\.*[\d]*)/ig)
-        .map((v) => (v.split(',')))
-        .map((v) => ({currency: v[0], rate: v[3] / v[1]}))
+      const rates = result.body.rates
+      let data = ['USD', 'EUR', 'JPY', 'GBP', 'RUB']
+        .map((currency) => ({currency, rate: rates[currency]}))
       data.push({currency: 'BGN', rate: 1})
 
       currencyRates
