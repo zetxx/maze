@@ -60,6 +60,7 @@ module.exports.currencyConversion = () => {
         .match(/(USD|EUR|JPY|GBP|RUB),([\d]+),([\d]*\.*[\d]*),([\d]*\.*[\d]*)/ig)
         .map((v) => (v.split(',')))
         .map((v) => ({currency: v[0], rate: v[3] / v[1]}))
+      data.push({currency: 'BGN', rate: 1})
 
       currencyRates
         .destroy({truncate: true})

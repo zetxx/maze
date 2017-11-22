@@ -6,6 +6,8 @@ import {Translate} from '../../../Translation'
 import TextField from 'material-ui/TextField'
 import RoleSelect from '../Role/Select'
 import PriceRuleGroupsSelect from '../../PriceRuleGroups/Select'
+import DropDownMenu from 'material-ui/DropDownMenu/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem/MenuItem'
 import PropTypes from 'prop-types'
 import createClass from 'create-react-class'
 
@@ -34,6 +36,11 @@ export const Interaction = createClass({
   },
   handleInputChange(e) {
     this.handleChange(e.target.name, undefined, e.target.value)
+  },
+  handleSelectChange(name) {
+    return (e, idx, value) => {
+      this.handleChange(name, undefined, value)
+    }
   },
   handleSave() {
     var newDetails = this.props.userDetails
@@ -83,6 +90,14 @@ export const Interaction = createClass({
           name='email'
         />
         <br />
+        <DropDownMenu value={(this.props.userDetails && this.props.userDetails.get('currency')) || 'BGN'} name='currency' onChange={this.handleSelectChange('currency')}>
+          <MenuItem value='USD' key={0} primaryText='USD' />
+          <MenuItem value='EUR' key={1} primaryText='EUR' />
+          <MenuItem value='JPY' key={2} primaryText='JPY' />
+          <MenuItem value='GBP' key={3} primaryText='GBP' />
+          <MenuItem value='RUB' key={4} primaryText='RUB' />
+          <MenuItem value='BGN' key={5} primaryText='BGN' />
+        </DropDownMenu>
         <h3><Translate id='Roles' /></h3>
         {this.props.availableRoles.get('data').map((v, k) => {
           return (

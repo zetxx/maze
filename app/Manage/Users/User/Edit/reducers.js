@@ -1,7 +1,7 @@
 import {actionList} from './actions'
 import {Map, fromJS, List} from 'immutable'
 const defState = Map()
-  .set('data', Map({email: '', userName: ''}))
+  .set('data', Map({email: '', userName: '', currency: ''}))
   .set('fetchTriggerId', 0)
   .set('priceRuleGroups', List())
 

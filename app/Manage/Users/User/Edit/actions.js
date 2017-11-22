@@ -13,7 +13,8 @@ export const save = (params, id) => ({
       roles: params.roles,
       priceRuleGroups: params.priceRuleGroups,
       priceRules: params.priceRules,
-      email: params.email
+      email: params.email,
+      currency: params.currency
     },
     json: true
   }
