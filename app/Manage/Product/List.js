@@ -16,6 +16,9 @@ import {open as openDisableDialog, disableItemAction as disableItem} from '../..
 import Edit from './Edit'
 import {actionList} from './reducers'
 import PropTypes from 'prop-types'
+import TextField from 'material-ui/TextField'
+import Divider from 'material-ui/Divider'
+import Paper from 'material-ui/Paper'
 
 class Product extends React.Component {
   componentDidMount() {
@@ -46,6 +49,20 @@ class Product extends React.Component {
       })
     }
   }
+  handleInputSearch() {
+    var lastTimeout
+
+    return (e) => {
+      if (lastTimeout) {
+        clearTimeout(lastTimeout)
+        lastTimeout = undefined
+      }
+      var lastValue = e.target.value;
+      lastTimeout = setTimeout(()=> {
+        this.props.search(lastValue)
+      }, 600)
+    }
+  }
   render() {
     var productsCat = ((this.props.productCategories && this.props.productCategories.data) || []).reduce((prev, cur) => {
       prev[cur.id] = cur.name
@@ -59,7 +76,10 @@ class Product extends React.Component {
             title={<Translate id='Product' />}
             iconElementRight={<FlatButton label={<Translate id='Add' />} onTouchTap={this.props.add} />}
           />
-
+          <Paper zDepth={2}>
+            <TextField floatingLabelText='Search' onChange={this.handleInputSearch()} hintText='Search' style={{marginLeft: '20px'}} underlineShow={false} />
+            <Divider />
+          </Paper>
           <Table>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
@@ -71,7 +91,7 @@ class Product extends React.Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.props.products.data && this.props.products.data.map((el) => (
+              {this.props.productsData.map((el) => (
                 <TableRow key={el.id}>
                   <TableRowColumn style={{color: el.enabled ? 'green' : 'red'}}>{el.name}</TableRowColumn>
                   <TableRowColumn>{productsCat[el.productCategory.id] || ''}</TableRowColumn>
@@ -100,18 +120,30 @@ Product.propTypes = {
   fetch: PropTypes.func,
   add: PropTypes.func,
   edit: PropTypes.func,
+  search: PropTypes.func,
   disableItem: PropTypes.func,
   openDisableDialog: PropTypes.func,
   load: PropTypes.func,
   products: PropTypes.object,
+  productsData: PropTypes.array,
   productCategories: PropTypes.object
 }
 
 export default connect(
-  (state) => ({
-    products: state.products,
-    productCategories: state.productCategories
-  }),
+  (state) => {
+    var productsData = state.products.data || []
+    if (state.products.searchText) {
+      productsData = productsData.filter((v) => {
+        return true &&
+          (v.name.indexOf(state.products.searchText) >= 0)
+      })
+    }
+    return {
+      products: state.products,
+      productsData,
+      productCategories: state.productCategories
+    }
+  },
   {
     fetch() {
       return {
@@ -142,6 +174,9 @@ export default connect(
     },
     load(productId) {
       return {type: 'TOGGLE_REPOSITORY_ADD', productId: productId}
+    },
+    search(text) {
+      return {type: actionList.SEARCH, text}
     },
     openDisableDialog,
     disableItem: disableItem(actionList.DISABLE_PRODUCT)

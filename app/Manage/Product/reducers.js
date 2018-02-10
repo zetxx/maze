@@ -1,5 +1,6 @@
 export const actionList = {
   TOGGLE_ADD: Symbol('TOGGLE_ADD'),
+  SEARCH: Symbol('SEARCH'),
   TOGGLE_EDIT: Symbol('TOGGLE_EDIT'),
   ADD: Symbol('ADD'),
   EDIT: Symbol('EDIT'),
@@ -41,7 +42,7 @@ export const productEdit = (state = {open: false, canceled: false, fieldError: {
   return state
 }
 
-export const products = (state = {nextFetchId: 0}, action) => {
+export const products = (state = {nextFetchId: 0, searchText: ''}, action) => {
   if (action.type === actionList.FETCH && action.status === 'received') {
     return Object.assign(
       {},
@@ -53,6 +54,12 @@ export const products = (state = {nextFetchId: 0}, action) => {
       {},
       state,
       {nextFetchId: (state.nextFetchId || 0) + 1}
+    )
+  } else if (action.type === actionList.SEARCH) {
+    return Object.assign(
+      {},
+      state,
+      {searchText: action.text}
     )
   }
   return state
