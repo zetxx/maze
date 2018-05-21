@@ -39,6 +39,7 @@ export const en = {
   'Longitude': 'Longitude',
   'Latitude': 'Latitude',
   'Shop add': 'Shop add',
+  'Suppliers': 'Suppliers',
   'New': 'New',
   'Enter quantity': 'Enter quantity',
   'How much?': 'How much?',
