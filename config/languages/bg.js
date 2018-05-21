@@ -1,4 +1,7 @@
 export const bg = {
+  'User Name': 'User Name',
+  'Suppliers': 'Доставчици',
+  'Common config': 'Конфигурация',
   '-': '-',
   'Quantity': 'Quantity',
   'Total': 'Total',
